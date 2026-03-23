@@ -1,0 +1,16 @@
+{
+  "$schema": "https://basis.zhengyishen.com/schema.json",
+  "style": "default",
+  "tailwind": {
+    "css": "src/styles/global.css"
+  },
+  "alpine": true,
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils"
+  }
+}
+
+
+
+

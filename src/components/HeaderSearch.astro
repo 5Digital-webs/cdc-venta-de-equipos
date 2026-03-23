@@ -1,0 +1,400 @@
+---
+import { getCollection } from "astro:content";
+
+const blog = await getCollection("blog");
+const servicios = await getCollection("servicios");
+
+const searchItems = [
+    ...blog.map((post) => ({
+        id: post.id,
+        title: post.data.title,
+        description: post.data.description || "",
+        url: `/blog/${post.id}`,
+        category: "Blog",
+        tags: post.data.tags || [],
+    })),
+    ...servicios.map((doc) => ({
+        id: doc.id,
+        title: doc.data.title,
+        description: doc.data.description || "",
+        url: `/servicios/${doc.id}`,
+        category: "Servicios",
+        tags: doc.data.tags || [],
+    })),
+];
+---
+
+<div class="relative search-component z-50">
+    <!-- Barra de búsqueda expansible -->
+    <div class="relative flex items-center">
+        <!-- Contenedor de la barra de búsqueda -->
+        <div
+            data-search-wrapper
+            class="relative flex items-center transition-all duration-300 ease-in-out z-50"
+        >
+            <!-- Botón inicial (icono circular) -->
+            <button
+                data-search-button
+                class="text-white hover:text-white transition-all duration-300 bg-[#04ACDD] rounded-full p-2 flex-shrink-0 relative z-50"
+                aria-label="Buscar"
+            >
+                <svg
+                    data-search-icon
+                    class="w-6 h-6 transition-all duration-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </button>
+
+            <!-- Barra de búsqueda expandida -->
+            <div
+                data-search-bar
+                class="absolute right-0 flex items-center bg-white rounded-full shadow-lg border border-gray-200 overflow-hidden transition-all duration-300 ease-in-out opacity-0 pointer-events-none translate-x-[-10px] z-50"
+            >
+                <div class="flex items-center gap-2 px-4 py-2 w-0 transition-all duration-300">
+                    <svg
+                        class="w-5 h-5 text-gray-400 flex-shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+
+                    <input
+                        type="text"
+                        data-search-input
+                        placeholder="Buscar en el sitio..."
+                        class="flex-1 py-1 text-sm border-0 outline-none bg-transparent w-0 transition-all duration-300"
+                        autocomplete="off"
+                    />
+
+                    <button
+                        data-close-search
+                        class="flex items-center justify-center w-7 h-7 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
+                        aria-label="Cerrar"
+                    >
+                        <svg
+                            class="w-4 h-4 text-gray-600"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultados (dropdown) -->
+        <div
+            data-search-results
+            class="absolute right-0 top-full mt-2 bg-white rounded-lg shadow-xl border border-gray-200 max-h-96 overflow-y-auto opacity-0 pointer-events-none transition-all duration-300 z-[60] w-[300px] max-w-[calc(100vw-2rem)] lg:w-[400px]"
+        >
+            <div class="p-2" data-results-list>
+                {
+                    searchItems.map((item) => (
+                        <a
+                            href={item.url}
+                            class="flex items-center justify-between gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors group"
+                            data-title={item.title.toLowerCase()}
+                            data-description={item.description.toLowerCase()}
+                            data-category={item.category.toLowerCase()}
+                            data-tags={item.tags.join(" ").toLowerCase()}
+                        >
+                            <div class="flex-1 min-w-0">
+                                <div class="font-medium text-sm text-gray-900 truncate">
+                                    {item.title}
+                                </div>
+                                <div class="text-xs font-medium text-gray-500 mt-0.5">
+                                    {item.category}
+                                </div>
+                                {item.description && (
+                                    <div class="text-xs text-gray-600 mt-1 line-clamp-1">
+                                        {item.description}
+                                    </div>
+                                )}
+                            </div>
+                            <svg
+                                class="w-4 h-4 text-gray-400 flex-shrink-0 group-hover:text-gray-600 transition-colors"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    ))
+                }
+            </div>
+
+            <!-- Sin resultados -->
+            <div
+                data-no-results
+                class="hidden flex-col items-center justify-center py-8 px-5 text-center"
+            >
+                <svg
+                    class="w-10 h-10 text-gray-300 mb-3"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <p class="text-sm font-medium text-gray-700 mb-1">
+                    No se encontraron resultados
+                </p>
+                <span class="text-xs text-gray-500"
+                    >Intenta con otros términos de búsqueda</span
+                >
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    [data-search-results]::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    [data-search-results]::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    [data-search-results]::-webkit-scrollbar-thumb {
+        background: #e5e7eb;
+        border-radius: 4px;
+    }
+
+    [data-search-results]::-webkit-scrollbar-thumb:hover {
+        background: #d1d5db;
+    }
+
+    /* Estado expandido de la barra de búsqueda */
+    [data-search-wrapper].active [data-search-bar] {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateX(0);
+    }
+
+    [data-search-wrapper].active [data-search-bar] > div {
+        width: 300px;
+    }
+
+    @media (min-width: 1024px) {
+        [data-search-wrapper].active [data-search-bar] > div {
+            width: 400px;
+        }
+    }
+
+    [data-search-wrapper].active [data-search-bar] input {
+        width: 200px;
+    }
+
+    @media (min-width: 1024px) {
+        [data-search-wrapper].active [data-search-bar] input {
+            width: 300px;
+        }
+    }
+
+    /* Ocultar botón cuando está expandido */
+    [data-search-wrapper].active [data-search-button] {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.8);
+    }
+
+    /* Mostrar resultados cuando está expandido */
+    [data-search-results].active {
+        opacity: 1 !important;
+        pointer-events: all !important;
+        transform: translateY(0) !important;
+    }
+
+    [data-search-results] {
+        transform: translateY(-10px);
+    }
+</style>
+
+<script>
+    // Inicializar cada instancia del componente de búsqueda
+    document.querySelectorAll('.search-component').forEach((component) => {
+        const searchButton = component.querySelector('[data-search-button]');
+        const searchWrapper = component.querySelector('[data-search-wrapper]');
+        const searchBar = component.querySelector('[data-search-bar]');
+        const searchInput = component.querySelector('[data-search-input]');
+        const closeSearch = component.querySelector('[data-close-search]');
+        const searchResults = component.querySelector('[data-search-results]');
+        const resultItems = component.querySelectorAll('[data-title]');
+        const resultsList = component.querySelector('[data-results-list]');
+        const noResults = component.querySelector('[data-no-results]');
+
+        if (!searchButton || !searchWrapper || !searchBar || !searchResults) return;
+
+        // Abrir/expandir búsqueda
+        searchButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            // Cerrar todas las otras instancias
+            document.querySelectorAll('[data-search-wrapper].active').forEach((other) => {
+                if (other !== searchWrapper) {
+                    other.classList.remove('active');
+                    const otherComponent = other.closest('.search-component');
+                    const otherResults = otherComponent?.querySelector('[data-search-results]');
+                    if (otherResults instanceof HTMLElement) {
+                        otherResults.classList.remove('active');
+                    }
+                }
+            });
+
+            if (searchWrapper.classList.contains('active')) {
+                closeSearchModal();
+            } else {
+                searchWrapper.classList.add('active');
+                // No mostrar resultados hasta que se empiece a escribir
+                setTimeout(() => {
+                    if (searchInput instanceof HTMLInputElement) {
+                        searchInput.focus();
+                    }
+                }, 100);
+            }
+        });
+
+        // Cerrar búsqueda
+        const closeSearchModal = () => {
+            searchWrapper.classList.remove('active');
+            if (searchResults instanceof HTMLElement) {
+                searchResults.classList.remove('active');
+            }
+            if (searchInput instanceof HTMLInputElement) {
+                searchInput.value = '';
+            }
+            resultItems.forEach((item) => {
+                if (item instanceof HTMLElement) {
+                    item.style.display = 'flex';
+                }
+            });
+            if (noResults) {
+                noResults.classList.add('hidden');
+                noResults.classList.remove('flex');
+            }
+            if (resultsList) {
+                resultsList.classList.remove('hidden');
+            }
+        };
+
+        closeSearch?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeSearchModal();
+        });
+
+        // Prevenir que la barra se cierre al hacer clic dentro
+        searchBar.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Cerrar al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            const target = e.target;
+            if (
+                searchWrapper.classList.contains('active') &&
+                target instanceof Node &&
+                !component.contains(target)
+            ) {
+                closeSearchModal();
+            }
+        });
+
+        // Cerrar con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && searchWrapper.classList.contains('active')) {
+                closeSearchModal();
+            }
+        });
+
+        // Búsqueda en tiempo real
+        searchInput?.addEventListener('input', (e) => {
+            const target = e.target;
+            if (!target || !(target instanceof HTMLInputElement)) return;
+            
+            const searchTerm = target.value.toLowerCase().trim();
+            
+            // Mostrar resultados solo cuando hay texto
+            if (searchTerm.length > 0) {
+                if (searchResults instanceof HTMLElement) {
+                    searchResults.classList.add('active');
+                }
+            } else {
+                // Ocultar resultados cuando no hay texto
+                if (searchResults instanceof HTMLElement) {
+                    searchResults.classList.remove('active');
+                }
+                if (noResults) {
+                    noResults.classList.add('hidden');
+                    noResults.classList.remove('flex');
+                }
+                if (resultsList) {
+                    resultsList.classList.remove('hidden');
+                }
+                // Mostrar todos los items cuando no hay búsqueda
+                resultItems.forEach((item) => {
+                    if (item instanceof HTMLElement) {
+                        item.style.display = 'flex';
+                    }
+                });
+                return;
+            }
+            
+            let visibleCount = 0;
+
+            resultItems.forEach((item) => {
+                const title = item.getAttribute('data-title') || '';
+                const description = item.getAttribute('data-description') || '';
+                const category = item.getAttribute('data-category') || '';
+                const tags = item.getAttribute('data-tags') || '';
+
+                const matches =
+                    title.includes(searchTerm) ||
+                    description.includes(searchTerm) ||
+                    category.includes(searchTerm) ||
+                    tags.includes(searchTerm);
+
+                if (matches) {
+                    if (item instanceof HTMLElement) {
+                        item.style.display = 'flex';
+                    }
+                    visibleCount++;
+                } else {
+                    if (item instanceof HTMLElement) {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+
+            if (visibleCount === 0) {
+                noResults?.classList.remove('hidden');
+                noResults?.classList.add('flex');
+                resultsList?.classList.add('hidden');
+            } else {
+                noResults?.classList.add('hidden');
+                noResults?.classList.remove('flex');
+                resultsList?.classList.remove('hidden');
+            }
+        });
+    });
+</script>

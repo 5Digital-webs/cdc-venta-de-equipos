@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro";
+// import { Image } from "astro:assets";
+// import collage from "../assets/images/COLLAGE-600x579.png";
+---
+
+<Layout
+title="Empresa - Medical Más Salud"
+description="Líderes en arriendo, venta y reparación de equipos médicos. Especialistas en concentradores de oxígeno Airsep y Nidek. Atención personalizada a domicilio."
+>
+    <div class="min-h-screen py-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-left mb-12">
+                <h1 class="text-5xl font-normal text-gray-900 mb-4 ml-12">
+                    Empresa
+                </h1>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- Columna Izquierda: Texto (más ancha) -->
+                <div class="flex-1 space-y-8">
+                    <div class="space-y-4">
+                        <h4 class="text-2xl text-gray-900 font-regular">
+                            ¿Quiénes somos?
+                        </h4>
+
+                        <p class="text-gray-700 leading-relaxed prose-base">
+                            Somos una empresa que está enfocada al arriendo,
+                            mantención, reparación y venta de equipos de
+                            oxígeno. Damos soluciones a distintos equipos
+                            médicos eléctricos y electrónicos.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="text-2xl text-gray-900 font-regular">
+                            Servicio Técnico:
+                        </h4>
+                        <p class="text-gray-700 leading-relaxed prose-base">
+                            Nuestro servicio técnico cuenta con 10 años de
+                            experiencia y con técnicos altamente capacitados que
+                            poseen instrumentos de laboratorio para detectar
+                            distintas fallas que presenten los equipos. Atención
+                            a empresas y particulares.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Imagen (367.98px × 355.38px) -->
+                <!-- TODO: Add collage image when available -->
+                <!-- <div class="flex justify-center items-center">
+                    <Image
+                        src={collage}
+                        alt="Collage de equipos de oxígeno"
+                        class="w-[367.98px] h-[355.38px] object-contain"
+                    />
+                </div> -->
+            </div>
+        </div>
+    </div>
+</Layout>

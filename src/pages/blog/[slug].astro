@@ -1,0 +1,157 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { getImage } from "@/lib/getImage";
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection("blog");
+  return blogPosts.map((post: CollectionEntry<"blog">) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props as Props;
+const { Content } = await render(post);
+
+// Obtener posts relacionados (excluyendo el actual)
+const allPosts = await getCollection("blog");
+const relatedPosts = allPosts
+  .filter((p) => p.id !== post.id && p.data.published)
+  .slice(0, 3);
+
+// Get images
+const mainImage = await getImage(post.data.image);
+const relatedPostsConImagenes = await Promise.all(
+  relatedPosts.map(async (relatedPost) => ({
+    ...relatedPost,
+    image: await getImage(relatedPost.data.image)
+  }))
+);
+---
+
+<Layout
+  title={`${post.data.title} - Blog`}
+  description={post.data.description}
+>
+  <div class="min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4">
+      <!-- Breadcrumb -->
+      <nav class="mb-6">
+        <ol class="flex items-center space-x-2 text-sm text-gray-500">
+          <li><a href="/" class="hover:text-blue-600">Inicio</a></li>
+          <li>/</li>
+          <li>
+            <a href="/blog" class="hover:text-blue-600">Blog</a>
+          </li>
+          <li>/</li>
+          <li class="text-gray-900 font-medium line-clamp-1">{post.data.title}</li>
+        </ol>
+      </nav>
+
+      <!-- Header -->
+      <article class="mb-8">
+        <header class="mb-8">
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 mb-4">
+              {post.data.tags.map(tag => (
+                <span class="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            {post.data.title}
+          </h1>
+
+          <div class="flex items-center gap-4 text-sm text-gray-600 mb-6">
+            {post.data.publishedAt && (
+              <time>
+                {new Date(post.data.publishedAt).toLocaleDateString('es-ES', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </time>
+            )}
+            {post.data.author && (
+              <>
+                <span>•</span>
+                <span>Por {post.data.author}</span>
+              </>
+            )}
+          </div>
+
+          {mainImage && (
+            <div class="mb-8 overflow-hidden rounded-lg">
+              <Image
+                src={mainImage}
+                alt={post.data.title}
+                class="w-full h-auto object-cover"
+              />
+            </div>
+          )}
+
+          {post.data.description && (
+            <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+              {post.data.description}
+            </p>
+          )}
+        </header>
+
+        <!-- Content -->
+        <div class="prose prose-lg prose-neutral max-w-none">
+          <Content />
+        </div>
+      </article>
+
+      <!-- Related Posts -->
+      {relatedPostsConImagenes.length > 0 && (
+        <div class="mt-12 pt-8 border-t border-gray-200">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">
+            Artículos relacionados
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {relatedPostsConImagenes.map((relatedPost) => (
+              <a
+                href={`/blog/${relatedPost.id}`}
+                class="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+              >
+                {relatedPost.image && (
+                  <div class="h-40 overflow-hidden">
+                    <Image
+                      src={relatedPost.image}
+                      alt={relatedPost.data.title}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                )}
+                <div class="p-4 flex flex-col flex-grow">
+                  <h3 class="font-semibold text-lg text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
+                    {relatedPost.data.title}
+                  </h3>
+                  {relatedPost.data.description && (
+                    <p class="text-sm text-gray-600 line-clamp-2 mb-3">
+                      {relatedPost.data.description}
+                    </p>
+                  )}
+                  <span class="inline-block text-sm text-blue-600 font-semibold mt-auto">
+                    Leer más →
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</Layout>
+

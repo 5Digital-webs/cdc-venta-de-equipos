@@ -1,0 +1,50 @@
+---
+// src/components/ProductosGrid.astro
+import CardProductos from "./CardProductos.astro";
+import { getCollection } from "astro:content";
+
+const productosDestacados = await getCollection("productosDestacados");
+
+console.log("Productos encontrados:", productosDestacados.length);
+console.log("Productos:", productosDestacados.map(p => ({
+  title: p.data.title,
+  brand: p.data.brand,
+  image: p.data.image,
+  whatsappMessage: p.data.whatsappMessage
+})));
+
+const productos = productosDestacados.map((producto, index) => {
+  // Alternar colores: 0,1 = blue, 2,3 = green, 4,5 = blue, etc.
+  const backgroundColor = (Math.floor(index / 2) % 2 === 0) ? "blue" : "green";
+  
+  return {
+    marca: producto.data.brand || "N/A",
+    nombre: producto.data.title || "Sin título",
+    imagen: producto.data.image || "/src/assets/images/Producto-27.png",
+    alt: producto.data.title || "Producto",
+    backgroundColor: backgroundColor,
+    href: `/productos-destacados/${producto.id}`,
+    whatsappMessage: producto.data.whatsappMessage,
+  };
+});
+---
+
+<section class="py-12 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        productos.map((producto) => (
+          <CardProductos
+            marca={producto.marca}
+            nombre={producto.nombre}
+            imagen={producto.imagen}
+            alt={producto.alt}
+            backgroundColor={producto.backgroundColor as "blue" | "green"}
+            href={producto.href}
+            whatsappMessage={producto.whatsappMessage}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Carousel from "@/components/ui/display/Carousel.astro";
+import AnimatedTitle from "@/components/AnimatedTitle.astro";
+import slider2 from "../assets/images/SLIDER-2.webp";
+import slider1 from "../assets/images/slider-1.png";
+---
+
+<Layout>
+    <Carousel
+        images={[
+            {
+                src: slider2.src,
+                alt: "Banner",
+            },
+            {
+                src: slider1.src,
+                alt: "Banner",
+            },
+        ]}
+        size="3xl"
+        aspectRatio="16/9"
+        autoPlayInterval={4000}
+    />
+
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-8">
+            <div class="col-span-1 p-19">
+                <AnimatedTitle 
+                text="¿Quiénes somos?" 
+                class="text-[34px] font-bold" />
+                <p class="text-gray-600 prose leading-[1.2] -tracking-[0.25px] mt-6">
+                    Siriza Agaria es una editorial independiente chilena, creada con la idea de dar a conocer historias diferentes, originales, creativas, por parte de autores chilenos e hispanoamericanos.
+                </p>
+            </div>
+            <div class="col-span-1 p-19">
+                <AnimatedTitle
+                text="¿Cuál es nuestra filosofía?"
+                class="text-[34px] font-bold" />
+                <p class="text-gray-600 prose leading-[1.2] -tracking-[0.25px] mt-6">«El papel aguanta todo». Creemos que el disfrute de leer y la calidad de un texto, no son excluyentes. Buscamos una literatura accesible, moderna y de calidad, promoviendo un tipo de escritura distinta a las que estamos acostumbrados.</p>
+            </div>
+        </div>
+
+</Layout>

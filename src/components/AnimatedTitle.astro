@@ -1,0 +1,56 @@
+---
+// AnimatedTitle.astro
+export interface Props {
+    text: string;
+    class?: string;
+}
+
+const { text, class: className = "" } = Astro.props;
+---
+
+<h2
+    class={`animated-underline relative inline w-full pb-1.5 bg-gradient-to-b from-transparent from-[calc(100%-3px)] to-[#FAC553] to-[3px] bg-no-repeat bg-[length:0%_100%] transition-[background-size] duration-1000 ease-in-out hover:bg-[length:100%_100%] ${className}`}
+    style="box-decoration-break: clone; -webkit-box-decoration-break: clone;"
+>
+    {text}
+</h2>
+
+<style>
+    @keyframes underlineAnimation {
+        0% {
+            background-size: 0% 100%;
+        }
+        100% {
+            background-size: 100% 100%;
+        }
+    }
+
+    .animated-underline.active-underline {
+        animation: underlineAnimation 1.2s ease 0.3s forwards;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const titles = document.querySelectorAll(".animated-underline");
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active-underline");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px",
+            },
+        );
+
+        titles.forEach((title) => {
+            observer.observe(title);
+        });
+    });
+</script>

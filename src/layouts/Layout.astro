@@ -1,0 +1,126 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SocialBar from "../components/BarraSocial.astro";
+import croppedImage from "../assets/images/cropped.png";
+import { Font } from "astro:assets";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  image?: string;
+  url?: string;
+  type?: string;
+}
+
+const {
+  title = "Editorial Siriza Agaria",
+  description = "Editorial Siriza Agaria",
+  keywords = "editorial siriza agaria",
+  image,
+  url = Astro.url.href,
+  type = "website",
+} = Astro.props;
+
+const canonicalURL = new URL(url, Astro.site);
+const defaultImage = image || croppedImage.src;
+const imageURL = new URL(defaultImage, Astro.site);
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="shortcut icon" href="/images/logo.png" />
+    <link rel="apple-touch-icon" href="/images/logo.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Google Fonts using Astro Fonts API -->
+    <Font cssVariable="--font-montserrat" preload />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="Medical App" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:site_name" content="Medical App" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={imageURL} />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="msapplication-TileColor" content="#3b82f6" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Medical App" />
+
+    <!-- Google Analytics (only when PUBLIC_GA_MEASUREMENT_ID is set in .env) -->
+    {gaId && (
+      <>
+        <script is:inline src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} async></script>
+        <script is:inline define:vars={{ gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){ dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "MedicalOrganization",
+        "name": "Medical App",
+        "description": "Professional medical services and healthcare solutions",
+        "url": "https://medicalapp.com",
+        "logo": "https://medicalapp.com/images/logo.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-555-123-4567",
+          "contactType": "customer service",
+          "email": "info@medicalapp.com"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "123 Medical St",
+          "addressLocality": "Health City",
+          "addressCountry": "US"
+        }
+      }
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col mt-28">
+    <div class="flex flex-col min-h-screen">
+      <Header />
+      <main class="flex-1">
+        <slot />
+      </main>
+      <Footer />
+      <!-- Barra Social Fija -->
+      <SocialBar />
+    </div>
+  </body>
+</html>

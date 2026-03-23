@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { getImage } from '@/lib/getImage';
+
+const servicios = await getCollection('servicios');
+const serviciosPublished = servicios.filter(servicio => servicio.data.published);
+const serviciosSorted = serviciosPublished.sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+// Load images for all servicios
+const serviciosConImagenes = await Promise.all(
+  serviciosSorted.map(async (servicio) => ({
+    ...servicio,
+    image: await getImage(servicio.data.image)
+  }))
+);
+---
+
+<Layout 
+  title="Servicios - Medical Más Salud"
+  description="Líderes en arriendo, venta y reparación de equipos médicos. Especialistas en concentradores de oxígeno Airsep y Nidek. Atención personalizada a domicilio."
+>
+  <div class="min-h-screen py-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-left mb-12">
+        <h1 class="text-[56px] font-bold text-gray-900 mb-4 ml-12">
+          Servicios
+        </h1>
+      </div>
+
+      {serviciosConImagenes.length > 0 ? (
+        <div class="flex flex-wrap justify-center gap-x-40 gap-y-8">
+          {serviciosConImagenes.map(servicio => (
+            <a 
+              href={`/servicios/${servicio.id}`}
+              class="group bg-white shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden block w-[274px] h-[360px]"
+            >
+              <article class="p-4 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-4">
+                  <h2 class="text-base text-center font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+                    {servicio.data.title}
+                  </h2>
+                </div>
+
+                {servicio.image && (
+                  <div class="flex-grow overflow-hidden mb-4 flex items-center justify-center">
+                    <Image
+                      src={servicio.image}
+                      alt={servicio.data.title}
+                      class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                )}
+                
+                <span class="block w-full bg-primary text-white text-center py-2 px-2 rounded-full group-hover:bg-secondary transition-colors font-medium text-sm">
+                  Leer Más
+                </span>
+              </article>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12"></div>
+      )}
+    </div>
+  </div>
+</Layout>

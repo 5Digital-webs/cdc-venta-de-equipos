@@ -1,0 +1,40 @@
+{
+  "name": "frontend",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@5digital/keystatic-astro": "^5.0.8",
+    "@5digital/keystatic-core": "^0.5.50",
+    "@astrojs/alpinejs": "^0.4.9",
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/markdoc": "^0.15.10",
+    "@astrojs/node": "^9.5.1",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.6.0",
+    "@playform/inline": "^0.1.2",
+    "@tailwindcss/vite": "^4.1.13",
+    "@types/alpinejs": "^3.13.11",
+    "alpinejs": "^3.15.0",
+    "astro": "^5.16.2",
+    "astro-icon": "^1.1.5",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "csv-parser": "^3.2.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "nodemailer": "^7.0.13",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/nodemailer": "^7.0.9"
+  }
+}

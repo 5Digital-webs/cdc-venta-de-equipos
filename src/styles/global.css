@@ -1,0 +1,79 @@
+
+/* Font loading is handled in Layout.astro for better performance */
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap'); */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+
+
+
+@theme {
+  /* Tipografía Global */
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --color-text: #151a28;
+  
+  /* Colores */
+  --color-background: #ffffff;
+  --color-foreground: #0f172a;
+  --color-card: #ffffff;
+  --color-card-foreground: #0f172a;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0f172a;
+  --color-primary: #FAC553; 
+  --color-primary-foreground: #f8fafc;
+  --color-secondary: #fff9eb; 
+  --color-secondary-foreground: #151a28;
+  --color-text-book: #1d254a;
+  --color-text-book-foreground: #fff;
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+  --color-accent: #f1f5f9;
+  --color-accent-foreground: #0f172a;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #f8fafc;
+  --color-border: #e2e8f0;
+  --color-input: #e2e8f0;
+  --color-ring: #3b82f6;
+  --radius: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-background: #0f172a;
+    --color-foreground: #f8fafc;
+    --color-card: #0f172a;
+    --color-card-foreground: #f8fafc;
+    --color-popover: #0f172a;
+    --color-popover-foreground: #f8fafc;
+    --color-primary: #FAC553;
+    --color-primary-foreground: #0f172a;
+    --color-secondary:  #fff9eb;
+    --color-secondary-foreground: #f8fafc;
+    --color-text-book: #1d254a;
+    --color-text-book-foreground: #fff;
+    --color-muted: #1e293b;
+    --color-muted-foreground: #94a3b8;
+    --color-accent: #1e293b;
+    --color-accent-foreground: #f8fafc;
+    --color-destructive: #dc2626;
+    --color-destructive-foreground: #f8fafc;
+    --color-border: #334155;
+    --color-input: #334155;
+    --color-ring: #60a5fa;
+  }
+}
+
+
+@plugin "@tailwindcss/typography";
+
+/* Aplicar Montserrat globalmente */
+* {
+  font-family: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Prevent font-related layout shifts */
+/* Ensure text doesn't shift during font load */
+h1, h2, h3, h4, h5, h6 {
+  font-feature-settings: normal;
+  text-rendering: optimizeLegibility;
+}

@@ -1,0 +1,68 @@
+---
+// src/components/Card.astro
+interface Props {
+    image: ImageMetadata;
+    alt: string;
+    title: string;
+    boldText: string;
+    buttonText?: string;
+    href?: string;
+}
+
+const {
+    image,
+    alt,
+    title,
+    boldText,
+    buttonText = "Ver más",
+    href = "#",
+} = Astro.props;
+
+import { Image } from "astro:assets";
+---
+
+<a
+    href={href}
+    class="block group relative h-80 overflow-hidden rounded-2xl cursor-pointer"
+>
+    <!-- Imagen de fondo -->
+    <Image
+        src={image}
+        alt={alt}
+        class="absolute inset-0 w-full h-full object-cover rounded-2xl"
+    />
+
+    <!-- Contenido -->
+    <div
+        class="absolute inset-0 flex flex-col items-center justify-end pb-4 px-6 text-white"
+    >
+        <h3
+            class="text-lg transition-transform duration-300 group-hover:-translate-y-24 text-center relative -bottom-12"
+        >
+            {title}
+            <span class="font-bold">{boldText}</span>
+        </h3>
+
+        <!-- Botón que aparece al hacer hover -->
+        <button
+            class="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:-translate-y-4 transition-all duration-300 bg-white text-secondary px-6 py-2 rounded-3xl font-semibold hover:bg-gray-100 mt-2 flex items-center gap-2"
+        >
+            <span>{buttonText}</span>
+            <div
+                class="w-8 h-8 rounded-full flex items-center justify-center"
+                style="background-color: #FF1246;"
+            >
+                <svg
+                    class="w-5 h-5 rotate-[80deg]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 640 640"
+                    fill="white"
+                >
+                    <path
+                        d="M173.3 66.5C181.4 62.4 191.2 63.3 198.4 68.8L518.4 308.7C526.7 314.9 530 325.7 526.8 335.5C523.6 345.3 514.4 351.9 504 351.9L351.7 351.9L440.6 529.6C448.5 545.4 442.1 564.6 426.3 572.5C410.5 580.4 391.3 574 383.4 558.2L294.5 380.5L203.2 502.3C197 510.6 186.2 513.9 176.4 510.7C166.6 507.5 160 498.3 160 488L160 88C160 78.9 165.1 70.6 173.3 66.5z"
+                    ></path>
+                </svg>
+            </div>
+        </button>
+    </div>
+</a>

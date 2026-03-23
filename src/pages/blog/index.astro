@@ -1,0 +1,107 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { getImage } from '@/lib/getImage';
+
+const blogPosts = await getCollection('blog');
+const publishedPosts = blogPosts.filter(post => post.data.published);
+const sortedPosts = publishedPosts.sort((a, b) => {
+  const dateA = a.data.publishedAt ? new Date(a.data.publishedAt).valueOf() : 0;
+  const dateB = b.data.publishedAt ? new Date(b.data.publishedAt).valueOf() : 0;
+  return dateB - dateA;
+});
+
+// Load images for all posts
+const postsConImagenes = await Promise.all(
+  sortedPosts.map(async (post) => ({
+    ...post,
+    image: await getImage(post.data.image)
+  }))
+);
+---
+
+<Layout 
+  title="Blog"
+  description="Latest blog posts and articles"
+>
+  <div class="min-h-screen py-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Blog</h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Discover our latest articles and insights
+        </p>
+      </div>
+
+      {postsConImagenes.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {postsConImagenes.map(post => (
+            <article class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col">
+              {post.image && (
+                <div class="h-48 overflow-hidden">
+                  <Image 
+                    src={post.image} 
+                    alt={post.data.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              )}
+              
+              <div class="p-6 flex flex-col flex-grow">
+                <div class="mb-3">
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <div class="flex flex-wrap gap-2 mb-2">
+                      {post.data.tags.slice(0, 3).map(tag => (
+                        <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {post.data.publishedAt && (
+                    <time class="text-sm text-gray-500">
+                      {new Date(post.data.publishedAt).toLocaleDateString('es-ES', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </time>
+                  )}
+                </div>
+
+                <h2 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                  {post.data.title}
+                </h2>
+                
+                {post.data.description && (
+                  <p class="text-gray-600 mb-4 line-clamp-3 flex-grow">
+                    {post.data.description}
+                  </p>
+                )}
+
+                {post.data.author && (
+                  <p class="text-sm text-gray-500 mb-4">
+                    Por {post.data.author}
+                  </p>
+                )}
+                
+                <a 
+                  href={`/blog/${post.id}`}
+                  class="inline-block w-full bg-primary text-white text-center font-semibold py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors mt-auto"
+                >
+                  Leer más
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-gray-500 text-lg">No hay publicaciones aún.</p>
+        </div>
+      )}
+    </div>
+  </div>
+</Layout>
+

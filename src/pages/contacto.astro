@@ -1,0 +1,150 @@
+---
+export const prerender = false;
+
+import Layout from "../layouts/Layout.astro";
+import ContactForm from "../components/ContactForm.astro";
+import phoneIcon from "../assets/svg/phone-solid.svg?raw";
+import correoIcon from "../assets/svg/correo.svg?raw";
+import mapaIcon from "../assets/svg/mapa.svg?raw";
+import cellIcon from "../assets/svg/mobile-screen.svg?raw";
+
+import { actions, getActionPath, isInputError } from "astro:actions";
+
+const result = Astro.getActionResult(actions.sendContactEmail);
+const contactActionPath = getActionPath(actions.sendContactEmail);
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+<Layout
+  title="Contacto - Medical Más Salud"
+  description="Líderes en arriendo, venta y reparación de equipos médicos. Especialistas en concentradores de oxígeno Airsep y Nidek. Atención personalizada a domicilio."
+>
+  <div class="min-h-screen py-4">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row gap-12 text-left mb-12">
+        <!-- Formulario de Contacto -->
+        <div class="flex-1">
+          <h1 class="text-[50px] font-normal text-gray-900 mb-4 ml-0">
+            Contacto
+          </h1>
+          <div class="bg-primary">
+            <h2
+              class="text-[32px] font-bold text-center text-white mb-4 ml-12 py-4"
+            >
+              Formulario de Contacto
+            </h2>
+
+            <div class="flex flex-col gap-2 p-4">
+              <ContactForm
+                actionPath={contactActionPath}
+                result={result}
+                inputErrors={inputErrors}
+                siteKey={siteKey}
+              />
+            </div>
+          </div>
+        </div>
+        <!-- Información de Contacto -->
+        <div class="flex-1">
+          <h2 class="text-[32px] font-bold text-primary mb-4 ml-24">
+            Información de Contacto
+          </h2>
+
+          <div class="flex flex-col gap-2 items-center justify-center mb-12">
+            <div
+              class="w-[60px] h-[60px] bg-primary rounded-full p-3 fill-white text-center mb-4"
+              set:html={mapaIcon}
+            />
+            <h4 class="text-2xl text-center">Dirección</h4>
+            <p class="text-black m-0 prose-base font-medium text-center">
+              Av. El Conquistador 01260, Maipú
+            </p>
+          </div>
+          <div class="flex flex-col gap-2 items-center mb-12">
+            <div
+              class="w-[60px] h-[64px] bg-primary rounded-full p-5 fill-white text-center mb-4"
+              set:html={cellIcon}
+            />
+            <h4 class="text-2xl text-center">Celular</h4>
+            <p class="m-0 prose-base font-medium text-center">
+              <a
+                href="tel:+56953281492"
+                class="text-black hover:text-primary/80 transition-colors duration-200"
+                >+569 5328 1492</a
+              > – <a
+                href="tel:+56996873952"
+                class="text-black hover:text-primary/80 transition-colors duration-200"
+                >+569 9687 3952</a
+              >
+            </p>
+          </div>
+          <div class="flex flex-col gap-2 items-center mb-12">
+            <div
+              class="w-[60px] h-[60px] bg-primary rounded-full p-3 fill-white text-center mb-4"
+              set:html={phoneIcon}
+            />
+            <h4 class="text-2xl text-center">Teléfono</h4>
+            <p class="text-blak m-0 prose-base font-medium text-center">
+              <a
+                href="tel:+56229326779"
+                class="text-black hover:text-primary/80 transition-colors duration-200"
+                >+562 2932 6779</a
+              >
+            </p>
+          </div>
+          <div class="flex flex-col gap-2 items-center mb-12">
+            <div
+              class="w-[60px] h-[60px] bg-primary rounded-full p-3 fill-white text-center mb-4"
+              set:html={correoIcon}
+            />
+            <h4 class="text-2xl text-center">Correo Electrónico</h4>
+            <p
+              class="text-blak m-0 prose-base font-medium text-center leading-tight"
+            >
+              <a
+                href="mailto:medicalmasalud@gmail.com"
+                class="text-black hover:text-primary/80 transition-colors duration-200"
+                >medicalmasalud@gmail.com
+              </a>
+              <br />
+              <a
+                href="mailto:hugo-serviciotecnico@hotmail.com"
+                class="text-black hover:text-primary/80 transition-colors duration-200"
+              >
+                hugo-serviciotecnico@hotmail.com</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="max-h-full mx-0 px-0 flex flex-row gap-0">
+    <!--banner facebook -->
+    <a
+      href="https://www.facebook.com/medicalmasalud"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block bg-cover bg-center bg-no-repeat w-1/2 h-[130px] mb-0 hover:opacity-90 transition-opacity"
+      style="background-image: url('/images/Banner-facebook.png');"
+    >
+      <span class="sr-only">Síguenos en Facebook</span>
+    </a>
+
+    <!--banner instagram -->
+    <a
+      href="https://www.instagram.com/medicalmasalud"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block bg-cover bg-center bg-no-repeat w-1/2 h-[130px] mb-0 hover:opacity-90 transition-opacity"
+      style="background-image: url('/images/Banner-instagram.png');"
+    >
+      <span class="sr-only">Síguenos en Instagram</span>
+    </a>
+  </div>
+
+  {siteKey && (
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
+  )}
+</Layout>
