@@ -3,37 +3,33 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import { getImage } from "@/lib/getImage";
-import { getContentSlug, isProductEntry } from "@/lib/content-entries";
+import { getContentSlug } from "@/lib/content-entries";
 
 export async function getStaticPaths() {
-  const entries = await getCollection("servicios");
+  const entries = await getCollection("productos");
   return entries
-    .filter(
-      (entry: CollectionEntry<"servicios">) =>
-        entry.data.published && isProductEntry(entry),
-    )
-    .map((producto: CollectionEntry<"servicios">) => ({
+    .filter((entry: CollectionEntry<"productos">) => entry.data.published)
+    .map((producto: CollectionEntry<"productos">) => ({
       params: { slug: getContentSlug(producto.id) },
       props: { producto },
     }));
 }
 
 interface Props {
-  producto: CollectionEntry<"servicios">;
+  producto: CollectionEntry<"productos">;
 }
 
 const { producto } = Astro.props as Props;
 const { Content } = await render(producto);
 
-const todosProductos = await getCollection("servicios");
+const todosProductos = await getCollection("productos");
 const productosRelacionados = todosProductos
   .filter(
-    (entry: CollectionEntry<"servicios">) =>
+    (entry: CollectionEntry<"productos">) =>
       entry.id !== producto.id &&
       entry.data.published &&
-      isProductEntry(entry) &&
-      (entry.data.brand === producto.data.brand ||
-        entry.data.category === producto.data.category),
+      (entry.data.marca === producto.data.marca ||
+        entry.data.categoria === producto.data.categoria),
   )
   .slice(0, 4);
 
@@ -44,12 +40,11 @@ const productosRelacionadosConImagen = await Promise.all(
     image: await getImage(relacionado.data.image),
   })),
 );
-
 ---
 
 <Layout
-  title={`${producto.data.title} - Equipos`}
-  description={producto.data.description}
+  title={`${producto.data.titulo} - Equipos`}
+  description={producto.data.descripcion}
 >
   <div class="min-h-screen py-8 bg-[#f4f4f4]">
     <div class="max-w-7xl mx-auto px-4 w-full">
@@ -61,7 +56,7 @@ const productosRelacionadosConImagen = await Promise.all(
             <a href="/equipos" class="hover:text-blue-600">Equipos</a>
           </li>
           <li>/</li>
-          <li class="text-gray-900 font-medium">{producto.data.title}</li>
+          <li class="text-gray-900 font-medium">{producto.data.titulo}</li>
         </ol>
       </nav>
 
@@ -73,7 +68,7 @@ const productosRelacionadosConImagen = await Promise.all(
                 <div class="rounded-[8px] overflow-hidden bg-[#f3f3f3]">
                   <Image
                     src={mainImage}
-                    alt={producto.data.title}
+                    alt={producto.data.titulo}
                     class="w-full h-[320px] md:h-[400px] object-cover"
                   />
                 </div>
@@ -86,7 +81,7 @@ const productosRelacionadosConImagen = await Promise.all(
 
             <div class="flex flex-col sm:flex-row gap-3">
               <a
-                href={`/cotizar?producto=${encodeURIComponent(producto.data.title)}`}
+                href={`/cotizar?sku=${encodeURIComponent(producto.data.sku)}`}
                 class="inline-flex items-center justify-center gap-2 bg-[#155DFC] text-white px-6 py-3 rounded-full hover:bg-[#1249d4] transition-colors font-bold uppercase text-sm"
               >
                 Cotizar equipo
@@ -101,55 +96,39 @@ const productosRelacionadosConImagen = await Promise.all(
           </div>
 
           <div class="space-y-6">
-            {
-              producto.data.brand && (
-                <p class="text-[12px] uppercase tracking-wide text-gray-500 font-semibold">
-                  {producto.data.brand}
-                </p>
-              )
-            }
+            <p class="text-[12px] uppercase tracking-wide text-gray-500 font-semibold">
+              {producto.data.marca}
+            </p>
             <h1 class="text-2xl md:text-3xl font-bold text-[#1b1e4b] leading-tight">
-              {producto.data.title}
+              {producto.data.titulo}
             </h1>
             <p class="text-gray-700 text-base leading-relaxed">
-              {producto.data.description}
+              {producto.data.descripcion}
             </p>
 
             <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-              {
-                producto.data.category && (
-                  <div class="rounded-[8px] bg-[#f4f4f4] px-4 py-3">
-                    <dt class="text-gray-500 font-medium">Categoría</dt>
-                    <dd class="text-gray-900 font-semibold mt-1">
-                      {producto.data.category}
-                    </dd>
-                  </div>
-                )
-              }
-              {
-                producto.data.brand && (
-                  <div class="rounded-[8px] bg-[#f4f4f4] px-4 py-3">
-                    <dt class="text-gray-500 font-medium">Marca</dt>
-                    <dd class="text-gray-900 font-semibold mt-1">
-                      {producto.data.brand}
-                    </dd>
-                  </div>
-                )
-              }
-              {
-                producto.data.year && (
-                  <div class="rounded-[8px] bg-[#f4f4f4] px-4 py-3">
-                    <dt class="text-gray-500 font-medium">Año</dt>
-                    <dd class="text-gray-900 font-semibold mt-1">
-                      {producto.data.year}
-                    </dd>
-                  </div>
-                )
-              }
               <div class="rounded-[8px] bg-[#f4f4f4] px-4 py-3">
+                <dt class="text-gray-500 font-medium">SKU</dt>
+                <dd class="text-gray-900 font-semibold mt-1">{producto.data.sku}</dd>
+              </div>
+              <div class="rounded-[8px] bg-[#f4f4f4] px-4 py-3">
+                <dt class="text-gray-500 font-medium">Categoría</dt>
+                <dd class="text-gray-900 font-semibold mt-1">
+                  {producto.data.categoria}
+                </dd>
+              </div>
+              <div class="rounded-[8px] bg-[#f4f4f4] px-4 py-3">
+                <dt class="text-gray-500 font-medium">Marca</dt>
+                <dd class="text-gray-900 font-semibold mt-1">{producto.data.marca}</dd>
+              </div>
+              <div class="rounded-[8px] bg-[#f4f4f4] px-4 py-3">
+                <dt class="text-gray-500 font-medium">Año</dt>
+                <dd class="text-gray-900 font-semibold mt-1">{producto.data.ano}</dd>
+              </div>
+              <div class="rounded-[8px] bg-[#f4f4f4] px-4 py-3 sm:col-span-2">
                 <dt class="text-gray-500 font-medium">Precio</dt>
                 <dd class="text-gray-900 font-semibold mt-1">
-                  {producto.data.price ?? "Precio a consultar"}
+                  {producto.data.precio || "Precio a consultar"}
                 </dd>
               </div>
             </dl>
@@ -177,7 +156,7 @@ const productosRelacionadosConImagen = await Promise.all(
                     <div class="h-[160px] bg-[#f3f3f3] overflow-hidden">
                       <Image
                         src={relacionado.image}
-                        alt={relacionado.data.title}
+                        alt={relacionado.data.titulo}
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
@@ -188,10 +167,10 @@ const productosRelacionadosConImagen = await Promise.all(
                   )}
                   <div class="p-4">
                     <p class="text-[11px] uppercase tracking-wide text-gray-500 font-semibold">
-                      {relacionado.data.brand ?? "Marca"}
+                      {relacionado.data.marca}
                     </p>
                     <h3 class="font-bold text-gray-900 mt-1 line-clamp-2 group-hover:text-[#2a5f92] transition-colors">
-                      {relacionado.data.title}
+                      {relacionado.data.titulo}
                     </h3>
                     <span class="inline-block mt-3 text-[#2a5f92] font-semibold text-sm">
                       Ver detalle →

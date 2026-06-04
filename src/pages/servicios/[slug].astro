@@ -4,12 +4,11 @@ import Layout from "../../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import whatsappIcon from "../../assets/svg/icono-wsp.svg";
 import { getImage } from "@/lib/getImage";
-import { getContentSlug, isProductEntry } from "@/lib/content-entries";
+import { getContentSlug } from "@/lib/content-entries";
 
 export async function getStaticPaths() {
   const servicios = await getCollection("servicios");
   return servicios
-    .filter((servicio: CollectionEntry<"servicios">) => !isProductEntry(servicio))
     .map((servicio: CollectionEntry<"servicios">) => ({
       params: { slug: getContentSlug(servicio.id) },
       props: { servicio },
@@ -26,10 +25,7 @@ const { Content, headings } = await render(servicio);
 // Obtener servicios relacionados (excluyendo el actual)
 const todasServicios = await getCollection("servicios");
 const serviciosRelacionados = todasServicios
-  .filter(
-    (s: CollectionEntry<"servicios">) =>
-      s.id !== servicio.id && !isProductEntry(s),
-  )
+  .filter((s: CollectionEntry<"servicios">) => s.id !== servicio.id)
   .slice(0, 4);
 
 // Get images

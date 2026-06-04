@@ -59,18 +59,18 @@ export default config({
 
     products: collection({
       label: 'Productos',
-      slugField: 'title',
+      slugField: 'titulo',
       path: 'src/content/products/*',
       format: { contentField: 'content' },
       schema: {
-        title: fields.slug({ name: { label: 'Título' } }),
-        description: fields.text({ label: 'Descripción' }),
+        titulo: fields.slug({ name: { label: 'Título' } }),
+        descripcion: fields.text({ label: 'Descripción', multiline: true }),
+        sku: fields.text({ label: 'SKU' }),
+        marca: fields.text({ label: 'Marca' }),
+        categoria: fields.text({ label: 'Categoría' }),
+        ano: fields.text({ label: 'Año' }),
+        precio: fields.text({ label: 'Precio' }),
         published: fields.checkbox({ label: 'Publicado', defaultValue: true }),
-        category: fields.text({ label: 'Categoría' }),
-        brand: fields.text({ label: 'Marca' }),
-        year: fields.text({ label: 'Año' }),
-        tags: fields.array(fields.text({ label: 'Etiqueta' }), { label: 'Etiquetas' }),
-        price: fields.text({ label: 'Precio' }),
         featured: fields.checkbox({ label: 'Destacado', defaultValue: false }),
         image: fields.image({
           label: 'Imagen',

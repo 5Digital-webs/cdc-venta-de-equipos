@@ -1,12 +1,11 @@
 ---
 import { getCollection } from "astro:content";
-import { getContentSlug, isProductEntry } from "@/lib/content-entries";
+import { getContentSlug } from "@/lib/content-entries";
 
 const blog = await getCollection("blog");
-const allServicios = await getCollection("servicios");
-const servicios = allServicios.filter((doc) => !isProductEntry(doc));
-const productos = allServicios.filter(
-    (doc) => doc.data.published && isProductEntry(doc),
+const servicios = await getCollection("servicios");
+const productos = (await getCollection("productos")).filter(
+    (doc) => doc.data.published,
 );
 
 const searchItems = [
@@ -28,11 +27,11 @@ const searchItems = [
     })),
     ...productos.map((doc) => ({
         id: doc.id,
-        title: doc.data.title,
-        description: doc.data.description || "",
+        title: doc.data.titulo,
+        description: doc.data.descripcion || "",
         url: `/equipos/${getContentSlug(doc.id)}`,
         category: "Equipos",
-        tags: doc.data.tags || [],
+        tags: [doc.data.marca, doc.data.categoria, doc.data.sku].filter(Boolean),
     })),
 ];
 ---

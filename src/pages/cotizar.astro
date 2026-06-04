@@ -2,20 +2,20 @@
 import Layout from "../layouts/Layout.astro";
 import CotizarForm from "../components/CotizarForm.astro";
 import { getCollection } from "astro:content";
-import { isProductEntry, resolveProductoTitleFromParam } from "@/lib/content-entries";
+import { resolveProductoTituloFromQuery } from "@/lib/content-entries";
 
-const productosEntries = (await getCollection("servicios"))
-  .filter((entry) => entry.data.published && isProductEntry(entry))
-  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+const productosEntries = (await getCollection("productos"))
+  .filter((entry) => entry.data.published)
+  .sort((a, b) => a.data.titulo.localeCompare(b.data.titulo));
 
 const productos = productosEntries.map((entry) => ({
-  value: entry.data.title,
-  label: entry.data.title,
+  value: entry.data.titulo,
+  label: entry.data.titulo,
+  sku: entry.data.sku,
 }));
 
-const productoParam = Astro.url.searchParams.get("producto") ?? "";
-const productoInicial = resolveProductoTitleFromParam(
-  productoParam,
+const productoInicial = resolveProductoTituloFromQuery(
+  Astro.url.searchParams,
   productosEntries,
 );
 ---

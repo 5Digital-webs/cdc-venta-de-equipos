@@ -3,12 +3,10 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import { getImage } from '@/lib/getImage';
-import { getContentSlug, isProductEntry } from '@/lib/content-entries';
+import { getContentSlug } from '@/lib/content-entries';
 
 const servicios = await getCollection('servicios');
-const serviciosPublished = servicios.filter(
-  (servicio) => servicio.data.published && !isProductEntry(servicio),
-);
+const serviciosPublished = servicios.filter((servicio) => servicio.data.published);
 const serviciosSorted = serviciosPublished.sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
 // Load images for all servicios

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 export interface ProductoOption {
   value: string;
   label: string;
+  sku: string;
 }
 
 export interface Props {
@@ -103,6 +104,7 @@ const productoSeleccionado = productos.some((p) => p.value === productoInicial)
           productos.map((producto) => (
             <option
               value={producto.value}
+              data-sku={producto.sku}
               selected={producto.value === productoSeleccionado ? true : undefined}
             >
               {producto.label}
@@ -180,23 +182,38 @@ const productoSeleccionado = productos.some((p) => p.value === productoInicial)
     const lavadoraSelect = document.getElementById("lavadora") as HTMLSelectElement | null;
     if (!lavadoraSelect) return;
 
+    const params = new URLSearchParams(window.location.search);
     const desdeServidor = lavadoraSelect.dataset.productoInicial?.trim() ?? "";
-    const paramUrl = new URLSearchParams(window.location.search).get("producto");
-    const desdeUrl = paramUrl
-      ? decodeURIComponent(paramUrl.replace(/\+/g, " ")).trim()
-      : "";
 
-    const candidato = desdeServidor || desdeUrl;
+    const skuUrl = params.get("sku");
+    if (skuUrl) {
+      const skuNormalizado = decodeURIComponent(skuUrl.replace(/\+/g, " "))
+        .trim()
+        .toLowerCase();
+      const porSku = Array.from(lavadoraSelect.options).find(
+        (opt) => opt.dataset.sku?.toLowerCase() === skuNormalizado,
+      );
+      if (porSku) {
+        lavadoraSelect.value = porSku.value;
+        return;
+      }
+    }
+
+    const productoUrl = params.get("producto");
+    const candidato = desdeServidor || (productoUrl
+      ? decodeURIComponent(productoUrl.replace(/\+/g, " ")).trim()
+      : "");
+
     if (!candidato || candidato === "No especificado") return;
 
-    const opcion = Array.from(lavadoraSelect.options).find(
+    const porTitulo = Array.from(lavadoraSelect.options).find(
       (opt) =>
         opt.value === candidato ||
         opt.value.toLowerCase() === candidato.toLowerCase(),
     );
 
-    if (opcion) {
-      lavadoraSelect.value = opcion.value;
+    if (porTitulo) {
+      lavadoraSelect.value = porTitulo.value;
     }
   };
 

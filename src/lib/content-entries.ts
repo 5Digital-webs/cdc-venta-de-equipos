@@ -1,15 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
 
-type ServicioEntry = CollectionEntry<'servicios'>;
-
-const PRODUCTS_PATH_RE = /[\\/]products[\\/]/;
-
-export function isProductEntry(entry: ServicioEntry): boolean {
-  return (
-    entry.data.tags?.includes('productos') === true ||
-    PRODUCTS_PATH_RE.test(entry.filePath ?? '')
-  );
-}
+type ProductoEntry = CollectionEntry<'productos'>;
 
 export function getContentSlug(id: string): string {
   return id.split('/').filter(Boolean).pop() ?? id;
@@ -19,9 +10,23 @@ export function normalizeProductoParam(param: string): string {
   return decodeURIComponent(param.replace(/\+/g, ' ')).trim();
 }
 
-export function resolveProductoTitleFromParam(
+export function resolveProductoTituloFromSku(
+  sku: string,
+  entries: ProductoEntry[],
+): string | undefined {
+  if (!sku) return undefined;
+
+  const normalizedSku = normalizeProductoParam(sku).toLowerCase();
+  const match = entries.find(
+    (entry) => entry.data.sku.toLowerCase() === normalizedSku,
+  );
+
+  return match?.data.titulo;
+}
+
+export function resolveProductoTituloFromParam(
   param: string,
-  entries: ServicioEntry[],
+  entries: ProductoEntry[],
 ): string | undefined {
   if (!param) return undefined;
 
@@ -29,15 +34,29 @@ export function resolveProductoTitleFromParam(
   const normalizedLower = normalized.toLowerCase();
 
   const match = entries.find((entry) => {
-    const title = entry.data.title;
+    const titulo = entry.data.titulo;
     const slug = getContentSlug(entry.id);
     return (
-      title === normalized ||
-      title.toLowerCase() === normalizedLower ||
+      titulo === normalized ||
+      titulo.toLowerCase() === normalizedLower ||
+      entry.data.sku.toLowerCase() === normalizedLower ||
       slug === normalized ||
       slug.toLowerCase() === normalizedLower
     );
   });
 
-  return match?.data.title;
+  return match?.data.titulo;
+}
+
+export function resolveProductoTituloFromQuery(
+  searchParams: URLSearchParams,
+  entries: ProductoEntry[],
+): string | undefined {
+  const sku = searchParams.get('sku') ?? '';
+  const producto = searchParams.get('producto') ?? '';
+
+  return (
+    resolveProductoTituloFromSku(sku, entries) ??
+    resolveProductoTituloFromParam(producto, entries)
+  );
 }
