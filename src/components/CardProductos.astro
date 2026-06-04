@@ -55,9 +55,7 @@ const bgColor = backgroundColor === 'blue' ? 'bg-[#EAF9FF]' : 'bg-[#EBFFF6]';
     </a>
 
     <a 
-        href={`https://wa.me/56953281492?text=${encodeURIComponent(whatsappMessage)}`}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={`/cotizar?producto=${encodeURIComponent(nombre)}`}
         class="block mt-4"
     >
         <button class="w-full bg-primary text-white py-3 rounded-full font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">

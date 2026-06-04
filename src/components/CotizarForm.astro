@@ -1,0 +1,258 @@
+---
+import TextInput from "@/components/ui/forms/TextInput.astro";
+import Textarea from "@/components/ui/forms/Textarea.astro";
+import Button from "@/components/ui/forms/Button.astro";
+import { cn } from "@/lib/utils";
+
+export interface ProductoOption {
+  value: string;
+  label: string;
+}
+
+export interface Props {
+  productos: ProductoOption[];
+  productoInicial?: string;
+}
+
+const { productos, productoInicial = "" } = Astro.props;
+
+const fieldClass = cn(
+  "bg-white border-gray-300 text-gray-900",
+  "hover:bg-white focus-visible:ring-primary/30 focus-visible:ring-offset-0",
+);
+
+const selectClass = cn(
+  "w-full px-3 py-2 text-sm rounded-md border border-gray-300 bg-white text-gray-900 transition-colors duration-200",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-0",
+  "focus:border-primary",
+);
+
+const cuotasOpciones = ["12", "24", "36", "48", "60"] as const;
+const lavadoraNoEspecificado = "No especificado";
+const productoSeleccionado = productos.some((p) => p.value === productoInicial)
+  ? productoInicial
+  : lavadoraNoEspecificado;
+---
+
+<form id="cotizarForm" class="space-y-6" novalidate autocomplete="off">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <div>
+      <label for="nombre" class="block text-sm font-medium text-gray-700 mb-2">
+        Nombre *
+      </label>
+      <TextInput
+        id="nombre"
+        name="nombre"
+        type="text"
+        required
+        placeholder="Tu nombre completo"
+        className={fieldClass}
+        autocomplete="off"
+      />
+    </div>
+
+    <div>
+      <label for="numero" class="block text-sm font-medium text-gray-700 mb-2">
+        Número *
+      </label>
+      <TextInput
+        id="numero"
+        name="numero"
+        type="tel"
+        required
+        placeholder="+56 9 1234 5678"
+        className={fieldClass}
+        autocomplete="off"
+      />
+    </div>
+
+    <div>
+      <label for="correo" class="block text-sm font-medium text-gray-700 mb-2">
+        Correo *
+      </label>
+      <TextInput
+        id="correo"
+        name="correo"
+        type="email"
+        required
+        placeholder="tu@correo.com"
+        className={fieldClass}
+        autocomplete="off"
+      />
+    </div>
+
+    <div>
+      <label for="lavadora" class="block text-sm font-medium text-gray-700 mb-2">
+        Lavadora *
+      </label>
+      <select
+        id="lavadora"
+        name="lavadora"
+        required
+        class={selectClass}
+        autocomplete="off"
+        data-producto-inicial={productoSeleccionado}
+      >
+        <option
+          value={lavadoraNoEspecificado}
+          selected={productoSeleccionado === lavadoraNoEspecificado ? true : undefined}
+        >
+          {lavadoraNoEspecificado}
+        </option>
+        {
+          productos.map((producto) => (
+            <option
+              value={producto.value}
+              selected={producto.value === productoSeleccionado ? true : undefined}
+            >
+              {producto.label}
+            </option>
+          ))
+        }
+      </select>
+    </div>
+
+    <div>
+      <label for="modalidad" class="block text-sm font-medium text-gray-700 mb-2">
+        Modalidad *
+      </label>
+      <select id="modalidad" name="modalidad" required class={selectClass} autocomplete="off">
+        <option value="" disabled selected>
+          Selecciona una opción
+        </option>
+        <option value="comprar">Comprar</option>
+        <option value="arrendar">Arrendar</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="cuotas" class="block text-sm font-medium text-gray-700 mb-2">
+        Cuotas *
+      </label>
+      <select id="cuotas" name="cuotas" required class={selectClass} autocomplete="off">
+        <option value="" disabled selected>
+          Selecciona el plazo
+        </option>
+        {
+          cuotasOpciones.map((meses) => (
+            <option value={meses}>{meses} meses</option>
+          ))
+        }
+      </select>
+    </div>
+  </div>
+
+  <div>
+    <label for="mensaje" class="block text-sm font-medium text-gray-700 mb-2">
+      Mensaje
+    </label>
+    <Textarea
+      id="mensaje"
+      name="mensaje"
+      rows={5}
+      placeholder="Cuéntanos sobre tu proyecto, capacidad requerida u otras consultas..."
+      className={cn(fieldClass, "resize-y min-h-[120px]")}
+      autocomplete="off"
+    />
+  </div>
+
+  <div
+    id="cotizarFormFeedback"
+    class="hidden p-3 rounded-lg text-sm"
+    role="alert"
+  >
+  </div>
+
+  <Button
+    type="submit"
+    variant="default"
+    className="w-full bg-[#1F6FBE] hover:bg-[#155896] text-white border-transparent"
+    size="lg"
+  >
+    Enviar cotización
+  </Button>
+</form>
+
+<script>
+  const WHATSAPP_NUMBER = "56953281492";
+
+  const aplicarProductoInicial = () => {
+    const lavadoraSelect = document.getElementById("lavadora") as HTMLSelectElement | null;
+    if (!lavadoraSelect) return;
+
+    const desdeServidor = lavadoraSelect.dataset.productoInicial?.trim() ?? "";
+    const paramUrl = new URLSearchParams(window.location.search).get("producto");
+    const desdeUrl = paramUrl
+      ? decodeURIComponent(paramUrl.replace(/\+/g, " ")).trim()
+      : "";
+
+    const candidato = desdeServidor || desdeUrl;
+    if (!candidato || candidato === "No especificado") return;
+
+    const opcion = Array.from(lavadoraSelect.options).find(
+      (opt) =>
+        opt.value === candidato ||
+        opt.value.toLowerCase() === candidato.toLowerCase(),
+    );
+
+    if (opcion) {
+      lavadoraSelect.value = opcion.value;
+    }
+  };
+
+  aplicarProductoInicial();
+  document.addEventListener("astro:page-load", aplicarProductoInicial);
+
+  const form = document.getElementById("cotizarForm") as HTMLFormElement | null;
+  const feedback = document.getElementById("cotizarFormFeedback");
+
+  const showFeedback = (message: string, type: "success" | "error") => {
+    if (!feedback) return;
+    feedback.textContent = message;
+    feedback.classList.remove("hidden", "bg-green-100", "text-green-800", "border-green-400", "bg-red-100", "text-red-800", "border-red-400", "border");
+    if (type === "success") {
+      feedback.classList.add("bg-green-100", "text-green-800", "border", "border-green-400");
+    } else {
+      feedback.classList.add("bg-red-100", "text-red-800", "border", "border-red-400");
+    }
+    feedback.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  };
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    const nombre = String(data.get("nombre") ?? "").trim();
+    const numero = String(data.get("numero") ?? "").trim();
+    const correo = String(data.get("correo") ?? "").trim();
+    const lavadora = String(data.get("lavadora") ?? "").trim();
+    const modalidad = String(data.get("modalidad") ?? "").trim();
+    const cuotas = String(data.get("cuotas") ?? "").trim();
+    const mensajeUsuario = String(data.get("mensaje") ?? "").trim();
+
+    const modalidadLabel = modalidad === "arrendar" ? "Arrendar" : "Comprar";
+    const lineas = [
+      "Hola, quiero cotizar un equipo:",
+      `Nombre: ${nombre}`,
+      `Número: ${numero}`,
+      `Correo: ${correo}`,
+      `Lavadora: ${lavadora}`,
+      `Modalidad: ${modalidadLabel}`,
+      `Cuotas: ${cuotas} meses`,
+    ];
+
+    if (mensajeUsuario) {
+      lineas.push(`Mensaje: ${mensajeUsuario}`);
+    }
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lineas.join("\n"))}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+
+    showFeedback(
+      "Te redirigimos a WhatsApp con tu cotización. Si no se abrió, revisa el bloqueador de ventanas emergentes.",
+      "success",
+    );
+    form.reset();
+  });
+</script>

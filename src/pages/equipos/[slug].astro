@@ -1,0 +1,208 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { getImage } from "@/lib/getImage";
+import { getContentSlug, isProductEntry } from "@/lib/content-entries";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("servicios");
+  return entries
+    .filter(
+      (entry: CollectionEntry<"servicios">) =>
+        entry.data.published && isProductEntry(entry),
+    )
+    .map((producto: CollectionEntry<"servicios">) => ({
+      params: { slug: getContentSlug(producto.id) },
+      props: { producto },
+    }));
+}
+
+interface Props {
+  producto: CollectionEntry<"servicios">;
+}
+
+const { producto } = Astro.props as Props;
+const { Content } = await render(producto);
+
+const todosProductos = await getCollection("servicios");
+const productosRelacionados = todosProductos
+  .filter(
+    (entry: CollectionEntry<"servicios">) =>
+      entry.id !== producto.id &&
+      entry.data.published &&
+      isProductEntry(entry) &&
+      (entry.data.brand === producto.data.brand ||
+        entry.data.category === producto.data.category),
+  )
+  .slice(0, 4);
+
+const mainImage = await getImage(producto.data.image);
+const productosRelacionadosConImagen = await Promise.all(
+  productosRelacionados.map(async (relacionado) => ({
+    ...relacionado,
+    image: await getImage(relacionado.data.image),
+  })),
+);
+
+---
+
+<Layout
+  title={`${producto.data.title} - Equipos`}
+  description={producto.data.description}
+>
+  <div class="min-h-screen py-8 bg-[#f4f4f4]">
+    <div class="max-w-7xl mx-auto px-4 w-full">
+      <nav class="mb-4">
+        <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-500">
+          <li><a href="/" class="hover:text-blue-600">Inicio</a></li>
+          <li>/</li>
+          <li>
+            <a href="/equipos" class="hover:text-blue-600">Equipos</a>
+          </li>
+          <li>/</li>
+          <li class="text-gray-900 font-medium">{producto.data.title}</li>
+        </ol>
+      </nav>
+
+      <div class="bg-white rounded-[10px] border border-gray-200 p-6 md:p-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div class="space-y-6">
+            {
+              mainImage ? (
+                <div class="rounded-[8px] overflow-hidden bg-[#f3f3f3]">
+                  <Image
+                    src={mainImage}
+                    alt={producto.data.title}
+                    class="w-full h-[320px] md:h-[400px] object-cover"
+                  />
+                </div>
+              ) : (
+                <div class="rounded-[8px] bg-[#f3f3f3] h-[320px] flex items-center justify-center text-gray-500">
+                  Sin imagen
+                </div>
+              )
+            }
+
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a
+                href={`/cotizar?producto=${encodeURIComponent(producto.data.title)}`}
+                class="inline-flex items-center justify-center gap-2 bg-[#155DFC] text-white px-6 py-3 rounded-full hover:bg-[#1249d4] transition-colors font-bold uppercase text-sm"
+              >
+                Cotizar equipo
+              </a>
+              <a
+                href="/equipos"
+                class="inline-flex items-center justify-center border border-gray-300 text-gray-700 px-6 py-3 rounded-full hover:bg-gray-50 transition-colors font-semibold text-sm"
+              >
+                Volver al catálogo
+              </a>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            {
+              producto.data.brand && (
+                <p class="text-[12px] uppercase tracking-wide text-gray-500 font-semibold">
+                  {producto.data.brand}
+                </p>
+              )
+            }
+            <h1 class="text-2xl md:text-3xl font-bold text-[#1b1e4b] leading-tight">
+              {producto.data.title}
+            </h1>
+            <p class="text-gray-700 text-base leading-relaxed">
+              {producto.data.description}
+            </p>
+
+            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+              {
+                producto.data.category && (
+                  <div class="rounded-[8px] bg-[#f4f4f4] px-4 py-3">
+                    <dt class="text-gray-500 font-medium">Categoría</dt>
+                    <dd class="text-gray-900 font-semibold mt-1">
+                      {producto.data.category}
+                    </dd>
+                  </div>
+                )
+              }
+              {
+                producto.data.brand && (
+                  <div class="rounded-[8px] bg-[#f4f4f4] px-4 py-3">
+                    <dt class="text-gray-500 font-medium">Marca</dt>
+                    <dd class="text-gray-900 font-semibold mt-1">
+                      {producto.data.brand}
+                    </dd>
+                  </div>
+                )
+              }
+              {
+                producto.data.year && (
+                  <div class="rounded-[8px] bg-[#f4f4f4] px-4 py-3">
+                    <dt class="text-gray-500 font-medium">Año</dt>
+                    <dd class="text-gray-900 font-semibold mt-1">
+                      {producto.data.year}
+                    </dd>
+                  </div>
+                )
+              }
+              <div class="rounded-[8px] bg-[#f4f4f4] px-4 py-3">
+                <dt class="text-gray-500 font-medium">Precio</dt>
+                <dd class="text-gray-900 font-semibold mt-1">
+                  {producto.data.price ?? "Precio a consultar"}
+                </dd>
+              </div>
+            </dl>
+
+            <main class="prose prose-neutral prose-base max-w-none text-gray-800">
+              <Content />
+            </main>
+          </div>
+        </div>
+      </div>
+
+      {
+        productosRelacionadosConImagen.length > 0 && (
+          <section class="mt-12">
+            <h2 class="text-2xl font-bold text-[#1b1e4b] mb-6">
+              Equipos relacionados
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {productosRelacionadosConImagen.map((relacionado) => (
+                <a
+                  href={`/equipos/${getContentSlug(relacionado.id)}`}
+                  class="group bg-white border border-gray-200 rounded-[10px] overflow-hidden shadow-sm hover:shadow-md transition-all"
+                >
+                  {relacionado.image ? (
+                    <div class="h-[160px] bg-[#f3f3f3] overflow-hidden">
+                      <Image
+                        src={relacionado.image}
+                        alt={relacionado.data.title}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  ) : (
+                    <div class="h-[160px] bg-[#f3f3f3] flex items-center justify-center text-sm text-gray-500">
+                      Sin imagen
+                    </div>
+                  )}
+                  <div class="p-4">
+                    <p class="text-[11px] uppercase tracking-wide text-gray-500 font-semibold">
+                      {relacionado.data.brand ?? "Marca"}
+                    </p>
+                    <h3 class="font-bold text-gray-900 mt-1 line-clamp-2 group-hover:text-[#2a5f92] transition-colors">
+                      {relacionado.data.title}
+                    </h3>
+                    <span class="inline-block mt-3 text-[#2a5f92] font-semibold text-sm">
+                      Ver detalle →
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+    </div>
+  </div>
+</Layout>

@@ -31,7 +31,7 @@ description="Líderes en arriendo, venta y reparación de equipos médicos. Espe
         </p>
 
         <a
-          href="#"
+          href="/cotizar"
           class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 transition-all duration-300 rounded-[10px]"
         >
           Cotizar ahora
@@ -179,30 +179,105 @@ description="Líderes en arriendo, venta y reparación de equipos médicos. Espe
                         </div>
 
                         <div>
-                            <label class="block text-gray-600 font-semibold mb-1">Valor de cuota Mensual</label>
-                            <div class="w-full bg-white border border-gray-200 h-20 px-4 flex items-center text-4xl font-bold text-black">
+                            <label class="block text-gray-600 font-semibold mb-1" for="cotizador-resultado">
+                                Valor de cuota mensual (+ IVA)
+                            </label>
+                            <div
+                                id="cotizador-resultado"
+                                class="w-full bg-white border border-gray-200 h-20 px-4 flex items-center text-2xl md:text-4xl font-bold text-black"
+                                aria-live="polite"
+                            >
                                 $0
                             </div>
+                            <p id="cotizador-error" class="hidden mt-2 text-sm text-red-600" role="alert"></p>
                         </div>
                     </div>
 
                     <div class="mt-6 flex items-center justify-between gap-4">
                         <button
+                            id="cotizador-reset"
                             type="button"
-                            class="text-black text-5xl leading-none"
+                            class="text-black text-5xl leading-none hover:opacity-70 transition-opacity"
                             aria-label="Reiniciar cotizador"
                         >
                             ↻
                         </button>
-                        <a
-                            href="#"
+                        <button
+                            id="cotizador-calcular"
+                            type="button"
                             class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-[10px] transition-all duration-300"
                         >
                             Solicitar cotizacion
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        const IVA = 0.19;
+
+        const montoInput = document.getElementById("monto-neto");
+        const cuotasSelect = document.getElementById("numero-cuotas");
+        const resultado = document.getElementById("cotizador-resultado");
+        const errorEl = document.getElementById("cotizador-error");
+        const btnCalcular = document.getElementById("cotizador-calcular");
+        const btnReset = document.getElementById("cotizador-reset");
+
+        const formatoPeso = new Intl.NumberFormat("es-CL", {
+            style: "currency",
+            currency: "CLP",
+            maximumFractionDigits: 0,
+        });
+
+        const mostrarError = (mensaje: string) => {
+            if (!errorEl || !resultado) return;
+            errorEl.textContent = mensaje;
+            errorEl.classList.remove("hidden");
+            resultado.textContent = "$0";
+        };
+
+        const limpiarError = () => {
+            errorEl?.classList.add("hidden");
+            if (errorEl) errorEl.textContent = "";
+        };
+
+        const calcularCuota = () => {
+            if (!(montoInput instanceof HTMLInputElement) || !(cuotasSelect instanceof HTMLSelectElement) || !resultado) {
+                return;
+            }
+
+            limpiarError();
+
+            const monto = Number(montoInput.value);
+            const cuotas = Number(cuotasSelect.value);
+
+            if (!montoInput.value || Number.isNaN(monto) || monto <= 0) {
+                mostrarError("Ingrese un monto neto válido mayor a cero.");
+                montoInput.focus();
+                return;
+            }
+
+            if (!cuotasSelect.value || Number.isNaN(cuotas) || cuotas <= 0) {
+                mostrarError("Seleccione el número de cuotas.");
+                cuotasSelect.focus();
+                return;
+            }
+
+            const cuotaNeta = monto / cuotas;
+            const cuotaConIva = cuotaNeta * (1 + IVA);
+            resultado.textContent = formatoPeso.format(cuotaConIva);
+        };
+
+        const reiniciarCotizador = () => {
+            if (montoInput instanceof HTMLInputElement) montoInput.value = "";
+            if (cuotasSelect instanceof HTMLSelectElement) cuotasSelect.value = "";
+            if (resultado) resultado.textContent = "$0";
+            limpiarError();
+        };
+
+        btnCalcular?.addEventListener("click", calcularCuota);
+        btnReset?.addEventListener("click", reiniciarCotizador);
+    </script>
 </Layout>

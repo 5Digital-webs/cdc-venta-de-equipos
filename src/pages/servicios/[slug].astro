@@ -4,13 +4,16 @@ import Layout from "../../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import whatsappIcon from "../../assets/svg/icono-wsp.svg";
 import { getImage } from "@/lib/getImage";
+import { getContentSlug, isProductEntry } from "@/lib/content-entries";
 
 export async function getStaticPaths() {
   const servicios = await getCollection("servicios");
-  return servicios.map((servicio: CollectionEntry<"servicios">) => ({
-    params: { slug: servicio.id.split("/").filter(Boolean).pop() ?? servicio.id },
-    props: { servicio },
-  }));
+  return servicios
+    .filter((servicio: CollectionEntry<"servicios">) => !isProductEntry(servicio))
+    .map((servicio: CollectionEntry<"servicios">) => ({
+      params: { slug: getContentSlug(servicio.id) },
+      props: { servicio },
+    }));
 }
 
 interface Props {
@@ -23,7 +26,10 @@ const { Content, headings } = await render(servicio);
 // Obtener servicios relacionados (excluyendo el actual)
 const todasServicios = await getCollection("servicios");
 const serviciosRelacionados = todasServicios
-  .filter((s: CollectionEntry<"servicios">) => s.id !== servicio.id)
+  .filter(
+    (s: CollectionEntry<"servicios">) =>
+      s.id !== servicio.id && !isProductEntry(s),
+  )
   .slice(0, 4);
 
 // Get images
@@ -82,7 +88,7 @@ const serviciosRelacionadosConImagenes = await Promise.all(
           <div class="sticky top-4 flex flex-col items-center justify-center">
             <div class="space-y-3">
               <a
-                href="/contacto"
+                href="/cotizar"
                 class="block w-[367.99px] bg-primary text-white px-4 py-1 rounded-full hover:bg-primary/80 transition-colors font-bold uppercase text-center text-sm"
               >
                 cotizar
@@ -116,7 +122,7 @@ const serviciosRelacionadosConImagenes = await Promise.all(
           {
             serviciosRelacionadosConImagenes.map((servicioRelacionado) => (
               <a
-                href={`/servicios/${servicioRelacionado.id.split("/").filter(Boolean).pop() ?? servicioRelacionado.id}`}
+                href={`/servicios/${getContentSlug(servicioRelacionado.id)}`}
                 class="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
               >
                 {servicioRelacionado.image && (

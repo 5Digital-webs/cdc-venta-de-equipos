@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { getImage } from "@/lib/getImage";
+import { getContentSlug, isProductEntry } from "@/lib/content-entries";
 import bannerEquipos from "@/assets/images/images-equipos/banner-equipos.jpg";
 import iconoEficiencia from "@/assets/svg/icono-eficiencia.svg";
 import iconoGarantia from "@/assets/svg/icono-garantia.svg";
@@ -12,11 +13,7 @@ import iconoAsesoria from "@/assets/svg/icono-asesoria.svg";
 
 const servicios = await getCollection("servicios");
 const productos = servicios.filter(
-  (entry) =>
-    entry.data.published &&
-    (entry.data.tags?.includes("productos") ||
-      entry.filePath?.includes("/products/") ||
-      entry.filePath?.includes("\\products\\")),
+  (entry) => entry.data.published && isProductEntry(entry),
 );
 
 const productosConImagen = await Promise.all(
@@ -203,39 +200,46 @@ const anios = Array.from(
         >
           {productosConImagen.map((producto) => (
             <article
-              class="producto-card min-w-[255px] max-w-[255px] bg-white border border-gray-200 rounded-[10px] p-4 shadow-sm"
+              class="producto-card min-w-[255px] max-w-[255px] bg-white border border-gray-200 rounded-[10px] p-4 shadow-sm flex flex-col"
               data-categoria={producto.data.category ?? ""}
               data-marca={producto.data.brand ?? ""}
               data-anio={producto.data.year ?? ""}
               data-nombre={producto.data.title}
             >
-              <div class="rounded-[8px] overflow-hidden bg-[#f3f3f3] h-[180px] mb-4 flex items-center justify-center">
-                {producto.image ? (
-                  <Image
-                    src={producto.image}
-                    alt={producto.data.title}
-                    class="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div class="text-sm text-gray-500">Sin imagen</div>
-                )}
-              </div>
+              <a
+                href={`/equipos/${getContentSlug(producto.id)}`}
+                class="block flex-1 group"
+              >
+                <div class="rounded-[8px] overflow-hidden bg-[#f3f3f3] h-[180px] mb-4 flex items-center justify-center">
+                  {producto.image ? (
+                    <Image
+                      src={producto.image}
+                      alt={producto.data.title}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div class="text-sm text-gray-500">Sin imagen</div>
+                  )}
+                </div>
 
-              <div class="text-[12px] uppercase tracking-wide text-gray-500 font-semibold">
-                {producto.data.brand ?? "Marca"}
-              </div>
-              <h3 class="text-[18px] font-bold text-[#111827] leading-[1.1] mt-1">{producto.data.title}</h3>
-              <p class="text-sm text-gray-600 mt-1">{producto.data.description}</p>
+                <div class="text-[12px] uppercase tracking-wide text-gray-500 font-semibold">
+                  {producto.data.brand ?? "Marca"}
+                </div>
+                <h3 class="text-[18px] font-bold text-[#111827] leading-[1.1] mt-1 group-hover:text-[#2a5f92] transition-colors">
+                  {producto.data.title}
+                </h3>
+                <p class="text-sm text-gray-600 mt-1 line-clamp-2">
+                  {producto.data.description}
+                </p>
+              </a>
 
-              <div class="mt-4 flex items-center justify-between">
+              <div class="mt-4 flex items-center justify-between gap-2">
                 <span class="text-sm italic text-gray-500">
                   {producto.data.price ?? "Precio a consultar"}
                 </span>
                 <a
-                  href={`https://wa.me/?text=${encodeURIComponent(producto.data.whatsappMessage ?? `Hola, quiero cotizar ${producto.data.title}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-[#2a5f92] font-semibold inline-flex items-center gap-2"
+                  href={`/cotizar?producto=${encodeURIComponent(producto.data.title)}`}
+                  class="text-[#13990A] font-semibold inline-flex items-center gap-1 text-sm hover:underline"
                 >
                   Cotizar
                   <span aria-hidden="true">→</span>

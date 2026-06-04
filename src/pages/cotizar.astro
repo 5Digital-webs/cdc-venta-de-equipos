@@ -1,0 +1,70 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CotizarForm from "../components/CotizarForm.astro";
+import { getCollection } from "astro:content";
+import { isProductEntry, resolveProductoTitleFromParam } from "@/lib/content-entries";
+
+const productosEntries = (await getCollection("servicios"))
+  .filter((entry) => entry.data.published && isProductEntry(entry))
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const productos = productosEntries.map((entry) => ({
+  value: entry.data.title,
+  label: entry.data.title,
+}));
+
+const productoParam = Astro.url.searchParams.get("producto") ?? "";
+const productoInicial = resolveProductoTitleFromParam(
+  productoParam,
+  productosEntries,
+);
+---
+
+<Layout
+  title="Cotizar - CDC Equipos"
+  description="Solicita una cotización para compra o arriendo de equipos de lavandería industrial."
+>
+  <section class="cotizar-hero bg-white pt-20 pb-10 md:pt-16 md:pb-8">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h1 class="text-[#1b1e4b] text-3xl md:text-4xl font-bold mb-4">
+        Cotizar equipo
+      </h1>
+      <p class="text-gray-700 text-base md:text-lg leading-relaxed">
+        Completa el formulario y te contactaremos con la mejor opción de compra o
+        arriendo para tu operación.
+      </p>
+    </div>
+  </section>
+
+  <section class="cotizar-formulario bg-[#f4f4f4] py-12 md:py-16 flex-1">
+    <div class="max-w-7xl mx-auto px-4 flex justify-center">
+      <div
+        class="w-full max-w-3xl bg-white border border-gray-200 rounded-[10px] shadow-sm p-6 md:p-10"
+      >
+        <h2 class="text-xl font-bold text-[#1b1e4b] mb-2 text-center">
+          Formulario de cotización
+        </h2>
+        <p class="text-sm text-gray-600 text-center mb-8">
+          Los campos marcados con * son obligatorios.
+        </p>
+
+        {
+          productos.length > 0 ? (
+            <CotizarForm
+              productos={productos}
+              productoInicial={productoInicial}
+            />
+          ) : (
+            <p class="text-center text-gray-600">
+              No hay equipos disponibles en el catálogo. Visita{" "}
+              <a href="/equipos" class="text-[#2a5f92] font-semibold hover:underline">
+                Equipos
+              </a>{" "}
+              o contáctanos directamente.
+            </p>
+          )
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

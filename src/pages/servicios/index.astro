@@ -3,11 +3,12 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import { getImage } from '@/lib/getImage';
-
-const getServicioSlug = (id: string): string => id.split('/').filter(Boolean).pop() ?? id;
+import { getContentSlug, isProductEntry } from '@/lib/content-entries';
 
 const servicios = await getCollection('servicios');
-const serviciosPublished = servicios.filter(servicio => servicio.data.published);
+const serviciosPublished = servicios.filter(
+  (servicio) => servicio.data.published && !isProductEntry(servicio),
+);
 const serviciosSorted = serviciosPublished.sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
 // Load images for all servicios
@@ -35,7 +36,7 @@ const serviciosConImagenes = await Promise.all(
         <div class="flex flex-wrap justify-center gap-x-40 gap-y-8">
           {serviciosConImagenes.map(servicio => (
             <a 
-              href={`/servicios/${getServicioSlug(servicio.id)}`}
+              href={`/servicios/${getContentSlug(servicio.id)}`}
               class="group bg-white shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden block w-[274px] h-[360px]"
             >
               <article class="p-4 flex flex-col h-full">

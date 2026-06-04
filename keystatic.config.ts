@@ -57,6 +57,41 @@ export default config({
       },
     }),
 
+    products: collection({
+      label: 'Productos',
+      slugField: 'title',
+      path: 'src/content/products/*',
+      format: { contentField: 'content' },
+      schema: {
+        title: fields.slug({ name: { label: 'Título' } }),
+        description: fields.text({ label: 'Descripción' }),
+        published: fields.checkbox({ label: 'Publicado', defaultValue: true }),
+        category: fields.text({ label: 'Categoría' }),
+        brand: fields.text({ label: 'Marca' }),
+        year: fields.text({ label: 'Año' }),
+        tags: fields.array(fields.text({ label: 'Etiqueta' }), { label: 'Etiquetas' }),
+        price: fields.text({ label: 'Precio' }),
+        featured: fields.checkbox({ label: 'Destacado', defaultValue: false }),
+        image: fields.image({
+          label: 'Imagen',
+          directory: 'src/assets/images/images-equipos',
+          publicPath: '@assets/images/images-equipos/',
+        }),
+        whatsappMessage: fields.text({ label: 'Mensaje de WhatsApp' }),
+        publishedAt: fields.date({ label: 'Fecha de Publicación' }),
+        updatedAt: fields.date({ label: 'Fecha de Actualización' }),
+        content: fields.markdoc({
+          label: 'Contenido',
+          options: {
+            image: {
+              directory: 'src/assets/images/images-equipos',
+              publicPath: '@assets/images/images-equipos/',
+            },
+          },
+        }),
+      },
+    }),
+
     blog: collection({
       label: 'Blog',
       slugField: 'title',
