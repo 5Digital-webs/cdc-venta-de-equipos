@@ -1,0 +1,30 @@
+title: CDC by Kingstar
+description: >-
+  Línea CDC by Kingstar: lavadoras, secadoras y túneles de lavado con estándar industrial
+  y soporte técnico directo de CDC.
+published: true
+brandName: CDC by Kingstar
+brandLogo: '@assets/images/images-marcas/logo-cdc-kingstar.png'
+heroTitle: CDC by Kingstar - Desarrollo propio con estándar industrial
+heroImage: '@assets/images/images-marcas/brand-cdc-kingstar.jpg'
+heroImageAlt: Equipos CDC by Kingstar
+originTitle: Procedencia
+originText: >-
+  Línea desarrollada bajo especificaciones propias de CDC, diseñada para responder a
+  las necesidades del mercado industrial y comercial en Latinoamérica.
+originFlag: cl
+sections:
+  - title: Equipos
+    items:
+      - Lavadoras industriales
+      - Secadoras industriales
+      - Túneles de lavado
+      - Configuraciones adaptadas a distintos volúmenes de operación
+  - title: Calidad y propuesta de valor
+    items:
+      - Ingeniería ajustada a la realidad operativa local
+      - Excelente relación rendimiento/inversión
+      - Componentes de alta durabilidad
+      - Soporte técnico directo de CDC
+ctaText: Conoce la línea CDC by Kingstar y su configuración ideal para tu operación.
+order: 2

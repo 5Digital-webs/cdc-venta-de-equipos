@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { getImage } from '@/lib/getImage';
+import { getContentSlug } from '@/lib/content-entries';
+
+const marcas = (await getCollection('marcas', ({ data }) => data.published)).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
+);
+
+const marcasWithLogos = await Promise.all(
+  marcas.map(async (marca) => ({
+    marca,
+    logo: await getImage(marca.data.brandLogo),
+  })),
+);
+---
+
+<Layout
+  title="Marcas - CDC Equipos"
+  description="Conoce las marcas de lavandería industrial que representamos: UniMac, Speed Queen, Lapauw, UNICA, PONY, UNIPRESS, FULTON y CDC by Kingstar."
+>
+  <section class="bg-[#0b2e4f] text-white py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 text-center">
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-4">Marcas que representamos</h1>
+      <p class="text-white/80 max-w-2xl mx-auto text-base md:text-lg">
+        Fabricantes líderes en lavandería industrial, planchado y generación de vapor.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-14 md:py-20 bg-[#f4f4f4]">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {
+          marcasWithLogos.map(({ marca, logo }) => (
+            <article class="bg-white rounded-[14px] border border-[#e5e7eb] shadow-sm p-6 hover:border-[#1f6fbe]/30 hover:shadow-md transition-all">
+              {
+                logo && (
+                  <div class="mb-4 h-12 flex items-center">
+                    <Image
+                      src={logo}
+                      alt={`Logo ${marca.data.brandName}`}
+                      class="h-10 w-auto object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                )
+              }
+              <h2 class="text-[#111827] text-lg font-bold leading-tight">{marca.data.brandName}</h2>
+              <p class="mt-3 text-[#4b5563] text-sm leading-relaxed">{marca.data.description}</p>
+              <a
+                href={`/marcas/${getContentSlug(marca.id)}`}
+                class="mt-5 inline-flex items-center gap-2 text-[#000] font-medium text-sm transition-colors duration-300 hover:text-[#1f6fbe]"
+              >
+                Explorar
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

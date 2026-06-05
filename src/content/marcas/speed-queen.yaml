@@ -1,0 +1,29 @@
+title: Speed Queen
+description: >-
+  Speed Queen: tradición americana en lavandería comercial con lavadoras y secadoras
+  de alta confiabilidad mecánica.
+published: true
+brandName: Speed Queen
+brandLogo: '@assets/images/images-marcas/logo-speed-queen.png'
+heroTitle: Speed Queen - Tradición americana en lavandería comercial
+heroImage: '@assets/images/images-marcas/brand-speed-queen.jpg'
+heroImageAlt: Equipos Speed Queen
+originTitle: Procedencia
+originText: >-
+  Marca estadounidense con más de un siglo de experiencia en fabricación de equipos
+  de lavandería comercial.
+originFlag: us
+sections:
+  - title: Equipos
+    items:
+      - Lavadoras comerciales
+      - Secadoras comerciales
+      - Equipos para uso intensivo en comunidades y pequeños negocios
+  - title: Diferenciadores
+    items:
+      - Alta confiabilidad mecánica
+      - Diseño simple y eficiente
+      - Bajo mantenimiento
+      - Excelente desempeño en operación continua
+ctaText: Consulta por soluciones Speed Queen para tu proyecto.
+order: 3

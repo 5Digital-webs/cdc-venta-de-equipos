@@ -123,6 +123,51 @@ export default config({
       },
     }),
 
+    marcas: collection({
+      label: 'Marcas',
+      slugField: 'title',
+      path: 'src/content/marcas/*',
+      format: { data: true },
+      schema: {
+        title: fields.slug({ name: { label: 'Título / Slug' } }),
+        description: fields.text({ label: 'Descripción SEO', multiline: true }),
+        published: fields.checkbox({ label: 'Publicado', defaultValue: true }),
+        brandName: fields.text({ label: 'Nombre de la marca' }),
+        brandLogo: fields.image({
+          label: 'Logo de la marca',
+          directory: 'src/assets/images/images-marcas',
+          publicPath: '@assets/images/images-marcas/',
+        }),
+        heroTitle: fields.text({ label: 'Título del hero', multiline: true }),
+        heroImage: fields.image({
+          label: 'Imagen del hero',
+          directory: 'src/assets/images/images-marcas',
+          publicPath: '@assets/images/images-marcas/',
+        }),
+        heroImageAlt: fields.text({ label: 'Texto alternativo del hero' }),
+        originTitle: fields.text({ label: 'Título de procedencia' }),
+        originText: fields.text({ label: 'Texto de procedencia', multiline: true }),
+        originFlag: fields.text({
+          label: 'Código de bandera (ISO)',
+          description: 'Código de país de 2 letras: us, cl, be, it, gb',
+        }),
+        sections: fields.array(
+          fields.object({
+            title: fields.text({ label: 'Título de sección' }),
+            items: fields.array(fields.text({ label: 'Ítem' }), { label: 'Ítems' }),
+          }),
+          { label: 'Secciones', itemLabel: (props) => props.fields.title.value || 'Sección' },
+        ),
+        ctaText: fields.text({ label: 'Texto del CTA', multiline: true }),
+        ctaButtonText: fields.text({ label: 'Texto del botón CTA', defaultValue: 'Solicitar asesoría' }),
+        ctaHref: fields.text({ label: 'Enlace del CTA', defaultValue: '/cotizar' }),
+        featured: fields.checkbox({ label: 'Destacado', defaultValue: false }),
+        order: fields.integer({ label: 'Orden de visualización' }),
+        publishedAt: fields.date({ label: 'Fecha de Publicación' }),
+        updatedAt: fields.date({ label: 'Fecha de Actualización' }),
+      },
+    }),
+
     soluciones: collection({
       label: 'Soluciones por Sector',
       slugField: 'title',

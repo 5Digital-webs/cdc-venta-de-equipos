@@ -1,0 +1,27 @@
+title: PONY
+description: >-
+  PONY es una marca italiana especializada en equipos de planchado industrial y profesional.
+published: true
+brandName: PONY
+brandLogo: '@assets/images/images-marcas/logo-pony.png'
+heroTitle: PONY - Especialistas italianos en planchado profesional
+heroImage: '@assets/images/images-marcas/brand-pony.jpg'
+heroImageAlt: Equipos de planchado PONY
+originTitle: Procedencia
+originText: >-
+  Marca italiana reconocida por su experiencia en equipos de planchado industrial y profesional.
+originFlag: it
+sections:
+  - title: Equipos
+    items:
+      - Mesas de planchado
+      - Prensas industriales
+      - Equipos especializados para acabado textil
+  - title: Calidad
+    items:
+      - Precisión en terminaciones
+      - Tecnología enfocada en eficiencia
+      - Diseño ergonómico
+      - Alto estándar europeo
+ctaText: Conoce la línea de planchado profesional PONY.
+order: 6

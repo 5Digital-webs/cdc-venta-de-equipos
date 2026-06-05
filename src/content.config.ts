@@ -101,9 +101,43 @@ const soluciones = defineCollection({
   }),
 });
 
+const marcaSectionSchema = z.object({
+  title: z.string(),
+  items: z.array(z.string()),
+});
+
+const marcas = defineCollection({
+  loader: glob({
+    pattern: '**/*.{yaml,yml}',
+    base: './src/content/marcas',
+  }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    published: z.boolean().default(true),
+    brandName: z.string(),
+    brandLogo: z.string(),
+    heroTitle: z.string(),
+    heroImage: z.string(),
+    heroImageAlt: z.string().optional(),
+    originTitle: z.string(),
+    originText: z.string(),
+    originFlag: z.string(),
+    sections: z.array(marcaSectionSchema),
+    ctaText: z.string(),
+    ctaButtonText: z.string().default('Solicitar asesoría'),
+    ctaHref: z.string().default('/cotizar'),
+    featured: z.boolean().optional(),
+    order: z.number().optional(),
+    publishedAt: z.union([z.string(), z.date()]).optional(),
+    updatedAt: z.union([z.string(), z.date()]).optional(),
+  }),
+});
+
 export const collections = {
   servicios,
   productos,
   blog,
   soluciones,
+  marcas,
 };

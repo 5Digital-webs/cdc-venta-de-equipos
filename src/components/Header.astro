@@ -25,10 +25,23 @@ const solucionesLinks = [
   { href: "/soluciones/gastronomia", label: "Gastronomía" },
 ];
 
+const marcasLinks = [
+  { href: "/marcas/unimac", label: "UniMac" },
+  { href: "/marcas/cdc-by-kingstar", label: "CDC by Kingstar" },
+  { href: "/marcas/speed-queen", label: "Speed Queen" },
+  { href: "/marcas/lapauw", label: "Lapauw" },
+  { href: "/marcas/unica", label: "UNICA" },
+  { href: "/marcas/pony", label: "PONY" },
+  { href: "/marcas/unipress", label: "UNIPRESS" },
+  { href: "/marcas/fulton", label: "FULTON" },
+];
+
 const serviciosPaths = serviciosLinks.map((link) => link.href);
 const solucionesPaths = ["/soluciones", ...solucionesLinks.map((link) => link.href)];
+const marcasPaths = ["/marcas", ...marcasLinks.map((link) => link.href)];
 const isServiciosActive = serviciosPaths.includes(currentPath);
 const isSolucionesActive = solucionesPaths.includes(currentPath);
+const isMarcasActive = marcasPaths.includes(currentPath);
 
 const linkClass = (path: string) =>
   `px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm lg:text-base ${
@@ -45,6 +58,12 @@ const serviciosTriggerClass = `inline-flex items-center gap-1 px-4 py-2 rounded-
 
 const solucionesTriggerClass = `inline-flex items-center gap-1 px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm lg:text-base ${
   isSolucionesActive
+    ? "bg-[#1568C1] text-white"
+    : "text-black hover:bg-[#1568C1]/10"
+}`;
+
+const marcasTriggerClass = `inline-flex items-center gap-1 px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm lg:text-base ${
+  isMarcasActive
     ? "bg-[#1568C1] text-white"
     : "text-black hover:bg-[#1568C1]/10"
 }`;
@@ -151,7 +170,45 @@ const subLinkClass = (path: string) =>
               </div>
             </div>
           </div>
-          <a href="/marcas" class={linkClass("/marcas")}>Marcas</a>
+
+          <div class="group relative overflow-visible" id="marcas-dropdown">
+            <button
+              type="button"
+              class={marcasTriggerClass}
+              aria-haspopup="true"
+              aria-expanded="false"
+              id="marcas-dropdown-trigger"
+            >
+              Marcas
+              <svg
+                class="h-4 w-4 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            <div
+              class="invisible absolute left-0 top-full z-[60] pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+              id="marcas-dropdown-menu"
+            >
+              <div class="min-w-[260px] rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
+                <a href="/marcas" class={subLinkClass("/marcas")}>
+                  Ver todas las marcas
+                </a>
+                {
+                  marcasLinks.map((link) => (
+                    <a href={link.href} class={subLinkClass(link.href)}>
+                      {link.label}
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
           <a href="/proyectos" class={linkClass("/proyectos")}>Proyectos</a>
         </nav>
       </div>
@@ -259,7 +316,40 @@ const subLinkClass = (path: string) =>
           }
         </div>
       </div>
-      <a href="/marcas" class={linkClass("/marcas")}>Marcas</a>
+
+      <div>
+        <button
+          type="button"
+          id="mobile-marcas-toggle"
+          class={`${marcasTriggerClass} w-full justify-between`}
+          aria-expanded="false"
+        >
+          Marcas
+          <svg
+            id="mobile-marcas-chevron"
+            class="h-5 w-5 transition-transform duration-200"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div id="mobile-marcas-submenu" class="mt-2 hidden flex flex-col gap-1 pl-3">
+          <a href="/marcas" class={subLinkClass("/marcas")}>
+            Ver todas las marcas
+          </a>
+          {
+            marcasLinks.map((link) => (
+              <a href={link.href} class={subLinkClass(link.href)}>
+                {link.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
       <a href="/proyectos" class={linkClass("/proyectos")}>Proyectos</a>
     </nav>
   </div>
@@ -300,5 +390,16 @@ const subLinkClass = (path: string) =>
     const isOpen = !mobileSolucionesSubmenu?.classList.contains("hidden");
     mobileSolucionesToggle.setAttribute("aria-expanded", String(isOpen));
     mobileSolucionesChevron?.classList.toggle("rotate-180", isOpen);
+  });
+
+  const mobileMarcasToggle = document.getElementById("mobile-marcas-toggle");
+  const mobileMarcasSubmenu = document.getElementById("mobile-marcas-submenu");
+  const mobileMarcasChevron = document.getElementById("mobile-marcas-chevron");
+
+  mobileMarcasToggle?.addEventListener("click", () => {
+    mobileMarcasSubmenu?.classList.toggle("hidden");
+    const isOpen = !mobileMarcasSubmenu?.classList.contains("hidden");
+    mobileMarcasToggle.setAttribute("aria-expanded", String(isOpen));
+    mobileMarcasChevron?.classList.toggle("rotate-180", isOpen);
   });
 </script>

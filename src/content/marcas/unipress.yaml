@@ -1,0 +1,27 @@
+title: UNIPRESS
+description: >-
+  UNIPRESS ofrece innovación británica en equipos de planchado y prensado textil industrial.
+published: true
+brandName: UNIPRESS
+brandLogo: '@assets/images/images-marcas/logo-unipress.png'
+heroTitle: UNIPRESS - Innovación británica en equipos de planchado
+heroImage: '@assets/images/images-marcas/brand-unipress.jpg'
+heroImageAlt: Equipos de planchado UNIPRESS
+originTitle: Procedencia
+originText: >-
+  Marca de origen británico especializada en sistemas avanzados de planchado y prensado textil.
+originFlag: gb
+sections:
+  - title: Equipos
+    items:
+      - Mesas de planchado
+      - Prensas industriales
+      - Sistemas de acabado profesional
+  - title: Diferenciadores
+    items:
+      - Tecnología de prensado eficiente
+      - Terminaciones de alta calidad
+      - Diseño industrial robusto
+      - Excelente rendimiento operativo
+ctaText: Solicita asesoría sobre equipos UNIPRESS.
+order: 7

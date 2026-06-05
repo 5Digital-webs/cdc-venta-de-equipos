@@ -1,0 +1,27 @@
+title: UNICA
+description: >-
+  UNICA ofrece lavadoras industriales heavy duty de fabricación belga para aplicaciones
+  de alta exigencia.
+published: true
+brandName: UNICA
+brandLogo: '@assets/images/images-marcas/logo-unica.png'
+heroTitle: UNICA - Potencia y resistencia para aplicaciones heavy duty
+heroImage: '@assets/images/images-marcas/brand-unica.jpg'
+heroImageAlt: Lavadoras industriales UNICA
+originTitle: Procedencia
+originText: >-
+  Fabricación belga enfocada en equipos de lavandería industrial de alto desempeño.
+originFlag: be
+sections:
+  - title: Equipos
+    items:
+      - Lavadoras industriales heavy duty
+      - Soluciones para uso intensivo y entornos exigentes
+  - title: Diferenciadores
+    items:
+      - Construcción reforzada
+      - Alta capacidad de carga
+      - Componentes diseñados para trabajo continuo
+      - Confiabilidad en operaciones industriales
+ctaText: Consulta por equipos UNICA para aplicaciones de alta exigencia.
+order: 5

@@ -1,0 +1,167 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { getImage } from '@/lib/getImage';
+import { getContentSlug } from '@/lib/content-entries';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('marcas', ({ data }) => data.published);
+  return entries.map((marca: CollectionEntry<'marcas'>) => ({
+    params: { slug: getContentSlug(marca.id) },
+    props: { marca },
+  }));
+}
+
+interface Props {
+  marca: CollectionEntry<'marcas'>;
+}
+
+const { marca } = Astro.props as Props;
+const { data } = marca;
+const heroImage = await getImage(data.heroImage);
+const brandLogo = await getImage(data.brandLogo);
+---
+
+<Layout title={`${data.heroTitle} - CDC Equipos`} description={data.description}>
+  <section class="banner-marcas bg-white pt-24 pb-16 md:pt-28 md:pb-20">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div>
+          {
+            brandLogo && (
+              <div class="mb-6">
+                <Image
+                  src={brandLogo}
+                  alt={`Logo ${data.brandName}`}
+                  class="h-12 sm:h-14 w-auto object-contain"
+                  loading="eager"
+                />
+              </div>
+            )
+          }
+          <h1 class="text-[#1b1e4b] text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-6 max-w-xl">
+            {data.heroTitle}
+          </h1>
+          <a
+            href={data.ctaHref}
+            class="inline-flex items-center justify-center gap-2 bg-[#1f6fbe] hover:bg-[#185fa8] text-white font-semibold px-7 py-3.5 rounded-[10px] transition-all duration-300"
+          >
+            {data.ctaButtonText}
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="flex items-center justify-center">
+          {
+            heroImage ? (
+              <Image
+                src={heroImage}
+                alt={data.heroImageAlt ?? `Equipos ${data.brandName}`}
+                class="w-full max-w-[620px] h-auto rounded-xl shadow-lg object-cover aspect-square"
+                loading="eager"
+              />
+            ) : (
+              <div class="w-full max-w-[620px] aspect-square rounded-xl bg-[#f4f4f4]" />
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="marcas-procedencia bg-[#f4f4f4] py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="flex items-center justify-center gap-3 mb-6">
+          <img
+            src={`https://flagcdn.com/w40/${data.originFlag}.png`}
+            srcset={`https://flagcdn.com/w80/${data.originFlag}.png 2x`}
+            alt={`Bandera ${data.originFlag.toUpperCase()}`}
+            class="h-6 w-auto rounded-sm shadow-sm"
+            loading="lazy"
+            width="40"
+            height="30"
+          />
+          <h2 class="text-[#1b1e4b] text-2xl sm:text-3xl font-extrabold">
+            {data.originTitle}
+          </h2>
+        </div>
+        <p class="text-[#4b5563] leading-relaxed text-base sm:text-lg">
+          {data.originText}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {
+    data.sections.map((section, index) => (
+      <section
+        class:list={[
+          'py-16 md:py-20',
+          index % 2 === 0 ? 'bg-white' : 'bg-[#f4f4f4]',
+        ]}
+      >
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+          <h2 class="text-center text-[#1b1e4b] text-2xl sm:text-3xl font-extrabold mb-10">
+            {section.title}
+          </h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {
+              section.items.map((item) => (
+                <div class="flex items-start gap-3 p-5 rounded-lg bg-white border border-[#e2e8f0] hover:border-[#1f6fbe]/30 hover:shadow-md transition-all">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="text-[#1f6fbe] mt-0.5 shrink-0"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                  <span class="text-sm font-medium text-[#111827]">{item}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <section id="contacto-marca" class="py-20 md:py-28 bg-[#0b2e4f] text-white">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-6">
+        {data.ctaText}
+      </h2>
+      <a
+        href={data.ctaHref}
+        class="inline-flex items-center gap-2 px-8 py-3.5 rounded-md bg-[#1f6fbe] text-white font-semibold text-sm hover:bg-[#185fa8] transition-colors"
+      >
+        {data.ctaButtonText}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>

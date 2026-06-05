@@ -1,0 +1,30 @@
+title: UniMac
+description: >-
+  UniMac ofrece ingeniería americana en lavandería industrial: lavadoras y secadoras
+  de alto rendimiento para operación intensiva y continua.
+published: true
+brandName: UniMac
+brandLogo: '@assets/images/images-marcas/logo-unimac.png'
+heroTitle: UniMac - Ingeniería americana en lavandería industrial
+heroImage: '@assets/images/images-marcas/brand-unimac.jpg'
+heroImageAlt: Equipos UniMac de lavandería industrial
+originTitle: Procedencia y respaldo
+originText: >-
+  Marca de origen estadounidense, reconocida mundialmente por su robustez, durabilidad
+  y alto desempeño en entornos industriales exigentes. UniMac es parte de uno de los
+  mayores fabricantes globales de equipos de lavandería comercial e industrial.
+originFlag: us
+sections:
+  - title: Equipos
+    items:
+      - Lavadoras industriales de alto rendimiento
+      - Secadoras de gran capacidad
+      - Equipos diseñados para operación intensiva y continua
+  - title: Por qué elegir UniMac
+    items:
+      - Construcción robusta para uso industrial pesado
+      - Tecnología avanzada en eficiencia energética
+      - Larga vida útil y confiabilidad operativa
+      - Respaldo técnico y disponibilidad de repuestos
+ctaText: Solicita asesoría sobre equipos UniMac para tu proyecto.
+order: 1

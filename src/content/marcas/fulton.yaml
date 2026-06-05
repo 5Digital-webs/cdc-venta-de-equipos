@@ -1,0 +1,29 @@
+title: FULTON
+description: >-
+  FULTON ofrece ingeniería americana en generación de vapor con calderas industriales
+  para procesos textiles.
+published: true
+brandName: FULTON
+brandLogo: '@assets/images/images-marcas/logo-fulton.jpg'
+heroTitle: FULTON - Ingeniería americana en generación de vapor
+heroImage: '@assets/images/images-marcas/brand-fulton.jpg'
+heroImageAlt: Calderas industriales FULTON
+originTitle: Procedencia
+originText: >-
+  Marca estadounidense reconocida mundialmente en fabricación de calderas industriales
+  y sistemas de generación de vapor.
+originFlag: us
+sections:
+  - title: Equipos
+    items:
+      - Calderas industriales
+      - Sistemas de vapor para lavandería
+      - Soluciones energéticas para procesos textiles
+  - title: Calidad
+    items:
+      - Alta eficiencia energética
+      - Seguridad certificada
+      - Diseño industrial robusto
+      - Larga vida útil operativa
+ctaText: Consulta por soluciones de generación de vapor Fulton.
+order: 8

@@ -1,0 +1,29 @@
+title: Lapauw
+description: >-
+  Lapauw ofrece tecnología belga en calandras industriales y sistemas de planchado
+  para hospitales y hoteles de gran escala.
+published: true
+brandName: Lapauw
+brandLogo: '@assets/images/images-marcas/logo-lapauw.png'
+heroTitle: Lapauw - Tecnología belga en calandras industriales
+heroImage: '@assets/images/images-marcas/brand-lapauw.jpg'
+heroImageAlt: Calandras industriales Lapauw
+originTitle: Procedencia
+originText: >-
+  Marca europea de origen belga, reconocida internacionalmente por su especialización
+  en sistemas de planchado y calandras industriales.
+originFlag: be
+sections:
+  - title: Equipos
+    items:
+      - Calandras industriales de alto rendimiento
+      - Sistemas para procesamiento de ropa plana
+      - Soluciones para hospitales y hoteles de gran escala
+  - title: Calidad destacada
+    items:
+      - Ingeniería de precisión europea
+      - Alto rendimiento por hora
+      - Excelente calidad de terminación
+      - Diseño para operación industrial continua
+ctaText: Solicita información sobre calandras Lapauw.
+order: 4
