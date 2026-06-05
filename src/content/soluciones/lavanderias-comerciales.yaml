@@ -1,0 +1,55 @@
+title: Lavanderías Comerciales
+description: >-
+  Equipos industriales para lavanderías de alto volumen. Maximiza productividad,
+  reduce costos y aumenta la capacidad operativa.
+published: true
+badge: Lavanderías Comerciales
+heroTitle: Equipos industriales para lavanderías de alto volumen
+heroDescription: >-
+  Maximiza productividad, reduce costos y aumenta la capacidad operativa.
+heroImage: '@assets/images/images-soluciones/sector-lavanderias-comerciales.jpg'
+heroImageAlt: Equipos industriales para lavanderías comerciales de alto volumen
+stats:
+  - value: '+500'
+    label: Equipos instalados
+  - value: '-25%'
+    label: Costo por ciclo
+  - value: 24/7
+    label: Operación continua
+  - value: '+35'
+    label: Años de experiencia
+challengesTitle: Desafíos de lavanderías comerciales
+challenges:
+  - Procesamiento intensivo diario
+  - Operación por turnos prolongados
+  - Minimizar tiempos muertos
+  - Optimizar consumo energético
+  - Control de mantenimiento preventivo
+solutionTitle: Nuestra solución para alto rendimiento
+solutionIntro: ''
+solutionItems:
+  - title: Lavadoras extractoras industriales robustas
+    description: Diseñadas para cargas intensivas y uso continuo.
+  - title: Secadoras de gran capacidad y eficiencia térmica
+    description: Reducción de tiempos de ciclo.
+  - title: Sistemas apilables y optimización de espacio
+    description: Mayor producción en menor superficie.
+  - title: Rodillos / Calandras de alto rendimiento
+    description: Procesamiento continuo de ropa plana.
+  - title: Planchadoras industriales automáticas
+    description: Terminación profesional a gran escala.
+  - title: Programación inteligente de ciclos
+    description: Adaptación a diferentes tipos de carga.
+benefitsTitle: Beneficios
+benefits:
+  - Mayor kilos procesados por hora
+  - Menor consumo por ciclo
+  - Reducción de fallas operativas
+  - Mejor control de costos
+  - Retorno de inversión acelerado
+ctaTitle: Solicita una configuración recomendada según tu volumen diario.
+ctaButtonText: Solicitar configuración
+ctaHref: /cotizar
+featured: true
+order: 3
+publishedAt: 2026-06-05

@@ -1,0 +1,54 @@
+title: Gastronomía
+description: >-
+  Equipos industriales para el manejo de textiles gastronómicos. Soluciones
+  diseñadas para el procesamiento eficiente de mantelería y textiles de restaurantes.
+published: true
+badge: Gastronomía
+heroTitle: Equipos industriales para el manejo de textiles gastronómicos
+heroDescription: >-
+  Soluciones diseñadas para el procesamiento eficiente de mantelería y textiles
+  de restaurantes y servicios de alimentación.
+heroImage: '@assets/images/images-soluciones/sector-gastronomia.jpg'
+heroImageAlt: Equipos industriales para textiles gastronómicos
+stats:
+  - value: 100%
+    label: Eliminación manchas
+  - value: Rápida
+    label: Reposición textil
+  - value: '-25%'
+    label: Costo operativo
+  - value: '+35'
+    label: Años de experiencia
+challengesTitle: Desafíos del rubro gastronómico
+challenges:
+  - Alta frecuencia de lavado
+  - Manchas difíciles (grasas, vino, aceites)
+  - Necesidad de terminación impecable
+  - Rapidez en reposición de mantelería
+  - Control de consumo energético
+solutionTitle: Nuestra solución
+solutionIntro: ''
+solutionItems:
+  - title: Lavadoras industriales con programas específicos
+    description: Para grasas y manchas complejas.
+  - title: Secadoras de alta eficiencia térmica
+    description: Tiempos de secado optimizados.
+  - title: Rodillos / Calandras para mantelería
+    description: Terminación profesional de manteles y servilletas.
+  - title: Planchadoras industriales
+    description: Acabado profesional para presentación impecable.
+  - title: Sistemas de dosificación controlada de químicos
+    description: Eficiencia en consumo y eliminación de manchas.
+benefitsTitle: Beneficios
+benefits:
+  - Eliminación efectiva de manchas
+  - Terminación profesional de manteles y servilletas
+  - Reducción de tiempos de reposición
+  - Menor costo operativo por ciclo
+  - Imagen impecable del servicio
+ctaTitle: Solicita asesoría para optimizar tu proceso de lavado gastronómico.
+ctaButtonText: Solicitar asesoría
+ctaHref: /cotizar
+featured: true
+order: 6
+publishedAt: 2026-06-05

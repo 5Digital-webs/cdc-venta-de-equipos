@@ -1,0 +1,55 @@
+title: Comunidades y Multifamily
+description: >-
+  Soluciones de lavandería para comunidades y edificios residenciales. Equipos
+  compactos y eficientes diseñados para operación compartida en condominios y multifamily.
+published: true
+badge: Comunidades y Multifamily
+heroTitle: Soluciones de lavandería para comunidades y edificios residenciales
+heroDescription: >-
+  Equipos compactos y eficientes diseñados para operación compartida en
+  condominios y multifamily.
+heroImage: '@assets/images/images-soluciones/sector-comunidades-multifamily.jpg'
+heroImageAlt: Soluciones de lavandería para comunidades y edificios multifamily
+stats:
+  - value: 24/7
+    label: Disponibilidad
+  - value: '0'
+    label: Inversión inicial
+  - value: 100%
+    label: Mantención incluida
+  - value: +
+    label: Valor al edificio
+challengesTitle: Desafíos del modelo comunitario
+challenges:
+  - Espacios reducidos
+  - Alta rotación de usuarios
+  - Control de consumo eléctrico y agua
+  - Equipos resistentes al uso frecuente
+  - Minimizar fallas y tiempos fuera de servicio
+solutionTitle: Nuestra solución
+solutionIntro: >-
+  Configuraciones adaptadas a entornos residenciales:
+solutionItems:
+  - title: Lavadoras y secadoras comerciales de uso intensivo
+    description: Equipos robustos diseñados para alto tráfico de usuarios.
+  - title: Sistemas apilables para optimización de espacio
+    description: Mayor capacidad en menor superficie.
+  - title: Programación de ciclos simplificada
+    description: Fácil uso para todos los residentes.
+  - title: Equipos con bajo consumo energético
+    description: Eficiencia que reduce costos comunes.
+  - title: Opciones de integración con sistemas de pago
+    description: Control y monetización del servicio de lavandería.
+benefitsTitle: Beneficios
+benefits:
+  - Equipos confiables para uso compartido
+  - Reducción de reclamos por fallas
+  - Control eficiente de costos
+  - Mayor satisfacción de residentes
+  - Vida útil prolongada de equipos
+ctaTitle: Solicita una propuesta para tu edificio o proyecto multifamily.
+ctaButtonText: Solicitar propuesta
+ctaHref: /cotizar
+featured: true
+order: 5
+publishedAt: 2026-06-05

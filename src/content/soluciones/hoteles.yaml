@@ -1,0 +1,55 @@
+title: Hoteles
+description: >-
+  Equipos de lavandería industrial de alta capacidad para hoteles. Operación continua,
+  eficiencia energética y calidad constante en textiles hoteleros.
+published: true
+badge: Hoteles
+heroTitle: Soluciones de lavandería industrial para hoteles
+heroDescription: >-
+  Equipos de alta capacidad diseñados para operación continua, eficiencia energética
+  y calidad constante en textiles hoteleros.
+heroImage: '@assets/images/images-soluciones/sector-hoteles.jpg'
+heroImageAlt: Soluciones de lavandería industrial para hoteles
+stats:
+  - value: '+35'
+    label: Años de experiencia
+  - value: 24/7
+    label: Operación continua
+  - value: '-30%'
+    label: Consumo energético
+  - value: 100%
+    label: Calidad uniforme
+challengesTitle: Desafíos del sector hotelero
+challenges:
+  - Alta rotación diaria de sábanas y toallas
+  - Necesidad de ciclos rápidos y eficientes
+  - Control de consumo energético y agua
+  - Calidad uniforme en planchado y secado
+  - Operación continua sin interrupciones
+solutionTitle: Nuestra solución
+solutionIntro: >-
+  Diseñamos configuraciones adaptadas al tamaño del hotel y volumen diario de ropa:
+solutionItems:
+  - title: Lavadoras industriales de alta capacidad (20–120+ kg)
+    description: Programas optimizados para ropa blanca y toallas.
+  - title: Secadoras industriales con control de humedad
+    description: Reducción de tiempos y eficiencia térmica.
+  - title: Rodillos / Calandras para ropa plana
+    description: Terminación profesional de sábanas y fundas.
+  - title: Planchadoras industriales
+    description: Calidad uniforme y mayor productividad.
+  - title: Sistemas de dosificación automática
+    description: Control de químicos y reducción de costos.
+benefitsTitle: Beneficios para el hotel
+benefits:
+  - Reducción de costo por kilo lavado
+  - Mayor productividad por turno
+  - Ahorro energético
+  - Calidad consistente en textiles
+  - Retorno de inversión optimizado
+ctaTitle: ¿Estás planificando o renovando tu lavandería hotelera?
+ctaButtonText: Solicitar asesoría técnica
+ctaHref: /cotizar
+featured: true
+order: 1
+publishedAt: 2026-06-05

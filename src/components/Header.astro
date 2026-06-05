@@ -16,8 +16,19 @@ const serviciosLinks = [
   { href: "/mantencion-preventiva", label: "Mantención preventiva y correctiva" },
 ];
 
+const solucionesLinks = [
+  { href: "/soluciones/hoteles", label: "Hoteles" },
+  { href: "/soluciones/clinicas-y-hospitales", label: "Clínicas y Hospitales" },
+  { href: "/soluciones/lavanderias-comerciales", label: "Lavanderías Comerciales" },
+  { href: "/soluciones/industria-y-uniformes", label: "Industria y Uniformes" },
+  { href: "/soluciones/comunidades-y-multifamily", label: "Comunidades y Multifamily" },
+  { href: "/soluciones/gastronomia", label: "Gastronomía" },
+];
+
 const serviciosPaths = serviciosLinks.map((link) => link.href);
+const solucionesPaths = ["/soluciones", ...solucionesLinks.map((link) => link.href)];
 const isServiciosActive = serviciosPaths.includes(currentPath);
+const isSolucionesActive = solucionesPaths.includes(currentPath);
 
 const linkClass = (path: string) =>
   `px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm lg:text-base ${
@@ -28,6 +39,12 @@ const linkClass = (path: string) =>
 
 const serviciosTriggerClass = `inline-flex items-center gap-1 px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm lg:text-base ${
   isServiciosActive
+    ? "bg-[#1568C1] text-white"
+    : "text-black hover:bg-[#1568C1]/10"
+}`;
+
+const solucionesTriggerClass = `inline-flex items-center gap-1 px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm lg:text-base ${
+  isSolucionesActive
     ? "bg-[#1568C1] text-white"
     : "text-black hover:bg-[#1568C1]/10"
 }`;
@@ -60,6 +77,44 @@ const subLinkClass = (path: string) =>
           <a href="/" class={linkClass("/")}>Inicio</a>
           <a href="/empresa" class={linkClass("/empresa")}>CDC Rent</a>
           <a href="/equipos" class={linkClass("/equipos")}>Equipos</a>
+          <div class="group relative overflow-visible" id="soluciones-dropdown">
+            <button
+              type="button"
+              class={solucionesTriggerClass}
+              aria-haspopup="true"
+              aria-expanded="false"
+              id="soluciones-dropdown-trigger"
+            >
+              Soluciones
+              <svg
+                class="h-4 w-4 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            <div
+              class="invisible absolute left-0 top-full z-[60] pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+              id="soluciones-dropdown-menu"
+            >
+              <div class="min-w-[260px] rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
+                <a href="/soluciones" class={subLinkClass("/soluciones")}>
+                  Ver todas las soluciones
+                </a>
+                {
+                  solucionesLinks.map((link) => (
+                    <a href={link.href} class={subLinkClass(link.href)}>
+                      {link.label}
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
 
           <div class="group relative overflow-visible" id="servicios-dropdown">
             <button
@@ -96,8 +151,6 @@ const subLinkClass = (path: string) =>
               </div>
             </div>
           </div>
-
-          <a href="/soluciones" class={linkClass("/soluciones")}>Soluciones</a>
           <a href="/marcas" class={linkClass("/marcas")}>Marcas</a>
           <a href="/proyectos" class={linkClass("/proyectos")}>Proyectos</a>
         </nav>
@@ -142,6 +195,39 @@ const subLinkClass = (path: string) =>
       <a href="/" class={linkClass("/")}>Inicio</a>
       <a href="/empresa" class={linkClass("/empresa")}>CDC Rent</a>
       <a href="/equipos" class={linkClass("/equipos")}>Equipos</a>
+      <div>
+        <button
+          type="button"
+          id="mobile-soluciones-toggle"
+          class={`${solucionesTriggerClass} w-full justify-between`}
+          aria-expanded="false"
+        >
+          Soluciones
+          <svg
+            id="mobile-soluciones-chevron"
+            class="h-5 w-5 transition-transform duration-200"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div id="mobile-soluciones-submenu" class="mt-2 hidden flex flex-col gap-1 pl-3">
+          <a href="/soluciones" class={subLinkClass("/soluciones")}>
+            Ver todas las soluciones
+          </a>
+          {
+            solucionesLinks.map((link) => (
+              <a href={link.href} class={subLinkClass(link.href)}>
+                {link.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
 
       <div>
         <button
@@ -173,8 +259,6 @@ const subLinkClass = (path: string) =>
           }
         </div>
       </div>
-
-      <a href="/soluciones" class={linkClass("/soluciones")}>Soluciones</a>
       <a href="/marcas" class={linkClass("/marcas")}>Marcas</a>
       <a href="/proyectos" class={linkClass("/proyectos")}>Proyectos</a>
     </nav>
@@ -205,5 +289,16 @@ const subLinkClass = (path: string) =>
     const isOpen = !mobileServiciosSubmenu?.classList.contains("hidden");
     mobileServiciosToggle.setAttribute("aria-expanded", String(isOpen));
     mobileServiciosChevron?.classList.toggle("rotate-180", isOpen);
+  });
+
+  const mobileSolucionesToggle = document.getElementById("mobile-soluciones-toggle");
+  const mobileSolucionesSubmenu = document.getElementById("mobile-soluciones-submenu");
+  const mobileSolucionesChevron = document.getElementById("mobile-soluciones-chevron");
+
+  mobileSolucionesToggle?.addEventListener("click", () => {
+    mobileSolucionesSubmenu?.classList.toggle("hidden");
+    const isOpen = !mobileSolucionesSubmenu?.classList.contains("hidden");
+    mobileSolucionesToggle.setAttribute("aria-expanded", String(isOpen));
+    mobileSolucionesChevron?.classList.toggle("rotate-180", isOpen);
   });
 </script>

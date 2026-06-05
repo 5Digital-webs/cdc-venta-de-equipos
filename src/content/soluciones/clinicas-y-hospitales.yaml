@@ -1,0 +1,57 @@
+title: Clínicas y Hospitales
+description: >-
+  Soluciones de lavandería hospitalaria con enfoque sanitario. Equipos diseñados
+  para cumplir protocolos sanitarios y asegurar continuidad operacional en el sector salud.
+published: true
+badge: Clínicas y Hospitales
+heroTitle: Soluciones de lavandería hospitalaria con enfoque sanitario
+heroDescription: >-
+  Equipos diseñados para cumplir protocolos sanitarios y asegurar continuidad
+  operacional en el sector salud.
+heroImage: '@assets/images/images-soluciones/sector-clinicas-hospitales.jpg'
+heroImageAlt: Soluciones de lavandería hospitalaria para clínicas y hospitales
+stats:
+  - value: 100%
+    label: Cumplimiento sanitario
+  - value: '0'
+    label: Contaminación cruzada
+  - value: 24/7
+    label: Soporte técnico
+  - value: '+35'
+    label: Años de experiencia
+challengesTitle: Desafíos del sector salud
+challenges:
+  - Cumplimiento de normativas sanitarias
+  - Procesamiento de ropa contaminada
+  - Separación estricta entre área limpia y sucia
+  - Trazabilidad de procesos
+  - Operación crítica sin margen de falla
+solutionTitle: Nuestra solución hospitalaria integral
+solutionIntro: >-
+  Desarrollamos proyectos completos de lavandería hospitalaria:
+solutionItems:
+  - title: Lavadoras de barrera sanitaria (pasantes)
+    description: Separación física entre zona sucia y limpia para evitar contaminación cruzada.
+  - title: Secadoras industriales de alta precisión
+    description: Control exacto de temperatura y humedad.
+  - title: Rodillos / Calandras hospitalarias
+    description: Terminación profesional de ropa plana (sábanas, campos clínicos, fundas).
+  - title: Planchadoras industriales de alto rendimiento
+    description: Producción continua con calidad uniforme.
+  - title: Sistemas de dosificación automática y control químico
+    description: Cumplimiento de protocolos y eficiencia en consumo.
+  - title: Diseño de layout con flujo unidireccional
+    description: Ingeniería aplicada para cumplir estándares sanitarios.
+benefitsTitle: Beneficios
+benefits:
+  - Cumplimiento sanitario
+  - Reducción de riesgo operativo
+  - Mayor control del proceso
+  - Continuidad operacional garantizada
+  - Proyecto integral llave en mano
+ctaTitle: Solicita evaluación técnica para tu proyecto hospitalario.
+ctaButtonText: Solicitar evaluación técnica
+ctaHref: /cotizar
+featured: true
+order: 2
+publishedAt: 2026-06-05

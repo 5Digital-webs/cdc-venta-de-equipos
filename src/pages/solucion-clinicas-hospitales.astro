@@ -52,7 +52,7 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
 
   <section class="soluciones-metricas bg-white py-8">
     <div class="max-w-7xl mx-auto px-4">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-[#0f172a]">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
         <div>
           <p
             class="text-4xl md:text-5xl font-bold leading-none"
@@ -67,7 +67,7 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
 
         <div>
           <p
-            class="text-4xl md:text-5xl font-bold leading-none text-[#1f6fbe]"
+            class="text-4xl md:text-5xl font-bold leading-none"
             data-counter
             data-target="24"
             data-suffix="/7"
@@ -380,3 +380,14 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
   </script>
 
 </Layout>
+
+<style>
+  .soluciones-metricas p {
+    color: #000000;
+    transition: color 0.3s ease;
+  }
+
+  .soluciones-metricas p:hover {
+    color: #1f6fbe;
+  }
+</style>

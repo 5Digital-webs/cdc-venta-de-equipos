@@ -1,0 +1,55 @@
+title: Industria y Uniformes
+description: >-
+  Soluciones de lavandería industrial para ropa de trabajo y uniformes. Equipos
+  diseñados para el procesamiento intensivo de textiles industriales con alto nivel de suciedad.
+published: true
+badge: Industria y Uniformes
+heroTitle: Soluciones de lavandería industrial para ropa de trabajo y uniformes
+heroDescription: >-
+  Equipos diseñados para el procesamiento intensivo de textiles industriales
+  con alto nivel de suciedad.
+heroImage: '@assets/images/images-soluciones/sector-industria-uniformes.jpg'
+heroImageAlt: Soluciones de lavandería industrial para industria y uniformes
+stats:
+  - value: Heavy
+    label: Duty certified
+  - value: 24/7
+    label: Operación por turnos
+  - value: '-30%'
+    label: Consumo energético
+  - value: '+35'
+    label: Años de experiencia
+challengesTitle: Desafíos del sector industrial
+challenges:
+  - Uniformes con suciedad pesada (aceites, grasas, químicos)
+  - Alta frecuencia de lavado
+  - Necesidad de durabilidad en los equipos
+  - Control de costos operativos
+  - Operación continua por turnos
+solutionTitle: Nuestra solución
+solutionIntro: >-
+  Configuraciones robustas para entornos industriales exigentes:
+solutionItems:
+  - title: Lavadoras extractoras industriales de alta resistencia
+    description: Programas específicos para suciedad pesada.
+  - title: Secadoras de gran capacidad y alto rendimiento térmico
+    description: Optimización de tiempos de secado.
+  - title: Rodillos / Calandras industriales
+    description: Terminación profesional en textiles planos industriales.
+  - title: Planchadoras industriales para uniformes
+    description: Presentación uniforme y estándar corporativo.
+  - title: Sistemas de dosificación automática industrial
+    description: Control preciso de químicos según tipo de suciedad.
+benefitsTitle: Beneficios
+benefits:
+  - Mayor durabilidad de los equipos
+  - Reducción de costo por ciclo
+  - Mejor presentación de uniformes
+  - Aumento de productividad por turno
+  - Operación estable en ambientes exigentes
+ctaTitle: Solicita una evaluación técnica según tu tipo de industria.
+ctaButtonText: Solicitar evaluación técnica
+ctaHref: /cotizar
+featured: true
+order: 4
+publishedAt: 2026-06-05
