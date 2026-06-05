@@ -5,7 +5,7 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
 ---
 
 <Layout
-  title="Servicios - Medical Más Salud"
+  title="Mantención preventiva y correctiva | CDC Venta de Equipos"
   description="Conoce nuestros servicios."
 >
   <section class="servicio-banner relative w-full ">
@@ -25,18 +25,17 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
       <div class="relative max-w-7xl mx-auto px-4 py-12 md:py-16">
         <div class="max-w-xl">
           <span class="inline-flex items-center bg-white/15 text-white text-xs font-semibold px-4 py-2 rounded-full">
-            PROYECTOS LLAVE EN MANO
+            MANTENCIÓN PREVENTIVA Y CORRECTIVA
           </span>
 
           <h1 class="mt-5 text-white text-3xl md:text-4xl font-bold leading-tight">
-            Proyectos integrales de
+            Soporte técnico especializado
             <br />
-            lavandería industrial
+            para continuidad operacional
           </h1>
 
           <p class="mt-5 text-white/90 text-sm md:text-base leading-relaxed max-w-lg">
-            Desarrollamos proyectos completos desde el diseño inicial hasta la puesta en marcha operativa,
-            asegurando eficiencia, cumplimiento normativo y continuidad operativa.
+            La continuidad es clave en una operación industrial. Nuestro servicio técnico asegura funcionamiento estable y respuesta rápida ante contingencias.
           </p>
 
           <a
@@ -58,13 +57,26 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
           <p
             class="text-4xl md:text-5xl font-bold leading-none"
             data-counter
-            data-target="35"
-            data-prefix="+"
+            data-target="24"
+            data-suffix="/7"
           >
-            +0
+            0/7
           </p>
-          <p class="mt-2 text-base md:text-[20px] font-semibold">Años de experiencia</p>
+          <p class="mt-2 text-base md:text-[20px] font-semibold">Disponibilidad</p>
         </div>
+
+        <div>
+          <p
+            class="text-4xl md:text-5xl font-bold leading-none"
+            data-counter
+            data-target="4"
+            data-suffix="h"
+          >
+            0
+          </p>
+          <p class="mt-2 text-base md:text-[20px] font-semibold">Tiempo de respuesta</p>
+        </div>
+        
 
         <div>
           <p
@@ -75,40 +87,29 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
           >
             0%
           </p>
-          <p class="mt-2 text-base md:text-[20px] font-semibold">Proyectos entregados</p>
+          <p class="mt-2 text-base md:text-[20px] font-semibold">Repuestos originales</p>
         </div>
 
         <div>
           <p
             class="text-4xl md:text-5xl font-bold leading-none"
             data-counter
-            data-target="24"
-            data-suffix="/7"
-          >
-            0/7
-          </p>
-          <p class="mt-2 text-base md:text-[20px] font-semibold">Soporte técnico</p>
-        </div>
-
-        <div>
-          <p
-            class="text-4xl md:text-5xl font-bold leading-none"
-            data-counter
-            data-target="500"
+            data-target="35"
             data-prefix="+"
           >
             +0
           </p>
-          <p class="mt-2 text-base md:text-[20px] font-semibold">Equipos instalados</p>
+          <p class="mt-2 text-base md:text-[20px] font-semibold">Años de experiencia</p>
         </div>
+
       </div>
     </div>
   </section>
 
   <section class="servicio-incluye bg-[#fff] py-16">
     <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-center text-[#1b1e4b] text-[24px] font-bold mb-10">
-        ¿Qué incluye?
+      <h2 class="text-center text-[#1b1e4b] text-[24px] font-[900] mb-10">
+       Planes de servicio
       </h2>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
@@ -117,7 +118,7 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
             <img src={iconoCheckServicio.src} alt="Ícono llave en mano" class="w-[40px] h-[40px]" loading="lazy" />
           </div>
           <p class="font-[500] text-black text-[16px] leading-[1.15]">
-            <span class="font-bold">Diseño técnico</span> y layout de la lavandería
+            Montaje preventiva programada
           </p>
         </div>
 
@@ -128,7 +129,7 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
           </div>
           </div>
           <p class="font-[500] text-black text-[16px] leading-[1.15]">
-            Selección y dimensionamiento de equipos
+            Diagnóstico técnico especializado
           </p>
         </div>
 
@@ -139,7 +140,7 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
           </div>
           </div>
           <p class="font-[500] text-black text-[16px] leading-[1.15]">
-            Suministro e <span class="font-bold">instalación completa</span>
+            Repuestos originales garantizados
           </p>
         </div>
 
@@ -150,7 +151,7 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
           </div>
           </div>
           <p class="font-[500] text-black text-[16px] leading-[1.15]">
-            <span class="font-bold">Coordinación eléctrica</span>, hidráulica y de gas
+            Atención correctiva prioritaria
           </p>
         </div>
 
@@ -161,29 +162,21 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
           </div>
           </div>
           <p class="font-[500] text-black text-[16px] leading-[1.15]">
-            Puesta en marcha y <span class="font-bold">capacitación</span>
+             Evaluación de desempeño operativo
           </p>
         </div>
 
-        <div class="bg-white rounded-[14px] border border-gray-100 shadow-sm p-6 flex items-center gap-4">
-          <div class="w-14 h-14 rounded-[10px] bg-blue-50 flex items-center justify-center shrink-0">
-           <div class="w-14 h-14 rounded-[10px] bg-blue-50 flex items-center justify-center shrink-0">
-            <img src={iconoCheckServicio.src} alt="Ícono llave en mano" class="w-[40px] h-[40px]" loading="lazy" />
-          </div>
-          </div>
-          <p class="font-[500] text-black text-[16px] leading-[1.15]">
-            Acompañamiento <span class="font-bold">post-venta</span>
-          </p>
-        </div>
+        
       </div>
     </div>
   </section>
 
   <section class="servicio-incluye bg-[#fff] py-6">
     <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-center text-[#1b1e4b] text-[24px] font-bold mb-10">
-        Valor diferencial
+      <h2 class="text-center text-[#1b1e4b] text-[24px] font-[900] mb-10">
+        Beneficios
       </h2>
+    
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
         <div class="bg-white rounded-[14px] border border-gray-100 shadow-sm p-6 flex items-center gap-4">
@@ -193,7 +186,7 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
           </div>
           </div>
           <p class="font-[500] text-black text-[16px] leading-[1.15]">
-            <span class="font-bold">Ingeniería aplicada</span> a cada rubro
+             Reducción de fallas críticas 
           </p>
         </div>
 
@@ -204,7 +197,7 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
           </div>
           </div>
           <p class="font-[500] text-black text-[16px] leading-[1.15]">
-            <span class="font-bold">Optimización de inversión</span> y operación
+            Mayor vida útil de los equipos
           </p>
         </div>
 
@@ -215,7 +208,7 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
           </div>
           </div>
           <p class="font-[500] text-black text-[16px] leading-[1.15]">
-            Coordinación integral <span class="font-bold">sin múltiples proveedores</span>
+            Optimización del rendimiento 
           </p>
         </div>
 
@@ -226,7 +219,7 @@ import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
             </div>
           </div>
           <p class="font-[500] text-black text-[16px] leading-[1.15]">
-            <span class="font-bold">Proyecto estructurado</span> para largo plazo
+            Menor costo por interrupciones
           </p>
         </div>
       </div>

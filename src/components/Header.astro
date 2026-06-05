@@ -1,7 +1,6 @@
 ---
 import logoCdc from "@/assets/Logo-cdc.png";
 
-// Props
 export interface Props {
   title?: string;
   description?: string;
@@ -10,20 +9,43 @@ export interface Props {
 const { title = "Editorial Siriza Agaria", description } = Astro.props;
 const currentPath = Astro.url.pathname;
 
+const serviciosLinks = [
+  { href: "/servicio", label: "Proyectos llave en mano" },
+  { href: "/instalacion-y-puesta-en-marcha", label: "Instalación y puesta en marcha" },
+  { href: "/lavanderias-autoservicios", label: "Lavanderías autoservicio" },
+  { href: "/mantencion-preventiva", label: "Mantención preventiva y correctiva" },
+];
+
+const serviciosPaths = serviciosLinks.map((link) => link.href);
+const isServiciosActive = serviciosPaths.includes(currentPath);
+
 const linkClass = (path: string) =>
   `px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm lg:text-base ${
     currentPath === path
-      ? "bg-blue-600 text-white"
-      : "text-black hover:bg-blue-100"
+      ? "bg-[#1568C1] text-white"
+      : "text-black hover:bg-[#1568C1]/10"
+  }`;
+
+const serviciosTriggerClass = `inline-flex items-center gap-1 px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm lg:text-base ${
+  isServiciosActive
+    ? "bg-[#1568C1] text-white"
+    : "text-black hover:bg-[#1568C1]/10"
+}`;
+
+const subLinkClass = (path: string) =>
+  `block rounded-md px-4 py-2.5 text-sm font-medium transition-colors ${
+    currentPath === path
+      ? "bg-[#1568C1]/10 text-[#1568C1]"
+      : "text-gray-800 hover:bg-[#1568C1]/10 hover:text-[#1568C1]"
   }`;
 ---
 
 <header
   id="main-header"
-  class="fixed top-0 bg-white lg:shadow-md z-50 w-full transition-all duration-500 ease-in-out"
+  class="fixed top-0 z-50 w-full overflow-visible bg-white transition-all duration-500 ease-in-out lg:shadow-md"
 >
-  <div class="container mx-auto px-2 lg:px-4">
-    <div class="flex items-center justify-between py-4 gap-4">
+  <div class="container mx-auto overflow-visible px-2 lg:px-4">
+    <div class="flex items-center justify-between gap-4 overflow-visible py-4">
       <a href="/" class="flex items-center flex-shrink-0">
         <img
           src={logoCdc.src}
@@ -33,34 +55,65 @@ const linkClass = (path: string) =>
         />
       </a>
 
-    
-      <div class="hidden lg:flex flex-1 justify-center">
-        <nav class="flex items-center gap-2 xl:gap-4 whitespace-nowrap overflow-x-auto">
-
+      <div class="hidden flex-1 justify-center overflow-visible lg:flex">
+        <nav class="flex items-center gap-2 overflow-visible whitespace-nowrap xl:gap-4">
           <a href="/" class={linkClass("/")}>Inicio</a>
           <a href="/empresa" class={linkClass("/empresa")}>CDC Rent</a>
           <a href="/equipos" class={linkClass("/equipos")}>Equipos</a>
-          <a href="/servicio" class={linkClass("/servicio")}>Servicios</a>
+
+          <div class="group relative overflow-visible" id="servicios-dropdown">
+            <button
+              type="button"
+              class={serviciosTriggerClass}
+              aria-haspopup="true"
+              aria-expanded="false"
+              id="servicios-dropdown-trigger"
+            >
+              Servicios
+              <svg
+                class="h-4 w-4 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            <div
+              class="invisible absolute left-0 top-full z-[60] pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+              id="servicios-dropdown-menu"
+            >
+              <div class="min-w-[280px] rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
+                {
+                  serviciosLinks.map((link) => (
+                    <a href={link.href} class={subLinkClass(link.href)}>
+                      {link.label}
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+
           <a href="/soluciones" class={linkClass("/soluciones")}>Soluciones</a>
           <a href="/marcas" class={linkClass("/marcas")}>Marcas</a>
           <a href="/proyectos" class={linkClass("/proyectos")}>Proyectos</a>
-
         </nav>
       </div>
 
-   
       <div class="flex items-center gap-3 lg:gap-4 flex-shrink-0">
-
         <a
           href="/cotizar"
-          class="hidden lg:inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg transition-all duration-300"
+          class="hidden lg:inline-flex items-center justify-center bg-[#1568C1] hover:bg-[#1256a8] text-white font-medium px-5 py-2 rounded-lg transition-all duration-300"
         >
           Cotizar
         </a>
 
         <button
           id="menu-toggle"
-          class="lg:hidden text-gray-700 hover:text-blue-600 transition p-2"
+          class="lg:hidden text-gray-700 hover:text-[#1568C1] transition p-2"
           aria-label="Abrir menú"
         >
           <svg
@@ -81,21 +134,49 @@ const linkClass = (path: string) =>
     </div>
   </div>
 
-  
   <div
     id="mobile-menu"
     class="hidden lg:hidden bg-white border-t border-gray-200 shadow-lg"
   >
     <nav class="container mx-auto px-4 py-6 flex flex-col space-y-3">
-
       <a href="/" class={linkClass("/")}>Inicio</a>
       <a href="/empresa" class={linkClass("/empresa")}>CDC Rent</a>
       <a href="/equipos" class={linkClass("/equipos")}>Equipos</a>
-      <a href="/servicio" class={linkClass("/servicio")}>Servicios</a>
+
+      <div>
+        <button
+          type="button"
+          id="mobile-servicios-toggle"
+          class={`${serviciosTriggerClass} w-full justify-between`}
+          aria-expanded="false"
+        >
+          Servicios
+          <svg
+            id="mobile-servicios-chevron"
+            class="h-5 w-5 transition-transform duration-200"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div id="mobile-servicios-submenu" class="mt-2 hidden flex flex-col gap-1 pl-3">
+          {
+            serviciosLinks.map((link) => (
+              <a href={link.href} class={subLinkClass(link.href)}>
+                {link.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
       <a href="/soluciones" class={linkClass("/soluciones")}>Soluciones</a>
       <a href="/marcas" class={linkClass("/marcas")}>Marcas</a>
       <a href="/proyectos" class={linkClass("/proyectos")}>Proyectos</a>
-
     </nav>
   </div>
 </header>
@@ -113,5 +194,16 @@ const linkClass = (path: string) =>
     link.addEventListener("click", () => {
       mobileMenu?.classList.add("hidden");
     });
+  });
+
+  const mobileServiciosToggle = document.getElementById("mobile-servicios-toggle");
+  const mobileServiciosSubmenu = document.getElementById("mobile-servicios-submenu");
+  const mobileServiciosChevron = document.getElementById("mobile-servicios-chevron");
+
+  mobileServiciosToggle?.addEventListener("click", () => {
+    mobileServiciosSubmenu?.classList.toggle("hidden");
+    const isOpen = !mobileServiciosSubmenu?.classList.contains("hidden");
+    mobileServiciosToggle.setAttribute("aria-expanded", String(isOpen));
+    mobileServiciosChevron?.classList.toggle("rotate-180", isOpen);
   });
 </script>

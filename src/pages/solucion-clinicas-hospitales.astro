@@ -1,0 +1,382 @@
+---
+import Layout from "../layouts/Layout.astro";
+import bannerEquipos from "@/assets/images/images-equipos/banner-equipos.jpg";
+import limpiezaImage from "@/assets/images/images-soluciones/limpieza.jpg";
+import lavadorasImage from "@/assets/images/images-soluciones/lavadoras.jpg";
+import iconoCheckServicio from "@/assets/svg/icono-check-servicio.svg";
+---
+
+<Layout
+  title="Soluciones - Medical Más Salud"
+  description="Conoce nuestra sección de soluciones."
+>
+  <section class="banner-soluciones relative w-full">
+    <div class="relative w-full overflow-hidden">
+      <img
+        src={bannerEquipos.src ?? bannerEquipos}
+        alt="Soluciones de lavandería industrial"
+        class="absolute inset-0 w-full h-full object-cover object-center"
+        loading="eager"
+      />
+
+      <div class="absolute inset-0 bg-[#0b2e4f]/50"></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 py-12 md:py-16">
+        <div class="max-w-2xl text-white">
+          <span class="inline-flex items-center bg-blue-600 text-white text-xs font-semibold px-6 py-2 rounded-full">
+            HOTELES
+          </span>
+
+          <h1 class="mt-5 text-3xl md:text-4xl font-bold leading-tight">
+            Soluciones de lavandería
+            <br />
+            industrial para hoteles
+          </h1>
+
+          <p class="mt-5 text-base md:text-m leading-relaxed max-w-xl text-white/90">
+            Equipos de alta capacidad diseñados para operación continua, eficiencia
+            energética y calidad constante en textiles hoteleros.
+          </p>
+
+          <a
+            href="/cotizar"
+            class="inline-flex items-center gap-2 mt-8 border border-white/70 text-white font-semibold px-6 py-3 rounded-[10px] hover:bg-white/10 transition-all duration-300"
+          >
+            Cotiza tu proyecto
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="soluciones-metricas bg-white py-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-[#0f172a]">
+        <div>
+          <p
+            class="text-4xl md:text-5xl font-bold leading-none"
+            data-counter
+            data-target="35"
+            data-prefix="+"
+          >
+            +0
+          </p>
+          <p class="mt-2 text-base md:text-[20px] font-semibold">Años de experiencia</p>
+        </div>
+
+        <div>
+          <p
+            class="text-4xl md:text-5xl font-bold leading-none text-[#1f6fbe]"
+            data-counter
+            data-target="24"
+            data-suffix="/7"
+          >
+            0/7
+          </p>
+          <p class="mt-2 text-base md:text-[20px] font-semibold">Operación continua</p>
+        </div>
+
+        <div>
+          <p
+            class="text-4xl md:text-5xl font-bold leading-none"
+            data-counter
+            data-target="30"
+            data-prefix="-"
+            data-suffix="%"
+          >
+            -0%
+          </p>
+          <p class="mt-2 text-base md:text-[20px] font-semibold">Consumo energético</p>
+        </div>
+
+        <div>
+          <p
+            class="text-4xl md:text-5xl font-bold leading-none"
+            data-counter
+            data-target="100"
+            data-suffix="%"
+          >
+            0%
+          </p>
+          <p class="mt-2 text-base md:text-[20px] font-semibold">Calidad uniforme</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="soluciones-desafios bg-[#f4f4f4] py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 overflow-hidden">
+        <div class="bg-[#0b2e4f] p-6 md:p-8 flex">
+          <div class="bg-white p-6 md:p-10 h-full w-full">
+            <h2 class="text-center text-[#1b1e4b] text-2xl md:text-3xl font-bold leading-[1.2] mb-8">
+              Desafíos del
+              <br />
+              Sector hotelero
+            </h2>
+
+            <div class="space-y-3">
+              <div class="bg-[#eef1f7] rounded-full px-4 py-2 flex items-center gap-3">
+                <svg class="w-5 h-5 text-[#4f87b8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86l-7 12.14A1 1 0 004.16 18h15.68a1 1 0 00.87-1.5l-7-12.14a1 1 0 00-1.74 0z" />
+                </svg>
+                <p class="text-[#111827] text-sm md:text-base">
+                  Alta rotación diaria de sábanas y toallas
+                </p>
+              </div>
+
+              <div class="bg-[#eef1f7] rounded-full px-4 py-2 flex items-center gap-3">
+                <svg class="w-5 h-5 text-[#4f87b8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86l-7 12.14A1 1 0 004.16 18h15.68a1 1 0 00.87-1.5l-7-12.14a1 1 0 00-1.74 0z" />
+                </svg>
+                <p class="text-[#111827] text-sm md:text-base">
+                  Necesidad de ciclos <span class="font-bold">rápidos</span> y eficientes
+                </p>
+              </div>
+
+              <div class="bg-[#eef1f7] rounded-full px-4 py-2 flex items-center gap-3">
+                <svg class="w-5 h-5 text-[#4f87b8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86l-7 12.14A1 1 0 004.16 18h15.68a1 1 0 00.87-1.5l-7-12.14a1 1 0 00-1.74 0z" />
+                </svg>
+                <p class="text-[#111827] text-sm md:text-base">
+                  Control de <span class="font-bold">consumo energético</span> y agua
+                </p>
+              </div>
+
+              <div class="bg-[#eef1f7] rounded-full px-4 py-2 flex items-center gap-3">
+                <svg class="w-5 h-5 text-[#4f87b8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86l-7 12.14A1 1 0 004.16 18h15.68a1 1 0 00.87-1.5l-7-12.14a1 1 0 00-1.74 0z" />
+                </svg>
+                <p class="text-[#111827] text-sm md:text-base">
+                  Calidad uniforme en planchado y secado
+                </p>
+              </div>
+
+              <div class="bg-[#eef1f7] rounded-full px-4 py-2 flex items-center gap-3">
+                <svg class="w-5 h-5 text-[#4f87b8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86l-7 12.14A1 1 0 004.16 18h15.68a1 1 0 00.87-1.5l-7-12.14a1 1 0 00-1.74 0z" />
+                </svg>
+                <p class="text-[#111827] text-sm md:text-base">
+                  <span class="font-bold">Operación continua</span> sin interrupciones
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="min-h-[320px] md:min-h-[520px]">
+          <img
+            src={limpiezaImage.src ?? limpiezaImage}
+            alt="Limpieza y preparación de ropa de cama"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="soluciones-nuestra-solucion bg-[#f4f4f4] pb-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="bg-white rounded-[14px] border border-gray-200 shadow-sm overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+          <div class="min-h-[320px] md:min-h-[520px]">
+            <img
+              src={lavadorasImage.src ?? lavadorasImage}
+              alt="Lavadoras industriales"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="p-6 md:p-10">
+            <h2 class="text-[#1b1e4b] text-2xl md:text-3xl font-bold mb-4">
+              Nuestra solución
+            </h2>
+            <p class="font-[500] text-[#000] text-base md:text-[16px] leading-[1.2] mb-8">
+              Diseñamos soluciones adaptadas al tamaño del hotel y volumen
+              diario de ropa:
+            </p>
+
+            <div class="space-y-5">
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-[#1f6fbe] shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12l4 4L19 6" />
+                </svg>
+                <div>
+                  <p class="text-[#111827] text-base md:text-[18px] font-bold leading-[1.2]">
+                    Lavadoras industriales de alta capacidad (20-120+kg)
+                  </p>
+                  <p class="font-[500] text-[#374151] text-sm md:text-base leading-relaxed">
+                    Programas optimizados para ropa blanca y toallas.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-[#1f6fbe] shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12l4 4L19 6" />
+                </svg>
+                <div>
+                  <p class="text-[#111827] text-base md:text-[18px] font-bold leading-[1.2]">
+                    Secadoras industriales con control de humedad
+                  </p>
+                  <p class="font-[500] text-[#374151] text-sm md:text-base leading-relaxed">
+                    Reducción de tiempos y eficacia térmica.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-[#1f6fbe] shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12l4 4L19 6" />
+                </svg>
+                <div>
+                  <p class="text-[#111827] text-base md:text-[18px] font-bold leading-[1.2]">
+                    Rodillos / Calandras para ropa plana
+                  </p>
+                  <p class="font-[500] text-[#374151] text-sm md:text-base leading-relaxed">
+                    Terminación profesional de sábanas y fundas.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-[#1f6fbe] shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12l4 4L19 6" />
+                </svg>
+                <div>
+                  <p class="text-[#111827] text-base md:text-[18px] font-bold leading-[1.2]">
+                    Planchadoras industriales
+                  </p>
+                  <p class="font-[500] text-[#374151] text-sm md:text-base leading-relaxed">
+                    Calidad uniforme y mayor productividad.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-[#1f6fbe] shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12l4 4L19 6" />
+                </svg>
+                <div>
+                  <p class="text-[#111827] text-base md:text-[18px] font-bold leading-[1.2]">
+                    Sistemas de dosificación automática
+                  </p>
+                  <p class="font-[500] text-[#374151] text-sm md:text-base leading-relaxed">
+                    Control de químicos y reducción de costos.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="soluciones-beneficios-hotel bg-[#f4f4f4] py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-center text-[#1b1e4b] text-2xl md:text-3xl font-bold mb-10 px-10">
+        Beneficios para el Hotel
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+        <div class="bg-white rounded-[14px] border border-gray-100 shadow-sm p-6 flex items-center gap-4">
+        <div class="w-14 h-14 rounded-[10px] bg-blue-50 flex items-center justify-center shrink-0">
+            <img src={iconoCheckServicio.src} alt="Ícono llave en mano" class="w-[60px] h-[60px]" loading="lazy" />
+        </div>
+          <p class="font-[600] text-[#111827] text-base md:text-[16px] leading-[1.25]">
+            Reducción de costo por kilo lavado
+          </p>
+        </div>
+
+        <div class="bg-white rounded-[14px] border border-gray-100 shadow-sm p-6 flex items-center gap-4">
+           <div class="w-14 h-14 rounded-[10px] bg-blue-50 flex items-center justify-center shrink-0">
+            <img src={iconoCheckServicio.src} alt="Ícono llave en mano" class="w-[60px] h-[60px]" loading="lazy" />
+          </div>
+          <p class="font-[600] text-[#111827] text-base md:text-[16px] leading-[1.25]">
+            Mayor productividad por turno
+          </p>
+        </div>
+
+        <div class="bg-white rounded-[14px] border border-gray-100 shadow-sm p-6 flex items-center gap-4">
+          <div class="w-14 h-14 rounded-[10px] bg-blue-50 flex items-center justify-center shrink-0">
+            <img src={iconoCheckServicio.src} alt="Ícono llave en mano" class="w-[60px] h-[60px]" loading="lazy" />
+          </div>
+          <p class="font-[600] text-[#111827] text-base md:text-[16px] leading-[1.25]">
+            Calidad consistente en textiles
+          </p>
+        </div>
+
+        <div class="bg-white rounded-[14px] border border-gray-100 shadow-sm p-6 flex items-center gap-4">
+          <div class="w-14 h-14 rounded-[10px] bg-blue-50 flex items-center justify-center shrink-0">
+            <img src={iconoCheckServicio.src} alt="Ícono llave en mano" class="w-[60px] h-[60px]" loading="lazy" />
+          </div>
+          <p class="font-[600] text-[#111827] text-base md:text-[16px] leading-[1.25]">
+            Ahorro energético
+          </p>
+        </div>
+
+        <div class="bg-white rounded-[14px] border border-gray-100 shadow-sm p-6 flex items-center gap-4">
+         <div class="w-14 h-14 rounded-[10px] bg-blue-50 flex items-center justify-center shrink-0">
+            <img src={iconoCheckServicio.src} alt="Ícono llave en mano" class="w-[60px] h-[60px]" loading="lazy" />
+          </div>
+          <p class="font-[600] text-[#111827] text-base md:text-[16px] leading-[1.25]">
+            Retorno de inversión optimizado
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const section = document.querySelector(".soluciones-metricas");
+    const counters = document.querySelectorAll(".soluciones-metricas [data-counter]");
+    let hasAnimated = false;
+
+    const animateCounters = () => {
+      if (hasAnimated) return;
+      hasAnimated = true;
+
+      counters.forEach((counterEl) => {
+        const target = Number(counterEl.getAttribute("data-target") ?? "0");
+        const prefix = counterEl.getAttribute("data-prefix") ?? "";
+        const suffix = counterEl.getAttribute("data-suffix") ?? "";
+        const duration = 1200;
+        const start = performance.now();
+
+        const step = (timestamp) => {
+          const progress = Math.min((timestamp - start) / duration, 1);
+          const current = Math.floor(progress * target);
+          counterEl.textContent = `${prefix}${current}${suffix}`;
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            counterEl.textContent = `${prefix}${target}${suffix}`;
+          }
+        };
+
+        requestAnimationFrame(step);
+      });
+    };
+
+    if (section) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              animateCounters();
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.35 },
+      );
+
+      observer.observe(section);
+    }
+  </script>
+
+</Layout>
