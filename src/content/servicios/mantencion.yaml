@@ -1,0 +1,45 @@
+title: Mantención preventiva y correctiva
+description: >-
+  Soporte técnico especializado para continuidad operacional con mantención preventiva,
+  repuestos originales y atención correctiva prioritaria.
+published: true
+serviceName: Mantención Preventiva y Correctiva
+heroTitle: Soporte técnico especializado para continuidad operacional
+heroSubtitle: >-
+  La continuidad es clave en una operación industrial. Nuestro servicio técnico asegura
+  funcionamiento estable y respuesta rápida ante contingencias.
+heroImage: '@assets/images/images-servicios/service-mantencion.jpg'
+heroImageAlt: Mantención preventiva y correctiva de equipos industriales
+highlights:
+  - value: 24/7
+    label: Disponibilidad
+    counterTarget: 24
+    counterSuffix: /7
+  - value: 4h
+    label: Tiempo de respuesta
+    counterTarget: 4
+    counterSuffix: h
+  - value: 100%
+    label: Repuestos originales
+    counterTarget: 100
+    counterSuffix: '%'
+  - value: '+35'
+    label: Años de experiencia
+    counterTarget: 35
+    counterPrefix: '+'
+sections:
+  - title: Planes de servicio
+    items:
+      - Mantención preventiva programada
+      - Diagnóstico técnico especializado
+      - Repuestos originales garantizados
+      - Atención correctiva prioritaria
+      - Evaluación de desempeño operativo
+  - title: Beneficios
+    items:
+      - Reducción de fallas críticas
+      - Mayor vida útil de los equipos
+      - Optimización del rendimiento
+      - Menor costo por interrupciones
+ctaText: Solicita un plan de mantención para tu operación.
+order: 3

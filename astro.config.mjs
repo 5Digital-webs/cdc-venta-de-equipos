@@ -20,12 +20,12 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
-  // Example redirects (uncomment and adapt as needed):
-  // redirects: {
-  //   '/old-path': '/new-path/',
-  //   '/old-path/': '/new-path/',
-  //   '/category/blog': '/blog/',
-  // },
+  redirects: {
+    '/servicio': '/servicios/proyectos-llave-en-mano',
+    '/instalacion-y-puesta-en-marcha': '/servicios/instalacion',
+    '/lavanderias-autoservicios': '/servicios/autoservicio',
+    '/mantencion-preventiva': '/servicios/mantencion',
+  },
   image: {
     // Enable modern image formats
     domains: [],

@@ -1,0 +1,42 @@
+title: Lavanderías autoservicio
+description: >-
+  Soluciones de lavandería autoservicio para comunidades residenciales y multifamily,
+  con equipamiento completo y mantención continua.
+published: true
+serviceName: Lavanderías Autoservicio
+heroTitle: Soluciones de lavandería autoservicio para comunidades
+heroSubtitle: >-
+  Diseñamos e implementamos lavanderías autoservicio eficientes, robustas y adaptadas
+  a edificios residenciales y multifamily.
+heroImage: '@assets/images/images-servicios/service-autoservicio.jpg'
+heroImageAlt: Lavanderías autoservicio para comunidades
+highlights:
+  - value: 24/7
+    label: Operación continua
+    counterTarget: 24
+    counterSuffix: /7
+  - value: '0'
+    label: Inversión del edificio
+    counterTarget: 0
+  - value: 100%
+    label: Mantención incluida
+    counterTarget: 100
+    counterSuffix: '%'
+  - value: +
+    label: Valor al edificio
+sections:
+  - title: Qué ofrecemos
+    items:
+      - Equipamiento completo de lavadoras y secadoras comerciales
+      - Sistemas de pago y control de acceso
+      - Configuración compacta y optimización de espacio
+      - Instalación y puesta en marcha
+      - Mantención continua
+  - title: Beneficios para la comunidad
+    items:
+      - Equipos confiables y de uso intensivo
+      - Bajo mantenimiento
+      - Operación simple para residentes
+      - Valor agregado para el edificio
+ctaText: Solicita una propuesta para tu proyecto residencial.
+order: 4

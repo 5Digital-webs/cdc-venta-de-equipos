@@ -17,13 +17,15 @@ const searchItems = [
         category: "Blog",
         tags: post.data.tags || [],
     })),
-    ...servicios.map((doc) => ({
+    ...servicios
+        .filter((doc) => doc.data.published)
+        .map((doc) => ({
         id: doc.id,
-        title: doc.data.title,
+        title: doc.data.serviceName ?? doc.data.title,
         description: doc.data.description || "",
         url: `/servicios/${getContentSlug(doc.id)}`,
         category: "Servicios",
-        tags: doc.data.tags || [],
+        tags: [],
     })),
     ...productos.map((doc) => ({
         id: doc.id,

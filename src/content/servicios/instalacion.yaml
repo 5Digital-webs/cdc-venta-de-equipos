@@ -1,0 +1,45 @@
+title: Instalación y puesta en marcha
+description: >-
+  Instalación profesional de equipos industriales con estándares de seguridad, eficiencia
+  y funcionamiento certificado desde el primer día.
+published: true
+serviceName: Instalación y Puesta en Marcha
+heroTitle: Instalación profesional con estándares industriales
+heroSubtitle: >-
+  Realizamos montaje especializado de equipos industriales garantizando seguridad, eficiencia
+  y correcto funcionamiento desde el primer día.
+heroImage: '@assets/images/images-servicios/service-instalacion.jpg'
+heroImageAlt: Instalación profesional de equipos industriales
+highlights:
+  - value: 100%
+    label: Certificado
+    counterTarget: 100
+    counterSuffix: '%'
+  - value: '+500'
+    label: Equipos instalados
+    counterTarget: 500
+    counterPrefix: '+'
+  - value: '0'
+    label: Fallas en puesta en marcha
+    counterTarget: 0
+  - value: 24h
+    label: Respuesta técnica
+    counterTarget: 24
+    counterSuffix: h
+sections:
+  - title: Servicios incluidos
+    items:
+      - Montaje técnico de equipos
+      - Conexiones eléctricas, hidráulicas y de gas
+      - Nivelación y fijación industrial
+      - Pruebas de funcionamiento certificadas
+      - Capacitación al personal operativo
+  - title: Por qué es clave
+    description: 'Una instalación correcta impacta directamente en:'
+    items:
+      - Vida útil del equipo
+      - Consumo energético
+      - Seguridad operacional
+      - Reducción de fallas futuras
+ctaText: Coordina la instalación profesional de tus equipos.
+order: 2

@@ -1,0 +1,46 @@
+title: Proyectos llave en mano
+description: >-
+  Proyectos integrales de lavandería industrial desde el diseño hasta la puesta en marcha,
+  con ingeniería aplicada y coordinación completa.
+published: true
+serviceName: Proyectos Llave en Mano
+heroTitle: Proyectos integrales de lavandería industrial
+heroSubtitle: >-
+  Desarrollamos proyectos completos desde el diseño inicial hasta la puesta en marcha operativa,
+  asegurando eficiencia, cumplimiento normativo y continuidad operacional.
+heroImage: '@assets/images/images-servicios/service-proyectos.jpg'
+heroImageAlt: Proyectos integrales de lavandería industrial
+highlights:
+  - value: '+35'
+    label: Años de experiencia
+    counterTarget: 35
+    counterPrefix: '+'
+  - value: '100%'
+    label: Proyectos entregados
+    counterTarget: 100
+    counterSuffix: '%'
+  - value: '24/7'
+    label: Soporte técnico
+    counterTarget: 24
+    counterSuffix: '/7'
+  - value: '+500'
+    label: Equipos instalados
+    counterTarget: 500
+    counterPrefix: '+'
+sections:
+  - title: Qué incluye
+    items:
+      - Diseño técnico y layout de la lavandería
+      - Selección y dimensionamiento de equipos
+      - Suministro e instalación completa
+      - Coordinación eléctrica, hidráulica y gas
+      - Puesta en marcha y capacitación
+      - Acompañamiento post-venta
+  - title: Valor diferencial
+    items:
+      - Ingeniería aplicada a cada rubro
+      - Optimización de inversión y operación
+      - Coordinación integral sin múltiples proveedores
+      - Proyecto estructurado para largo plazo
+ctaText: Solicita evaluación técnica para tu proyecto de lavandería.
+order: 1

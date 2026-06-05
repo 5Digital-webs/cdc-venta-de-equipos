@@ -1,22 +1,41 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+const servicioHighlightSchema = z.object({
+  value: z.string(),
+  label: z.string(),
+  counterTarget: z.number().optional(),
+  counterPrefix: z.string().optional(),
+  counterSuffix: z.string().optional(),
+});
+
+const servicioSectionSchema = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  items: z.array(z.string()),
+});
+
 const servicios = defineCollection({
   loader: glob({
-    pattern: 'content/servicios/**/*.mdoc',
-    base: './src',
+    pattern: '**/*.{yaml,yml}',
+    base: './src/content/servicios',
   }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
     published: z.boolean().default(true),
-    category: z.string().optional(),
-    tags: z.array(z.string()).optional(),
-    price: z.string().optional(),
-    duration: z.string().optional(),
+    serviceName: z.string(),
+    heroTitle: z.string(),
+    heroSubtitle: z.string(),
+    heroImage: z.string(),
+    heroImageAlt: z.string().optional(),
+    highlights: z.array(servicioHighlightSchema),
+    sections: z.array(servicioSectionSchema),
+    ctaText: z.string(),
+    ctaButtonText: z.string().default('Solicitar asesoría'),
+    ctaHref: z.string().default('/cotizar'),
     featured: z.boolean().optional(),
-    image: z.string().optional(),
-    whatsappMessage: z.string().optional(),
+    order: z.number().optional(),
     publishedAt: z.union([z.string(), z.date()]).optional(),
     updatedAt: z.union([z.string(), z.date()]).optional(),
   }),

@@ -3,7 +3,8 @@ import type { CollectionEntry } from 'astro:content';
 type ProductoEntry = CollectionEntry<'productos'>;
 
 export function getContentSlug(id: string): string {
-  return id.split('/').filter(Boolean).pop() ?? id;
+  const segment = id.split('/').filter(Boolean).pop() ?? id;
+  return segment.replace(/\.(yaml|yml|mdoc)$/i, '');
 }
 
 export function normalizeProductoParam(param: string): string {

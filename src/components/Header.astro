@@ -10,10 +10,10 @@ const { title = "Editorial Siriza Agaria", description } = Astro.props;
 const currentPath = Astro.url.pathname;
 
 const serviciosLinks = [
-  { href: "/servicio", label: "Proyectos llave en mano" },
-  { href: "/instalacion-y-puesta-en-marcha", label: "Instalación y puesta en marcha" },
-  { href: "/lavanderias-autoservicios", label: "Lavanderías autoservicio" },
-  { href: "/mantencion-preventiva", label: "Mantención preventiva y correctiva" },
+  { href: "/servicios/proyectos-llave-en-mano", label: "Proyectos llave en mano" },
+  { href: "/servicios/instalacion", label: "Instalación y puesta en marcha" },
+  { href: "/servicios/autoservicio", label: "Lavanderías autoservicio" },
+  { href: "/servicios/mantencion", label: "Mantención preventiva y correctiva" },
 ];
 
 const solucionesLinks = [
@@ -36,7 +36,7 @@ const marcasLinks = [
   { href: "/marcas/fulton", label: "FULTON" },
 ];
 
-const serviciosPaths = serviciosLinks.map((link) => link.href);
+const serviciosPaths = ["/servicios", ...serviciosLinks.map((link) => link.href)];
 const solucionesPaths = ["/soluciones", ...solucionesLinks.map((link) => link.href)];
 const marcasPaths = ["/marcas", ...marcasLinks.map((link) => link.href)];
 const isServiciosActive = serviciosPaths.includes(currentPath);
@@ -160,6 +160,9 @@ const subLinkClass = (path: string) =>
               id="servicios-dropdown-menu"
             >
               <div class="min-w-[280px] rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
+                <a href="/servicios" class={subLinkClass("/servicios")}>
+                  Ver todos los servicios
+                </a>
                 {
                   serviciosLinks.map((link) => (
                     <a href={link.href} class={subLinkClass(link.href)}>
@@ -307,6 +310,9 @@ const subLinkClass = (path: string) =>
         </button>
 
         <div id="mobile-servicios-submenu" class="mt-2 hidden flex flex-col gap-1 pl-3">
+          <a href="/servicios" class={subLinkClass("/servicios")}>
+            Ver todos los servicios
+          </a>
           {
             serviciosLinks.map((link) => (
               <a href={link.href} class={subLinkClass(link.href)}>

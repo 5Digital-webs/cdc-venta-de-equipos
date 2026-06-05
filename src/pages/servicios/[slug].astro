@@ -1,148 +1,430 @@
 ---
-import { getCollection, render, type CollectionEntry } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
-import { Image } from "astro:assets";
-import whatsappIcon from "../../assets/svg/icono-wsp.svg";
-import { getImage } from "@/lib/getImage";
-import { getContentSlug } from "@/lib/content-entries";
+
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+import Layout from '@/layouts/Layout.astro';
+
+import { Image } from 'astro:assets';
+
+import { getImage } from '@/lib/getImage';
+
+import { getContentSlug } from '@/lib/content-entries';
+
+import iconoCheckServicio from '@/assets/svg/icono-check-servicio.svg';
+
+
 
 export async function getStaticPaths() {
-  const servicios = await getCollection("servicios");
-  return servicios
-    .map((servicio: CollectionEntry<"servicios">) => ({
-      params: { slug: getContentSlug(servicio.id) },
-      props: { servicio },
-    }));
+
+  const entries = await getCollection('servicios', ({ data }) => data.published);
+
+  return entries.map((servicio: CollectionEntry<'servicios'>) => ({
+
+    params: { slug: getContentSlug(servicio.id) },
+
+    props: { servicio },
+
+  }));
+
 }
+
+
 
 interface Props {
-  servicio: CollectionEntry<"servicios">;
+
+  servicio: CollectionEntry<'servicios'>;
+
 }
 
+
+
 const { servicio } = Astro.props as Props;
-const { Content, headings } = await render(servicio);
 
-// Obtener servicios relacionados (excluyendo el actual)
-const todasServicios = await getCollection("servicios");
-const serviciosRelacionados = todasServicios
-  .filter((s: CollectionEntry<"servicios">) => s.id !== servicio.id)
-  .slice(0, 4);
+const { data } = servicio;
 
-// Get images
-const mainImage = await getImage(servicio.data.image);
-const serviciosRelacionadosConImagenes = await Promise.all(
-  serviciosRelacionados.map(async (servicioRelacionado: CollectionEntry<"servicios">) => ({
-    ...servicioRelacionado,
-    image: await getImage(servicioRelacionado.data.image)
-  }))
-);
+const heroImage = await getImage(data.heroImage);
+
 ---
 
-<Layout
-  title={`${servicio.data.title} - Servicios`}
-  description={servicio.data.description}
->
-  <div class="min-h-screen py-8">
-    <div class="max-w-7xl mx-auto px-4 w-full">
-      <!-- Breadcrumb -->
-      <nav class="mb-1">
-        <ol class="flex items-center space-x-2 text-sm text-gray-500">
-          <li><a href="/" class="hover:text-blue-600">Inicio</a></li>
-          <li>/</li>
-          <li>
-            <a href="/servicios" class="hover:text-blue-600">Servicios</a>
-          </li>
-          <li>/</li>
-          <li class="text-gray-900 font-medium">{servicio.data.title}</li>
-        </ol>
-      </nav>
-      <!-- Título -->
-      <div class="mb-8">
-        <h1 class="text-2xl md:text-3xl lg:text-[35px] font-bold text-gray-900 mb-4 text-left">
-                {servicio.data.title}
-        </h1>
-      </div>
 
-      <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-1 max-w-7xl mx-auto px-4"
-      >
-        <!--imagen principal -->
-        <div class="space-y-6 flex flex-col items-center justify-center">
-          {
-            mainImage && (
-              <div class="overflow-hidden">
-                <Image
-                  src={mainImage}
-                  alt={servicio.data.title}
-                  class="w-full h-[367.99px] object-cover"
-                />
-              </div>
-            )
-          }
 
-          <!-- Botones de Acción -->
-          <div class="sticky top-4 flex flex-col items-center justify-center">
-            <div class="space-y-3">
-              <a
-                href="/cotizar"
-                class="block w-[367.99px] bg-primary text-white px-4 py-1 rounded-full hover:bg-primary/80 transition-colors font-bold uppercase text-center text-sm"
-              >
-                cotizar
-              </a>
+<Layout title={`${data.heroTitle} - CDC Equipos`} description={data.description}>
 
-              <a
-                href={`https://wa.me/56953281492?text=${encodeURIComponent(servicio.data.whatsappMessage || 'Hola, me interesa este servicio')}`}
-                class="flex items-center justify-center w-[367.99px] bg-[#13990A] gap-2 text-white px-4 py-1 rounded-full hover:bg-[#13990A]/80 transition-colors font-bold uppercase text-sm"
-              >
-                <Image src={whatsappIcon} alt="whatsappIcon" class="w-4 h-4" />
-                <span>Contactar</span>
-              </a>
-            </div>
-          </div>
+  <section class="servicio-banner relative w-full">
+
+    <div class="relative w-full overflow-hidden min-h-[420px] md:min-h-[480px]">
+
+      {
+
+        heroImage ? (
+
+          <Image
+
+            src={heroImage}
+
+            alt={data.heroImageAlt ?? data.heroTitle}
+
+            class="absolute inset-0 w-full h-full object-cover object-center"
+
+            loading="eager"
+
+          />
+
+        ) : (
+
+          <div class="absolute inset-0 bg-[#122640]" />
+
+        )
+
+      }
+
+
+
+      <div class="servicio-banner__overlay absolute inset-0" aria-hidden="true"></div>
+
+
+
+      <div class="relative max-w-7xl mx-auto px-4 py-12 md:py-16">
+
+        <div class="max-w-xl">
+
+          <span class="inline-flex items-center bg-white/15 text-white text-xs font-semibold px-4 py-2 rounded-full uppercase tracking-wide">
+
+            {data.serviceName}
+
+          </span>
+
+
+
+          <h1 class="mt-5 text-white text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
+
+            {data.heroTitle}
+
+          </h1>
+
+
+
+          <p class="mt-5 text-white/90 text-sm md:text-base leading-relaxed max-w-lg">
+
+            {data.heroSubtitle}
+
+          </p>
+
+
+
+          <a
+
+            href={data.ctaHref}
+
+            class="inline-flex items-center gap-2 mt-7 bg-[#1f6fbe] hover:bg-[#185fa8] text-white font-semibold px-6 py-3 rounded-[10px] transition-all duration-300"
+
+          >
+
+            {data.ctaButtonText}
+
+            <span aria-hidden="true">→</span>
+
+          </a>
+
         </div>
 
-        <!-- contenido -->
-        <div class="space-y-8">
-          <main class="p-8 prose prose-neutral prose-base text-justify max-w-none">
-            <Content />
-          </main>
-        </div>
       </div>
 
-      <!-- Servicios Relacionados -->
-      <div class="mt-12 mb-8">
-        <h3 class="text-2xl font-bold text-gray-900 mb-6">
-            Servicios Relacionados
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {
-            serviciosRelacionadosConImagenes.map((servicioRelacionado) => (
-              <a
-                href={`/servicios/${getContentSlug(servicioRelacionado.id)}`}
-                class="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
-              >
-                {servicioRelacionado.image && (
-                  <div class="overflow-hidden">
-                    <Image
-                      src={servicioRelacionado.image}
-                      alt={servicioRelacionado.data.title}
-                      class="w-full h-[200px] object-contain group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                )}
-                <div class="p-4 flex flex-col flex-grow">
-                  <h4 class="font-semibold text-lg text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
-                    {servicioRelacionado.data.title}
-                  </h4>
-                  <span class="inline-block bg-primary text-white px-4 py-2 rounded-lg group-hover:bg-primary/80 transition-colors text-sm font-semibold text-center mt-auto">
-                    Leer Más
-                  </span>
-                </div>
-              </a>
-            ))
-          }
-        </div>
-      </div>
     </div>
-  </div>
+
+  </section>
+
+
+
+  <section class="servicio-estadisticas bg-[#122640] py-6">
+
+    <div class="max-w-7xl mx-auto px-4">
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-white">
+
+        {
+
+          data.highlights.map((highlight) => (
+
+            <div>
+
+              {
+
+                highlight.counterTarget !== undefined ? (
+
+                  <p
+
+                    class="text-4xl md:text-5xl font-bold leading-none"
+
+                    data-counter
+
+                    data-target={highlight.counterTarget}
+
+                    data-prefix={highlight.counterPrefix ?? ''}
+
+                    data-suffix={highlight.counterSuffix ?? ''}
+
+                  >
+
+                    {highlight.counterPrefix ?? ''}0{highlight.counterSuffix ?? ''}
+
+                  </p>
+
+                ) : (
+
+                  <p class="text-4xl md:text-5xl font-bold leading-none">{highlight.value}</p>
+
+                )
+
+              }
+
+              <p class="mt-2 text-base md:text-[20px] font-semibold">{highlight.label}</p>
+
+            </div>
+
+          ))
+
+        }
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  {
+
+    data.sections.map((section, index) => (
+
+      <section class:list={['servicio-incluye py-16', index % 2 === 0 ? 'bg-white' : 'bg-[#f4f4f4]']}>
+
+        <div class="max-w-7xl mx-auto px-4">
+
+          <h2 class="text-center text-[#1b1e4b] text-2xl md:text-3xl font-bold mb-4">
+
+            {section.title}
+
+          </h2>
+
+          {
+
+            section.description && (
+
+              <p class="text-center text-[#4b5563] text-base md:text-lg leading-relaxed max-w-3xl mx-auto mb-10">
+
+                {section.description}
+
+              </p>
+
+            )
+
+          }
+
+          {
+
+            !section.description && <div class="mb-6" />
+
+          }
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+
+            {
+
+              section.items.map((item) => (
+
+                <div class="bg-white rounded-[14px] border border-gray-100 shadow-sm p-6 flex items-center gap-4">
+
+                  <div class="w-14 h-14 rounded-[10px] bg-blue-50 flex items-center justify-center shrink-0">
+
+                    <img
+
+                      src={iconoCheckServicio.src}
+
+                      alt=""
+
+                      class="w-[40px] h-[40px]"
+
+                      loading="lazy"
+
+                    />
+
+                  </div>
+
+                  <p class="font-medium text-black text-[16px] leading-[1.15]">{item}</p>
+
+                </div>
+
+              ))
+
+            }
+
+          </div>
+
+        </div>
+
+      </section>
+
+    ))
+
+  }
+
+
+
+  <section id="contacto-servicio" class="py-20 md:py-28 bg-[#0b2e4f] text-white">
+
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 text-center">
+
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-6">
+
+        {data.ctaText}
+
+      </h2>
+
+      <a
+
+        href={data.ctaHref}
+
+        class="inline-flex items-center gap-2 px-8 py-3.5 rounded-md bg-[#1f6fbe] text-white font-semibold text-sm hover:bg-[#185fa8] transition-colors"
+
+      >
+
+        {data.ctaButtonText}
+
+        <span aria-hidden="true">→</span>
+
+      </a>
+
+    </div>
+
+  </section>
+
+
+
+  <script>
+
+    const statsSection = document.querySelector('.servicio-estadisticas');
+
+    const counters = document.querySelectorAll('[data-counter]');
+
+    let hasAnimated = false;
+
+
+
+    const animateCounters = () => {
+
+      if (hasAnimated) return;
+
+      hasAnimated = true;
+
+
+
+      counters.forEach((counterEl) => {
+
+        const target = Number(counterEl.getAttribute('data-target') ?? '0');
+
+        const prefix = counterEl.getAttribute('data-prefix') ?? '';
+
+        const suffix = counterEl.getAttribute('data-suffix') ?? '';
+
+
+
+        let current = 0;
+
+        const duration = 1300;
+
+        const start = performance.now();
+
+
+
+        const step = (timestamp: number) => {
+
+          const progress = Math.min((timestamp - start) / duration, 1);
+
+          current = Math.floor(progress * target);
+
+          counterEl.textContent = `${prefix}${current}${suffix}`;
+
+
+
+          if (progress < 1) {
+
+            requestAnimationFrame(step);
+
+          } else {
+
+            counterEl.textContent = `${prefix}${target}${suffix}`;
+
+          }
+
+        };
+
+
+
+        requestAnimationFrame(step);
+
+      });
+
+    };
+
+
+
+    if (statsSection) {
+
+      const observer = new IntersectionObserver(
+
+        (entries) => {
+
+          entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+
+              animateCounters();
+
+              observer.disconnect();
+
+            }
+
+          });
+
+        },
+
+        { threshold: 0.3 },
+
+      );
+
+
+
+      observer.observe(statsSection);
+
+    }
+
+  </script>
+
 </Layout>
+
+
+
+<style>
+
+  .servicio-banner__overlay {
+
+    background: linear-gradient(
+
+      90deg,
+
+      rgb(18 38 64 / 0.95) 0%,
+
+      rgb(18 38 64 / 0.82) 40%,
+
+      rgb(18 38 64 / 0.55) 70%,
+
+      rgb(18 38 64 / 0.25) 100%
+
+    );
+
+  }
+
+</style>
+
