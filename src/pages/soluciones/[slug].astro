@@ -67,7 +67,7 @@ const heroImage = await getImage(data.heroImage);
     </div>
   </section>
 
-  <section class="bg-white border-b border-[#e2e8f0]">
+  <section class="bg-[#0b2e4f] border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-0">
         {
@@ -75,11 +75,11 @@ const heroImage = await getImage(data.heroImage);
             <div
               class:list={[
                 'py-8 md:py-10 text-center',
-                index < data.stats.length - 1 && 'border-r border-[#e2e8f0]',
+                index < data.stats.length - 1 && 'border-r border-white/10',
               ]}
             >
-              <div class="text-3xl md:text-4xl font-extrabold text-[#1f6fbe] mb-1">{stat.value}</div>
-              <div class="text-xs md:text-sm text-[#64748b] font-medium">{stat.label}</div>
+              <div class="text-3xl md:text-4xl font-extrabold text-white mb-1">{stat.value}</div>
+              <div class="text-xs md:text-sm text-white/70 font-medium">{stat.label}</div>
             </div>
           ))
         }
@@ -89,18 +89,18 @@ const heroImage = await getImage(data.heroImage);
 
   <section class="py-16 md:py-20 bg-[#f4f4f4]">
     <div class="max-w-7xl mx-auto px-4 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-extrabold mb-10 text-center text-[#1b1e4b]">
+      <h2 class="text-2xl sm:text-3xl font-extrabold mb-10 text-center text-[#0b2e4f]">
         {data.challengesTitle}
       </h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
         {
           data.challenges.map((challenge) => (
-            <div class="flex items-start gap-3 p-5 rounded-lg bg-white border border-[#e2e8f0] hover:border-[#1f6fbe]/30 hover:shadow-md transition-all">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#1f6fbe] mt-0.5 shrink-0" aria-hidden="true">
+            <div class="flex items-start gap-3 p-5 rounded-lg bg-white border border-[#0b2e4f]/10 hover:border-[#0b2e4f]/25 hover:shadow-md transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#0b2e4f] mt-0.5 shrink-0" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"></circle>
                 <path d="m9 12 2 2 4-4"></path>
               </svg>
-              <span class="text-sm font-medium text-[#111827]">{challenge}</span>
+              <span class="text-sm font-medium text-[#0b2e4f]">{challenge}</span>
             </div>
           ))
         }
@@ -108,14 +108,14 @@ const heroImage = await getImage(data.heroImage);
     </div>
   </section>
 
-  <section class="py-16 md:py-24 bg-white">
+  <section class="py-16 md:py-24 bg-[#0b2e4f]">
     <div class="max-w-7xl mx-auto px-4 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-extrabold mb-4 text-center text-[#1b1e4b]">
+      <h2 class="text-2xl sm:text-3xl font-extrabold mb-4 text-center text-white">
         {data.solutionTitle}
       </h2>
       {
         data.solutionIntro && (
-          <p class="text-[#64748b] text-center max-w-2xl mx-auto mb-12">
+          <p class="text-white/80 text-center max-w-2xl mx-auto mb-12">
             {data.solutionIntro}
           </p>
         )
@@ -123,9 +123,9 @@ const heroImage = await getImage(data.heroImage);
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {
           data.solutionItems.map((item) => (
-            <div class="p-6 rounded-xl border border-[#e2e8f0] bg-white hover:border-[#1f6fbe]/30 hover:shadow-md transition-all">
-              <h3 class="text-base font-bold mb-2 text-[#111827]">{item.title}</h3>
-              <p class="text-sm text-[#64748b] leading-relaxed">{item.description}</p>
+            <div class="p-6 rounded-xl border border-[#0b2e4f]/10 bg-white hover:border-[#0b2e4f]/25 hover:shadow-md transition-all">
+              <h3 class="text-base font-bold mb-2 text-[#0b2e4f]">{item.title}</h3>
+              <p class="text-sm text-[#0b2e4f]/70 leading-relaxed">{item.description}</p>
             </div>
           ))
         }
@@ -135,18 +135,18 @@ const heroImage = await getImage(data.heroImage);
 
   <section class="py-16 md:py-20 bg-[#f4f4f4]">
     <div class="max-w-7xl mx-auto px-4 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-extrabold mb-10 text-center text-[#1b1e4b]">
+      <h2 class="text-2xl sm:text-3xl font-extrabold mb-10 text-center text-[#0b2e4f]">
         {data.benefitsTitle}
       </h2>
       <div class="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
         {
           data.benefits.map((benefit) => (
-            <div class="flex items-center gap-2 px-5 py-3 rounded-full bg-[#1f6fbe]/10 border border-[#1f6fbe]/20 hover:bg-[#1f6fbe]/20 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#1f6fbe] shrink-0" aria-hidden="true">
+            <div class="flex items-center gap-2 px-5 py-3 rounded-full bg-white border border-[#0b2e4f]/15 hover:border-[#0b2e4f]/30 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#0b2e4f] shrink-0" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"></circle>
                 <path d="m9 12 2 2 4-4"></path>
               </svg>
-              <span class="text-sm font-semibold text-[#111827]">{benefit}</span>
+              <span class="text-sm font-semibold text-[#0b2e4f]">{benefit}</span>
             </div>
           ))
         }
