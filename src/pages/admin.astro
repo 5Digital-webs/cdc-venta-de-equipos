@@ -1,5 +1,7 @@
 ---
+import { withBase } from '@/lib/paths';
+
 // Redirect /admin to /keystatic
-return Astro.redirect('/keystatic', 301);
+return Astro.redirect(withBase('/keystatic'), 301);
 ---
 

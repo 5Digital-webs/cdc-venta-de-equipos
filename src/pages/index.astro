@@ -1,4 +1,5 @@
 ---
+import { withBase } from "@/lib/paths";
 import Layout from "../layouts/Layout.astro";
 import Carousel from "@/components/ui/display/Carousel.astro";
 import AnimatedTitle from "@/components/AnimatedTitle.astro";
@@ -99,7 +100,7 @@ const marcasCarousel = [
                             <span>Cotizar</span>
                         </a>
                         <a
-                            href="/equipos"
+                            href={withBase("/equipos")}
                             class="text-[12px] md:text-[16px] inline-flex items-center justify-center border border-gray-300 text-[#1f2937] font-medium px-5 py-2.5 rounded-[10px] hover:bg-gray-50 transition-all duration-300"
                         >
                             Ver equipos
@@ -192,7 +193,7 @@ const marcasCarousel = [
                 </div>
                     <h3 class="text-[#111827] text-[16px] font-bold leading-tight">Hoteles</h3>
                     <p class="mt-3 text-[#4b5563] text-sm leading-[1.35]">Equipos de alta capacidad y eficiencia para operaciones hoteleras con demanda continua de lavado.</p>
-                    <a href="/soluciones/hoteles" class="text-[15px] mt-5 inline-flex items-center gap-2 text-[#000] font-[500] transition-colors duration-300 hover:text-[#1f6fbe]">Explorar <span aria-hidden="true">→</span></a>
+                    <a href={withBase("/soluciones/hoteles")} class="text-[15px] mt-5 inline-flex items-center gap-2 text-[#000] font-[500] transition-colors duration-300 hover:text-[#1f6fbe]">Explorar <span aria-hidden="true">→</span></a>
                 </article>
 
                 <article class="bg-white rounded-[14px] border border-[#e5e7eb] shadow-sm p-6">
@@ -203,7 +204,7 @@ const marcasCarousel = [
                     <div class="w-full h-[60px]">
                     <p class="mt-3 text-[#4b5563] text-sm leading-[1.35]">Soluciones que cumplen normativas sanitarias estrictas para el sector salud.</p>
                     </div>
-                    <a href="/soluciones/clinicas-y-hospitales" class="text-[15px] mt-5 inline-flex items-center gap-2 text-[#000] font-[500] transition-colors duration-300 hover:text-[#1f6fbe]">Explorar <span aria-hidden="true">→</span></a>
+                    <a href={withBase("/soluciones/clinicas-y-hospitales")} class="text-[15px] mt-5 inline-flex items-center gap-2 text-[#000] font-[500] transition-colors duration-300 hover:text-[#1f6fbe]">Explorar <span aria-hidden="true">→</span></a>
                 </article>
 
                 <article class="bg-white rounded-[14px] border border-[#e5e7eb] shadow-sm p-6">
@@ -214,7 +215,7 @@ const marcasCarousel = [
                     <div class="w-full h-[60px]">
                     <p class="mt-3 text-[#4b5563] text-sm leading-[1.35]">Maquinaria robusta para lavanderías de alto volumen con máxima productividad.</p>
                     </div>
-                    <a href="/soluciones/lavanderias-comerciales" class="text-[15px] mt-5 inline-flex items-center gap-2 text-[#000] font-[500] transition-colors duration-300 hover:text-[#1f6fbe]">Explorar <span aria-hidden="true">→</span></a>
+                    <a href={withBase("/soluciones/lavanderias-comerciales")} class="text-[15px] mt-5 inline-flex items-center gap-2 text-[#000] font-[500] transition-colors duration-300 hover:text-[#1f6fbe]">Explorar <span aria-hidden="true">→</span></a>
                 </article>
 
                 <article class="bg-white rounded-[14px] border border-[#e5e7eb] shadow-sm p-6">
@@ -225,7 +226,7 @@ const marcasCarousel = [
                     <div class="w-full h-[60px]">
                     <p class="mt-3 text-[#4b5563] text-sm leading-[1.35]">Equipos diseñados para el lavado industrial de uniformes y ropa de trabajo.</p>
                     </div>
-                    <a href="/soluciones/industria-y-uniformes" class="text-[15px] mt-5 inline-flex items-center gap-2 text-[#000] font-[500] transition-colors duration-300 hover:text-[#1f6fbe]">Explorar <span aria-hidden="true">→</span></a>
+                    <a href={withBase("/soluciones/industria-y-uniformes")} class="text-[15px] mt-5 inline-flex items-center gap-2 text-[#000] font-[500] transition-colors duration-300 hover:text-[#1f6fbe]">Explorar <span aria-hidden="true">→</span></a>
                 </article>
 
                 <article class="bg-white rounded-[14px] border border-[#e5e7eb] shadow-sm p-6">
@@ -236,7 +237,7 @@ const marcasCarousel = [
                     <div class="w-full h-[60px]">
                     <p class="mt-3 text-[#4b5563] text-sm leading-[1.35]">Soluciones compactas y eficientes para edificios residenciales y condominios.</p>
                     </div>
-                    <a href="/soluciones/comunidades-y-multifamily" class="text-[15px] mt-5 inline-flex items-center gap-2 text-[#000] font-[500] transition-colors duration-300 hover:text-[#1f6fbe]">Explorar <span aria-hidden="true">→</span></a>
+                    <a href={withBase("/soluciones/comunidades-y-multifamily")} class="text-[15px] mt-5 inline-flex items-center gap-2 text-[#000] font-[500] transition-colors duration-300 hover:text-[#1f6fbe]">Explorar <span aria-hidden="true">→</span></a>
                 </article>
 
                 <article class="bg-white rounded-[14px] border border-[#e5e7eb] shadow-sm p-6">
@@ -247,7 +248,7 @@ const marcasCarousel = [
                     <div class="w-full h-[60px]">
                     <p class="mt-3 text-[#4b5563] text-sm leading-[1.35]">Equipos especializados para el manejo de textiles en el rubro gastronómico.</p>
                     </div>
-                    <a href="/soluciones/gastronomia" class="text-[15px] mt-5 inline-flex items-center gap-2 text-[#000] font-[500] transition-colors duration-300 hover:text-[#1f6fbe]">Explorar <span aria-hidden="true">→</span></a>
+                    <a href={withBase("/soluciones/gastronomia")} class="text-[15px] mt-5 inline-flex items-center gap-2 text-[#000] font-[500] transition-colors duration-300 hover:text-[#1f6fbe]">Explorar <span aria-hidden="true">→</span></a>
                 </article>
             </div>
         </div>
@@ -291,7 +292,7 @@ const marcasCarousel = [
                         </div>
                     </div>
                     <div class="px-6 pb-5 flex justify-center">
-                        <a href="/servicios/proyectos-llave-en-mano" class="inline-flex items-center justify-center rounded-[8px] border border-[#d1d5db] bg-white px-4 py-2 text-sm text-[#374151] transition-colors duration-300 hover:bg-[#1f6fbe] hover:text-white hover:border-[#1f6fbe]">Explorar</a>
+                        <a href={withBase("/servicios/proyectos-llave-en-mano")} class="inline-flex items-center justify-center rounded-[8px] border border-[#d1d5db] bg-white px-4 py-2 text-sm text-[#374151] transition-colors duration-300 hover:bg-[#1f6fbe] hover:text-white hover:border-[#1f6fbe]">Explorar</a>
                     </div>
                 </article>
 
@@ -321,7 +322,7 @@ const marcasCarousel = [
                         </div>
                     </div>
                     <div class="px-6 pb-5 flex justify-center">
-                        <a href="/servicios/instalacion" class="inline-flex items-center justify-center rounded-[8px] border border-[#d1d5db] bg-white px-4 py-2 text-sm text-[#374151] transition-colors duration-300 hover:bg-[#1f6fbe] hover:text-white hover:border-[#1f6fbe]">Explorar</a>
+                        <a href={withBase("/servicios/instalacion")} class="inline-flex items-center justify-center rounded-[8px] border border-[#d1d5db] bg-white px-4 py-2 text-sm text-[#374151] transition-colors duration-300 hover:bg-[#1f6fbe] hover:text-white hover:border-[#1f6fbe]">Explorar</a>
                     </div>
                 </article>
 
@@ -351,7 +352,7 @@ const marcasCarousel = [
                         </div>
                     </div>
                     <div class="px-6 pb-5 flex justify-center">
-                        <a href="/servicios/mantencion" class="inline-flex items-center justify-center rounded-[8px] border border-[#d1d5db] bg-white px-4 py-2 text-sm text-[#374151] transition-colors duration-300 hover:bg-[#1f6fbe] hover:text-white hover:border-[#1f6fbe]">Explorar</a>
+                        <a href={withBase("/servicios/mantencion")} class="inline-flex items-center justify-center rounded-[8px] border border-[#d1d5db] bg-white px-4 py-2 text-sm text-[#374151] transition-colors duration-300 hover:bg-[#1f6fbe] hover:text-white hover:border-[#1f6fbe]">Explorar</a>
                     </div>
                 </article>
 
@@ -381,7 +382,7 @@ const marcasCarousel = [
                         </div>
                     </div>
                     <div class="px-6 pb-5 flex justify-center">
-                        <a href="/servicios/autoservicio" class="inline-flex items-center justify-center rounded-[8px] border border-[#d1d5db] bg-white px-4 py-2 text-sm text-[#374151] transition-colors duration-300 hover:bg-[#1f6fbe] hover:text-white hover:border-[#1f6fbe]">Explorar</a>
+                        <a href={withBase("/servicios/autoservicio")} class="inline-flex items-center justify-center rounded-[8px] border border-[#d1d5db] bg-white px-4 py-2 text-sm text-[#374151] transition-colors duration-300 hover:bg-[#1f6fbe] hover:text-white hover:border-[#1f6fbe]">Explorar</a>
                     </div>
                 </article>
             </div>
@@ -431,10 +432,10 @@ const marcasCarousel = [
                     </div>
 
                     <div class="mt-8 flex flex-wrap items-center gap-3">
-                        <a href="/empresa" class="inline-flex items-center justify-center rounded-[8px] bg-[#1f6fbe] px-5 py-2.5 text-white text-sm font-semibold hover:bg-[#155896] transition-colors duration-300">
+                        <a href={withBase("/empresa")} class="inline-flex items-center justify-center rounded-[8px] bg-[#1f6fbe] px-5 py-2.5 text-white text-sm font-semibold hover:bg-[#155896] transition-colors duration-300">
                             Simular arriendo
                         </a>
-                        <a href="/cotizar" class="inline-flex items-center justify-center rounded-[8px] border border-[#d1d5db] bg-white px-5 py-2.5 text-[#374151] text-sm font-medium hover:bg-[#1f6fbe] hover:text-white hover:border-[#1f6fbe] transition-colors duration-300">
+                        <a href={withBase("/cotizar")} class="inline-flex items-center justify-center rounded-[8px] border border-[#d1d5db] bg-white px-5 py-2.5 text-[#374151] text-sm font-medium hover:bg-[#1f6fbe] hover:text-white hover:border-[#1f6fbe] transition-colors duration-300">
                             Solicitar asesoría
                         </a>
                     </div>

@@ -1,4 +1,5 @@
 ---
+import { basePath, withBase } from "@/lib/paths";
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -21,11 +22,22 @@ const {
   description = "Equipamiento y arriendo para lavanderías industriales y comerciales.",
   keywords = "cdc equipos, lavandería industrial, equipos de lavandería, arriendo de equipos de lavandería",
   image,
-  url = Astro.url.href,
+  url,
   type = "website",
 } = Astro.props;
 
-const canonicalURL = new URL(url, Astro.site);
+// Con SITE_URL declarada, el canonical usa ese origen y la ruta (con prefijo)
+// también en páginas servidas bajo demanda. Sin ella se conserva el
+// comportamiento anterior (URL de la petición).
+const siteUrlDeclared = Boolean(import.meta.env.PUBLIC_SITE_URL_DECLARED);
+const canonicalURL = new URL(
+  url ?? (siteUrlDeclared ? Astro.url.pathname : Astro.url.href),
+  Astro.site,
+);
+// La portada bajo prefijo se publica con barra final, igual que en el sitemap.
+if (basePath && canonicalURL.pathname === basePath) {
+  canonicalURL.pathname = `${basePath}/`;
+}
 const defaultImage = image || croppedImage.src;
 const imageURL = new URL(defaultImage, Astro.site);
 const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
@@ -38,7 +50,7 @@ const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
     <link rel="icon" type="image/png" href={logoCdc.src} />
     <link rel="shortcut icon" href={logoCdc.src} />
     <link rel="apple-touch-icon" href={logoCdc.src} />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href={withBase("/sitemap-index.xml")} />
     <meta name="generator" content={Astro.generator} />
     
     <!-- Google Fonts using Astro Fonts API -->

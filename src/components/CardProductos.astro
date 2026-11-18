@@ -1,4 +1,5 @@
 ---
+import { withBase } from "@/lib/paths";
 //src/components/CardProductos.astro
 import { Image } from "astro:assets";
 
@@ -55,7 +56,7 @@ const bgColor = backgroundColor === 'blue' ? 'bg-[#EAF9FF]' : 'bg-[#EBFFF6]';
     </a>
 
     <a 
-        href={`/cotizar?producto=${encodeURIComponent(nombre)}`}
+        href={withBase(`/cotizar?producto=${encodeURIComponent(nombre)}`)}
         class="block mt-4"
     >
         <button class="w-full bg-primary text-white py-3 rounded-full font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
