@@ -1,5 +1,6 @@
 ---
 export const prerender = false;
+import { withBase } from "@/lib/paths";
 
 import Layout from "../layouts/Layout.astro";
 import ContactForm from "../components/ContactForm.astro";
@@ -17,8 +18,8 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
 <Layout
-  title="Contacto - Medical Más Salud"
-  description="Líderes en arriendo, venta y reparación de equipos médicos. Especialistas en concentradores de oxígeno Airsep y Nidek. Atención personalizada a domicilio."
+  title="Contacto - CDC Equipos"
+  description="Contacto de CDC Equipos: formulario de contacto, dirección, teléfonos y correo."
 >
   <div class="min-h-screen py-4">
     <div class="max-w-7xl mx-auto px-4">
@@ -128,7 +129,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       target="_blank"
       rel="noopener noreferrer"
       class="block bg-cover bg-center bg-no-repeat w-1/2 h-[130px] mb-0 hover:opacity-90 transition-opacity"
-      style="background-image: url('/images/Banner-facebook.png');"
+      style={`background-image: url('${withBase("/images/Banner-facebook.png")}');`}
     >
       <span class="sr-only">Síguenos en Facebook</span>
     </a>
@@ -139,7 +140,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       target="_blank"
       rel="noopener noreferrer"
       class="block bg-cover bg-center bg-no-repeat w-1/2 h-[130px] mb-0 hover:opacity-90 transition-opacity"
-      style="background-image: url('/images/Banner-instagram.png');"
+      style={`background-image: url('${withBase("/images/Banner-instagram.png")}');`}
     >
       <span class="sr-only">Síguenos en Instagram</span>
     </a>

@@ -1,4 +1,5 @@
 // @ts-check
+import { writeFile } from "node:fs/promises";
 import { defineConfig, fontProviders } from "astro/config";
 import node from "@astrojs/node";
 
@@ -13,18 +14,55 @@ import icon from "astro-icon";
 
 import playformInline from "@playform/inline";
 
+// Prefijo público opcional (opt-in). Sin SITE_BASE_PATH el sitio se sirve en "/"
+// exactamente como antes. Ejemplo: SITE_BASE_PATH=/cdcequiposlavanderia
+const rawBase = (process.env.SITE_BASE_PATH ?? "").trim().replace(/^\/+|\/+$/g, "");
+if (rawBase && !/^[A-Za-z0-9_-]+(\/[A-Za-z0-9_-]+)*$/.test(rawBase)) {
+  throw new Error(`SITE_BASE_PATH inválido: "${process.env.SITE_BASE_PATH}"`);
+}
+const base = rawBase ? `/${rawBase}` : undefined;
+
+// URL pública opcional (solo origen, sin ruta). Si no se declara se conserva el
+// valor histórico del repositorio; no se decide aquí el dominio oficial.
+const declaredSite = (process.env.SITE_URL ?? "").trim();
+if (declaredSite && new URL(declaredSite).pathname !== "/") {
+  throw new Error("SITE_URL debe ser solo el origen (sin ruta); el prefijo va en SITE_BASE_PATH");
+}
+const site = declaredSite || "https://medicalmasalud.cl";
+
+// Con prefijo, el build deja el valor en <outDir>/base-path (fuera de client/,
+// no se sirve) para que el healthcheck del contenedor consulte la ruta correcta.
+/** @type {URL | undefined} */
+let buildOutDir;
+/** @type {import("astro").AstroIntegration} */
+const basePathMarker = {
+  name: "base-path-marker",
+  hooks: {
+    "astro:config:done": ({ config }) => {
+      buildOutDir = config.outDir;
+    },
+    "astro:build:done": async () => {
+      if (base && buildOutDir) {
+        await writeFile(new URL("base-path", buildOutDir), base);
+      }
+    },
+  },
+};
+
 // https://astro.build/config
 export default defineConfig({
-  site: "https://medicalmasalud.cl",
+  site,
+  ...(base ? { base } : {}),
   output:  'static',
   adapter: node({
     mode: 'standalone',
   }),
+  // Astro antepone `base` al origen de cada redirección pero no al destino.
   redirects: {
-    '/servicio': '/servicios/proyectos-llave-en-mano',
-    '/instalacion-y-puesta-en-marcha': '/servicios/instalacion',
-    '/lavanderias-autoservicios': '/servicios/autoservicio',
-    '/mantencion-preventiva': '/servicios/mantencion',
+    '/servicio': `${base ?? ""}/servicios/proyectos-llave-en-mano`,
+    '/instalacion-y-puesta-en-marcha': `${base ?? ""}/servicios/instalacion`,
+    '/lavanderias-autoservicios': `${base ?? ""}/servicios/autoservicio`,
+    '/mantencion-preventiva': `${base ?? ""}/servicios/mantencion`,
   },
   image: {
     // Enable modern image formats
@@ -34,6 +72,10 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
+    define: {
+      // true solo cuando SITE_URL se declaró al compilar (ver Layout.astro)
+      "import.meta.env.PUBLIC_SITE_URL_DECLARED": JSON.stringify(Boolean(declaredSite)),
+    },
     server: {
       fs: {
         allow: ['../..'],
@@ -61,10 +103,16 @@ export default defineConfig({
   integrations: [
     alpinejs(),
     icon(),
-    sitemap(),
+    // Con prefijo, el sitemap no anuncia la redirección al panel.
+    sitemap(
+      base
+        ? { filter: (page) => !/\/admin\/?$/.test(new URL(page).pathname) }
+        : undefined,
+    ),
     react(),
     markdoc(),
     keystatic(),
+    basePathMarker,
     playformInline({
       Beasties: {
         // Inline styles from external stylesheets (default: true)

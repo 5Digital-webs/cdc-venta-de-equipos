@@ -1,4 +1,5 @@
 ---
+import { stripBase, withBase } from "@/lib/paths";
 import logoCdc from "@/assets/Logo-cdc.png";
 
 export interface Props {
@@ -6,8 +7,8 @@ export interface Props {
   description?: string;
 }
 
-const { title = "Editorial Siriza Agaria", description } = Astro.props;
-const currentPath = Astro.url.pathname;
+const { title = "CDC Equipos", description } = Astro.props;
+const currentPath = stripBase(Astro.url.pathname);
 
 const serviciosLinks = [
   { href: "/servicios/proyectos-llave-en-mano", label: "Proyectos llave en mano" },
@@ -82,7 +83,7 @@ const subLinkClass = (path: string) =>
 >
   <div class="container mx-auto overflow-visible px-2 lg:px-4">
     <div class="flex items-center justify-between gap-4 overflow-visible py-4">
-      <a href="/" class="flex items-center flex-shrink-0">
+      <a href={withBase("/")} class="flex items-center flex-shrink-0">
         <img
           src={logoCdc.src}
           alt="CDC"
@@ -93,9 +94,9 @@ const subLinkClass = (path: string) =>
 
       <div class="hidden flex-1 justify-center overflow-visible lg:flex">
         <nav class="flex items-center gap-2 overflow-visible whitespace-nowrap xl:gap-4">
-          <a href="/" class={linkClass("/")}>Inicio</a>
-          <a href="/empresa" class={linkClass("/empresa")}>CDC Rent</a>
-          <a href="/equipos" class={linkClass("/equipos")}>Equipos</a>
+          <a href={withBase("/")} class={linkClass("/")}>Inicio</a>
+          <a href={withBase("/empresa")} class={linkClass("/empresa")}>CDC Rent</a>
+          <a href={withBase("/equipos")} class={linkClass("/equipos")}>Equipos</a>
           <div class="group relative overflow-visible" id="soluciones-dropdown">
             <button
               type="button"
@@ -121,12 +122,12 @@ const subLinkClass = (path: string) =>
               id="soluciones-dropdown-menu"
             >
               <div class="min-w-[260px] rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
-                <a href="/soluciones" class={subLinkClass("/soluciones")}>
+                <a href={withBase("/soluciones")} class={subLinkClass("/soluciones")}>
                   Ver todas las soluciones
                 </a>
                 {
                   solucionesLinks.map((link) => (
-                    <a href={link.href} class={subLinkClass(link.href)}>
+                    <a href={withBase(link.href)} class={subLinkClass(link.href)}>
                       {link.label}
                     </a>
                   ))
@@ -160,12 +161,12 @@ const subLinkClass = (path: string) =>
               id="servicios-dropdown-menu"
             >
               <div class="min-w-[280px] rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
-                <a href="/servicios" class={subLinkClass("/servicios")}>
+                <a href={withBase("/servicios")} class={subLinkClass("/servicios")}>
                   Ver todos los servicios
                 </a>
                 {
                   serviciosLinks.map((link) => (
-                    <a href={link.href} class={subLinkClass(link.href)}>
+                    <a href={withBase(link.href)} class={subLinkClass(link.href)}>
                       {link.label}
                     </a>
                   ))
@@ -199,12 +200,12 @@ const subLinkClass = (path: string) =>
               id="marcas-dropdown-menu"
             >
               <div class="min-w-[260px] rounded-lg border border-gray-200 bg-white py-2 shadow-lg">
-                <a href="/marcas" class={subLinkClass("/marcas")}>
+                <a href={withBase("/marcas")} class={subLinkClass("/marcas")}>
                   Ver todas las marcas
                 </a>
                 {
                   marcasLinks.map((link) => (
-                    <a href={link.href} class={subLinkClass(link.href)}>
+                    <a href={withBase(link.href)} class={subLinkClass(link.href)}>
                       {link.label}
                     </a>
                   ))
@@ -212,13 +213,13 @@ const subLinkClass = (path: string) =>
               </div>
             </div>
           </div>
-          <a href="/proyectos" class={linkClass("/proyectos")}>Proyectos</a>
+          <a href={withBase("/proyectos")} class={linkClass("/proyectos")}>Proyectos</a>
         </nav>
       </div>
 
       <div class="flex items-center gap-3 lg:gap-4 flex-shrink-0">
         <a
-          href="/cotizar"
+          href={withBase("/cotizar")}
           class="hidden lg:inline-flex items-center justify-center bg-[#1568C1] hover:bg-[#1256a8] text-white font-medium px-5 py-2 rounded-lg transition-all duration-300"
         >
           Cotizar
@@ -252,9 +253,9 @@ const subLinkClass = (path: string) =>
     class="hidden lg:hidden bg-white border-t border-gray-200 shadow-lg"
   >
     <nav class="container mx-auto px-4 py-6 flex flex-col space-y-3">
-      <a href="/" class={linkClass("/")}>Inicio</a>
-      <a href="/empresa" class={linkClass("/empresa")}>CDC Rent</a>
-      <a href="/equipos" class={linkClass("/equipos")}>Equipos</a>
+      <a href={withBase("/")} class={linkClass("/")}>Inicio</a>
+      <a href={withBase("/empresa")} class={linkClass("/empresa")}>CDC Rent</a>
+      <a href={withBase("/equipos")} class={linkClass("/equipos")}>Equipos</a>
       <div>
         <button
           type="button"
@@ -276,12 +277,12 @@ const subLinkClass = (path: string) =>
         </button>
 
         <div id="mobile-soluciones-submenu" class="mt-2 hidden flex flex-col gap-1 pl-3">
-          <a href="/soluciones" class={subLinkClass("/soluciones")}>
+          <a href={withBase("/soluciones")} class={subLinkClass("/soluciones")}>
             Ver todas las soluciones
           </a>
           {
             solucionesLinks.map((link) => (
-              <a href={link.href} class={subLinkClass(link.href)}>
+              <a href={withBase(link.href)} class={subLinkClass(link.href)}>
                 {link.label}
               </a>
             ))
@@ -310,12 +311,12 @@ const subLinkClass = (path: string) =>
         </button>
 
         <div id="mobile-servicios-submenu" class="mt-2 hidden flex flex-col gap-1 pl-3">
-          <a href="/servicios" class={subLinkClass("/servicios")}>
+          <a href={withBase("/servicios")} class={subLinkClass("/servicios")}>
             Ver todos los servicios
           </a>
           {
             serviciosLinks.map((link) => (
-              <a href={link.href} class={subLinkClass(link.href)}>
+              <a href={withBase(link.href)} class={subLinkClass(link.href)}>
                 {link.label}
               </a>
             ))
@@ -344,19 +345,19 @@ const subLinkClass = (path: string) =>
         </button>
 
         <div id="mobile-marcas-submenu" class="mt-2 hidden flex flex-col gap-1 pl-3">
-          <a href="/marcas" class={subLinkClass("/marcas")}>
+          <a href={withBase("/marcas")} class={subLinkClass("/marcas")}>
             Ver todas las marcas
           </a>
           {
             marcasLinks.map((link) => (
-              <a href={link.href} class={subLinkClass(link.href)}>
+              <a href={withBase(link.href)} class={subLinkClass(link.href)}>
                 {link.label}
               </a>
             ))
           }
         </div>
       </div>
-      <a href="/proyectos" class={linkClass("/proyectos")}>Proyectos</a>
+      <a href={withBase("/proyectos")} class={linkClass("/proyectos")}>Proyectos</a>
     </nav>
   </div>
 </header>

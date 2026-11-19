@@ -1,4 +1,5 @@
 ---
+import { withBase } from "@/lib/paths";
 
 import { getCollection, type CollectionEntry } from 'astro:content';
 
@@ -114,7 +115,7 @@ const heroImage = await getImage(data.heroImage);
 
           <a
 
-            href={data.ctaHref}
+            href={withBase(data.ctaHref)}
 
             class="inline-flex items-center gap-2 mt-7 bg-[#1f6fbe] hover:bg-[#185fa8] text-white font-semibold px-6 py-3 rounded-[10px] transition-all duration-300"
 
@@ -284,7 +285,7 @@ const heroImage = await getImage(data.heroImage);
 
       <a
 
-        href={data.ctaHref}
+        href={withBase(data.ctaHref)}
 
         class="inline-flex items-center gap-2 px-8 py-3.5 rounded-md bg-[#1f6fbe] text-white font-semibold text-sm hover:bg-[#185fa8] transition-colors"
 

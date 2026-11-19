@@ -1,4 +1,5 @@
 ---
+import { basePath, withBase } from "@/lib/paths";
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -17,15 +18,26 @@ export interface Props {
 }
 
 const {
-  title = "Editorial Siriza Agaria",
-  description = "Editorial Siriza Agaria",
-  keywords = "editorial siriza agaria",
+  title = "CDC Equipos",
+  description = "Equipamiento y arriendo para lavanderías industriales y comerciales.",
+  keywords = "cdc equipos, lavandería industrial, equipos de lavandería, arriendo de equipos de lavandería",
   image,
-  url = Astro.url.href,
+  url,
   type = "website",
 } = Astro.props;
 
-const canonicalURL = new URL(url, Astro.site);
+// Con SITE_URL declarada, el canonical usa ese origen y la ruta (con prefijo)
+// también en páginas servidas bajo demanda. Sin ella se conserva el
+// comportamiento anterior (URL de la petición).
+const siteUrlDeclared = Boolean(import.meta.env.PUBLIC_SITE_URL_DECLARED);
+const canonicalURL = new URL(
+  url ?? (siteUrlDeclared ? Astro.url.pathname : Astro.url.href),
+  Astro.site,
+);
+// La portada bajo prefijo se publica con barra final, igual que en el sitemap.
+if (basePath && canonicalURL.pathname === basePath) {
+  canonicalURL.pathname = `${basePath}/`;
+}
 const defaultImage = image || croppedImage.src;
 const imageURL = new URL(defaultImage, Astro.site);
 const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
@@ -38,7 +50,7 @@ const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
     <link rel="icon" type="image/png" href={logoCdc.src} />
     <link rel="shortcut icon" href={logoCdc.src} />
     <link rel="apple-touch-icon" href={logoCdc.src} />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href={withBase("/sitemap-index.xml")} />
     <meta name="generator" content={Astro.generator} />
     
     <!-- Google Fonts using Astro Fonts API -->
@@ -49,7 +61,7 @@ const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
-    <meta name="author" content="Medical App" />
+    <meta name="author" content="CDC Equipos" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
 
@@ -59,7 +71,7 @@ const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={imageURL} />
-    <meta property="og:site_name" content="Medical App" />
+    <meta property="og:site_name" content="CDC Equipos" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
@@ -74,7 +86,7 @@ const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
     <meta name="msapplication-TileColor" content="#3b82f6" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Medical App" />
+    <meta name="apple-mobile-web-app-title" content="CDC Equipos" />
 
     <!-- Google Analytics (only when PUBLIC_GA_MEASUREMENT_ID is set in .env) -->
     {gaId && (
@@ -93,23 +105,9 @@ const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "MedicalOrganization",
-        "name": "Medical App",
-        "description": "Professional medical services and healthcare solutions",
-        "url": "https://medicalapp.com",
-        "logo": "https://medicalapp.com/images/logo.png",
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "telephone": "+1-555-123-4567",
-          "contactType": "customer service",
-          "email": "info@medicalapp.com"
-        },
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "123 Medical St",
-          "addressLocality": "Health City",
-          "addressCountry": "US"
-        }
+        "@type": "Organization",
+        "name": "CDC Equipos",
+        "description": "Equipamiento y arriendo para lavanderías industriales y comerciales."
       }
     </script>
   </head>

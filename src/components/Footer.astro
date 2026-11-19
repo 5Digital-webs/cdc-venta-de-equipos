@@ -1,4 +1,5 @@
 ---
+import { withBase } from "@/lib/paths";
 import { Image } from "astro:assets";
 import facebook from "../assets/svg/ICONOS-03.svg";
 import whatsapp from "../assets/svg/ICONOS-04.svg";
@@ -17,7 +18,7 @@ export interface Props {
   year?: number;
 }
 
-const { companyName = "Medical Más Salud", year = new Date().getFullYear() } = Astro.props;
+const { companyName = "CDC Equipos", year = new Date().getFullYear() } = Astro.props;
 ---
 
 
@@ -48,7 +49,7 @@ const { companyName = "Medical Más Salud", year = new Date().getFullYear() } = 
         </p>
 
         <a
-          href="/cotizar"
+          href={withBase("/cotizar")}
           class="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-lg transition duration-300 hover:bg-blue-700"
         >
           Solicitar Cotización
