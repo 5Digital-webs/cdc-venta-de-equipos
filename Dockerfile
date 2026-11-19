@@ -8,12 +8,18 @@ ARG PUBLIC_GA_MEASUREMENT_ID
 ARG PUBLIC_RECAPTCHA_SITE_KEY
 ARG PUBLIC_TURNSTILE_SITE_KEY
 ARG PUBLIC_KEYSTATIC_GITHUB_APP_SLUG
+# Prefijo y origen públicos opcionales. Solo se leen al compilar: vacíos (por
+# defecto) el sitio se construye en "/" como siempre. Ver docs/prefijo-publico.md
+ARG SITE_BASE_PATH
+ARG SITE_URL
 
 # Set public variables as environment variables for build time
 ENV PUBLIC_GA_MEASUREMENT_ID=${PUBLIC_GA_MEASUREMENT_ID}
 ENV PUBLIC_RECAPTCHA_SITE_KEY=${PUBLIC_RECAPTCHA_SITE_KEY}
 ENV PUBLIC_TURNSTILE_SITE_KEY=${PUBLIC_TURNSTILE_SITE_KEY}
 ENV PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=${PUBLIC_KEYSTATIC_GITHUB_APP_SLUG}
+ENV SITE_BASE_PATH=${SITE_BASE_PATH}
+ENV SITE_URL=${SITE_URL}
 
 # Copy package files
 COPY package*.json ./
@@ -59,6 +65,7 @@ RUN npm ci --only=production && \
 COPY --from=builder --chown=astro:nodejs /app/dist ./dist
 COPY --from=builder --chown=astro:nodejs /app/public ./public
 COPY --from=builder --chown=astro:nodejs /app/keystatic.config.ts ./keystatic.config.ts
+COPY --from=builder --chown=astro:nodejs /app/scripts/healthcheck.mjs ./scripts/healthcheck.mjs
 
 # Switch to non-root user
 USER astro
@@ -73,7 +80,7 @@ ENV PORT=4321
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:4321', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+  CMD ["node", "scripts/healthcheck.mjs"]
 
 # Start the server
 CMD ["node", "dist/server/entry.mjs"]

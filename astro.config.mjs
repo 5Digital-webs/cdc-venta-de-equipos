@@ -1,4 +1,5 @@
 // @ts-check
+import { writeFile } from "node:fs/promises";
 import { defineConfig, fontProviders } from "astro/config";
 import node from "@astrojs/node";
 
@@ -28,6 +29,25 @@ if (declaredSite && new URL(declaredSite).pathname !== "/") {
   throw new Error("SITE_URL debe ser solo el origen (sin ruta); el prefijo va en SITE_BASE_PATH");
 }
 const site = declaredSite || "https://medicalmasalud.cl";
+
+// Con prefijo, el build deja el valor en <outDir>/base-path (fuera de client/,
+// no se sirve) para que el healthcheck del contenedor consulte la ruta correcta.
+/** @type {URL | undefined} */
+let buildOutDir;
+/** @type {import("astro").AstroIntegration} */
+const basePathMarker = {
+  name: "base-path-marker",
+  hooks: {
+    "astro:config:done": ({ config }) => {
+      buildOutDir = config.outDir;
+    },
+    "astro:build:done": async () => {
+      if (base && buildOutDir) {
+        await writeFile(new URL("base-path", buildOutDir), base);
+      }
+    },
+  },
+};
 
 // https://astro.build/config
 export default defineConfig({
@@ -83,10 +103,16 @@ export default defineConfig({
   integrations: [
     alpinejs(),
     icon(),
-    sitemap(),
+    // Con prefijo, el sitemap no anuncia la redirección al panel.
+    sitemap(
+      base
+        ? { filter: (page) => !/\/admin\/?$/.test(new URL(page).pathname) }
+        : undefined,
+    ),
     react(),
     markdoc(),
     keystatic(),
+    basePathMarker,
     playformInline({
       Beasties: {
         // Inline styles from external stylesheets (default: true)
